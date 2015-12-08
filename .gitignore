@@ -16,6 +16,12 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+*.xcodeproj
+
+*.DS_Store
+
+# NZSL Assets
+NZSLDict/nzsl/picture
 
 # CocoaPods
 #
