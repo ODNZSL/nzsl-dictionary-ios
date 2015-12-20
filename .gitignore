@@ -1,5 +1,13 @@
-# Xcode
+# Xcode Gitignores
 #
+# Github's starter ignore:
+#
+#   https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore
+#
+# Good overview explaining reasoning for these ignores:
+#
+#     https://gist.github.com/adamgit/3786883
+
 build/
 *.pbxuser
 !default.pbxuser
@@ -9,14 +17,13 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata
+xcuserdata/
 *.xccheckout
 *.moved-aside
-DerivedData
+DerivedData/
 *.hmap
 *.ipa
-*.xcuserstate
-*.xcodeproj
+*.xcscmblueprint
 
 *.DS_Store
 
