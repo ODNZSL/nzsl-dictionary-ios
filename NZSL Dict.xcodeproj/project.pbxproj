@@ -99,7 +99,6 @@
 		37346F28172A6DED00594391 /* location.6.20.fingers_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 37346F13172A6DED00594391 /* location.6.20.fingers_thumb.png */; };
 		37346F29172A6DED00594391 /* location.6.22.back_of_hand.png in Resources */ = {isa = PBXBuildFile; fileRef = 37346F14172A6DED00594391 /* location.6.22.back_of_hand.png */; };
 		374E59B21731A1A4004C7D44 /* nzsl.db in Resources */ = {isa = PBXBuildFile; fileRef = 374E59B11731A1A4004C7D44 /* nzsl.db */; };
-		374E59B41731A5BF004C7D44 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E59B31731A5BF004C7D44 /* libsqlite3.dylib */; };
 		374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E59DF173260B9004C7D44 /* QuartzCore.framework */; };
 		376EF6FC17351BBE00634EEB /* imageutil.m in Sources */ = {isa = PBXBuildFile; fileRef = 376EF6FB17351BBE00634EEB /* imageutil.m */; };
 		376EF7051735BAC800634EEB /* follow_nzsldict.png in Resources */ = {isa = PBXBuildFile; fileRef = 376EF7041735BAC800634EEB /* follow_nzsldict.png */; };
@@ -140,6 +139,7 @@
 		37CDACC117FFBF4600E645BA /* app-icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 37CDACBE17FFBF4600E645BA /* app-icon-152.png */; };
 		37EB6402172B8409002FD27F /* DiagramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EB6401172B8409002FD27F /* DiagramView.m */; };
 		37EB6405172E5DE1002FD27F /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EB6404172E5DE1002FD27F /* DetailView.m */; };
+		49608D001C279005001037C4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49608CFF1C279005001037C4 /* libsqlite3.tbd */; };
 		B5C309131C151E99003E1A87 /* a10_22.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C3F9641C151E5A003E1A87 /* a10_22.png */; };
 		B5C309141C151E99003E1A87 /* a14_23.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C3F9651C151E5A003E1A87 /* a14_23.png */; };
 		B5C309151C151E99003E1A87 /* a1_24.png in Resources */ = {isa = PBXBuildFile; fileRef = B5C3F9661C151E5A003E1A87 /* a1_24.png */; };
@@ -4253,7 +4253,6 @@
 		37346F13172A6DED00594391 /* location.6.20.fingers_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = location.6.20.fingers_thumb.png; sourceTree = "<group>"; };
 		37346F14172A6DED00594391 /* location.6.22.back_of_hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = location.6.22.back_of_hand.png; sourceTree = "<group>"; };
 		374E59B11731A1A4004C7D44 /* nzsl.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = nzsl.db; sourceTree = "<group>"; };
-		374E59B31731A5BF004C7D44 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		374E59DF173260B9004C7D44 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		376EF6FB17351BBE00634EEB /* imageutil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageutil.m; sourceTree = "<group>"; };
 		376EF6FD17351BCB00634EEB /* imageutil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imageutil.h; sourceTree = "<group>"; };
@@ -4307,6 +4306,7 @@
 		37EB6401172B8409002FD27F /* DiagramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagramView.m; sourceTree = "<group>"; };
 		37EB6403172E5DE0002FD27F /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
 		37EB6404172E5DE1002FD27F /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
+		49608CFF1C279005001037C4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B5C300001C151E65003E1A87 /* picture_c18_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture_c18_8.png; sourceTree = "<group>"; };
 		B5C300011C151E65003E1A87 /* picture_c18_9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture_c18_9.png; sourceTree = "<group>"; };
 		B5C300021C151E65003E1A87 /* picture_c19_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = picture_c19_1.png; sourceTree = "<group>"; };
@@ -8329,8 +8329,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49608D001C279005001037C4 /* libsqlite3.tbd in Frameworks */,
 				374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */,
-				374E59B41731A5BF004C7D44 /* libsqlite3.dylib in Frameworks */,
 				37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */,
 				37B3F28E1512F946005F45FA /* UIKit.framework in Frameworks */,
 				37B3F2901512F946005F45FA /* Foundation.framework in Frameworks */,
@@ -8442,8 +8442,6 @@
 		37B3F27E1512F946005F45FA = {
 			isa = PBXGroup;
 			children = (
-				374E59DF173260B9004C7D44 /* QuartzCore.framework */,
-				374E59B31731A5BF004C7D44 /* libsqlite3.dylib */,
 				37A2AB891727CC3500136DA8 /* Default-568h@2x.png */,
 				3793F20815420698003416A7 /* Default-Landscape@2x~ipad.png */,
 				3793F20615420694003416A7 /* Default-Landscape~ipad.png */,
@@ -8457,7 +8455,6 @@
 				37CDACB517FFBC1200E645BA /* ios7Default-Landscape~ipad.png */,
 				37CDACB617FFBC1200E645BA /* ios7Default-Portrait@2x~ipad.png */,
 				37CDACB717FFBC1200E645BA /* ios7Default-Portrait~ipad.png */,
-				37B3111415133261005F45FA /* MediaPlayer.framework */,
 				37B3F2931512F946005F45FA /* NZSLDict */,
 				37B3F28C1512F946005F45FA /* Frameworks */,
 				37B3F28A1512F946005F45FA /* Products */,
@@ -8475,6 +8472,9 @@
 		37B3F28C1512F946005F45FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49608CFF1C279005001037C4 /* libsqlite3.tbd */,
+				374E59DF173260B9004C7D44 /* QuartzCore.framework */,
+				37B3111415133261005F45FA /* MediaPlayer.framework */,
 				37B3F28D1512F946005F45FA /* UIKit.framework */,
 				37B3F28F1512F946005F45FA /* Foundation.framework */,
 				37B3F2911512F946005F45FA /* CoreGraphics.framework */,
