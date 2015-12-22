@@ -31,8 +31,8 @@ DerivedData/
 # Ignore everything except the .gitkeep file. We want this path to exist in the
 # repo because the scripts from
 # https://github.com/rabid/nzsl-dictionary-scripts depend on it
-NZSLDict/nzsl/picture/*
-!NZSLDict/nzsl/picture/.gitkeep
+Data/picture/*
+!Data/picture/.gitkeep
 
 # CocoaPods
 #
