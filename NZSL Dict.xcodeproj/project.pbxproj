@@ -149,6 +149,7 @@
 		4960AD811C28E2A5001037C4 /* ViewControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerPad.m; sourceTree = "<group>"; };
 		4960AD821C28E2A5001037C4 /* ViewControllerPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerPhone.h; sourceTree = "<group>"; };
 		4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerPhone.m; sourceTree = "<group>"; };
+		49AFE04F1C28ED0D00462381 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +172,7 @@
 		37B3F27E1512F946005F45FA = {
 			isa = PBXGroup;
 			children = (
+				49AFE04F1C28ED0D00462381 /* README.md */,
 				4960AD341C28E22E001037C4 /* App Icons */,
 				4960AD171C28E19C001037C4 /* Homescreen Icons */,
 				4960AD121C27AA53001037C4 /* Data */,
@@ -418,7 +420,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "BUNDLE_PATH=\"${CONFIGURATION_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nDATA_PATH=\"${SRCROOT}/Data\"\n\n# find\n# -type f = regular files only (will ignore . and .. dir entries)\n# -name \"*\" = filed named anything\n\n# xargs\n# -t = log the command that will be run to stdout\n# -I xxx = use xxx as the placeholder for the input file\n\n# cp\n# -f = overwrite file if it already exists (from a previous build)\n\n# This script favours ease of debugging problems over speed of copy by\n# executing a separate `cp` process for each found path. This is a bit\n# slower but a lot easier to parse the output in the logs if something\n# goes wrong.\n\necho \"Copying handshape images into the app bundle\"\nfind \"${DATA_PATH}/handshape\" -type f -name \"*\" | xargs -t -I srcfile cp -f srcfile \"${BUNDLE_PATH}\"\n\necho \"Copying location images into the app bundle\"\nfind \"${DATA_PATH}/location\" -type f -name \"*\" | xargs -t -I srcfile cp -f srcfile \"${BUNDLE_PATH}\"\n\necho \"Copying picture images into the app bundle\"\nfind \"${DATA_PATH}/picture\" -type f -name \"*\" | xargs -t -I srcfile cp -f srcfile \"${BUNDLE_PATH}\"";
+			shellScript = "BUNDLE_PATH=\"${CONFIGURATION_BUILD_DIR}/${CONTENTS_FOLDER_PATH}\"\nDATA_PATH=\"${SRCROOT}/Data\"\n\n# find\n# -type f = regular files only (will ignore . and .. dir entries)\n# -name \"*\" = filed named anything\n\n# xargs\n# -t = log the command that will be run to stdout\n# -I xxx = use xxx as the placeholder for the input file\n\n# cp\n# -f = overwrite file if it already exists (from a previous build)\n\n# This script favours ease of debugging problems over speed of copy by\n# executing a separate `cp` process for each found path. This is a bit\n# slower but a lot easier to parse the output in the logs if something\n# goes wrong.\n\necho \"Copying handshape images into the app bundle\"\nfind \"${DATA_PATH}/handshape\" -type f -name \"*\" | xargs -t -I srcfile cp -f srcfile \"${BUNDLE_PATH}\"\n\necho \"Copying location images into the app bundle\"\nfind \"${DATA_PATH}/location\" -type f -name \"*\" | xargs -t -I srcfile cp -f srcfile \"${BUNDLE_PATH}\"\n\necho \"Copying picture images into the app bundle\"\nfind \"${DATA_PATH}/picture\" -type f -name \"*\" | xargs -t -I srcfile cp -f srcfile \"${BUNDLE_PATH}\"\n\necho \"Copying SQLite DB into the app bundle\"\ncp -f \"${DATA_PATH}/nzsl.db\" \"${BUNDLE_PATH}\"";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
