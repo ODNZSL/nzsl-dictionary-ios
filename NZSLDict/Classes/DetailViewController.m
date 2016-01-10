@@ -14,6 +14,7 @@
 #import "AboutViewController.h"
 #import "DiagramView.h"
 #import "Dictionary.h"
+#import "NZSL_Dict-Swift.h"
 
 @interface DetailViewController ()
 

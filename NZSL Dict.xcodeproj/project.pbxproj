@@ -68,6 +68,8 @@
 		4960AD8E1C28E2A5001037C4 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7F1C28E2A5001037C4 /* VideoViewController.m */; };
 		4960AD8F1C28E2A5001037C4 /* ViewControllerPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD811C28E2A5001037C4 /* ViewControllerPad.m */; };
 		4960AD901C28E2A5001037C4 /* ViewControllerPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */; };
+		499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499DFD911C3F4FE100F45D0E /* DetailView.swift */; };
+		499DFD971C40B79D00F45D0E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499DFD961C40B79D00F45D0E /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +151,9 @@
 		4960AD811C28E2A5001037C4 /* ViewControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerPad.m; sourceTree = "<group>"; };
 		4960AD821C28E2A5001037C4 /* ViewControllerPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerPhone.h; sourceTree = "<group>"; };
 		4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerPhone.m; sourceTree = "<group>"; };
+		499DFD8C1C3F483A00F45D0E /* NZSL Dict-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NZSL Dict-Bridging-Header.h"; sourceTree = "<group>"; };
+		499DFD911C3F4FE100F45D0E /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		499DFD961C40B79D00F45D0E /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		49AFE04F1C28ED0D00462381 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -280,12 +285,11 @@
 		4960AD691C28E2A5001037C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4960AD6A1C28E2A5001037C4 /* AboutViewController.h */,
-				4960AD6B1C28E2A5001037C4 /* AboutViewController.m */,
+				499DFD951C40B65E00F45D0E /* Unused */,
+				499DFD911C3F4FE100F45D0E /* DetailView.swift */,
+				499DFD961C40B79D00F45D0E /* AboutViewController.swift */,
 				4960AD6C1C28E2A5001037C4 /* AppDelegate.h */,
 				4960AD6D1C28E2A5001037C4 /* AppDelegate.m */,
-				4960AD6E1C28E2A5001037C4 /* DetailView.h */,
-				4960AD6F1C28E2A5001037C4 /* DetailView.m */,
 				4960AD701C28E2A5001037C4 /* DetailViewController.h */,
 				4960AD711C28E2A5001037C4 /* DetailViewController.m */,
 				4960AD721C28E2A5001037C4 /* DiagramView.h */,
@@ -306,8 +310,20 @@
 				4960AD811C28E2A5001037C4 /* ViewControllerPad.m */,
 				4960AD821C28E2A5001037C4 /* ViewControllerPhone.h */,
 				4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */,
+				499DFD8C1C3F483A00F45D0E /* NZSL Dict-Bridging-Header.h */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		499DFD951C40B65E00F45D0E /* Unused */ = {
+			isa = PBXGroup;
+			children = (
+				4960AD6A1C28E2A5001037C4 /* AboutViewController.h */,
+				4960AD6B1C28E2A5001037C4 /* AboutViewController.m */,
+				4960AD6E1C28E2A5001037C4 /* DetailView.h */,
+				4960AD6F1C28E2A5001037C4 /* DetailView.m */,
+			);
+			name = Unused;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +353,7 @@
 		37B3F2801512F946005F45FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSL Dict" */;
@@ -443,6 +460,8 @@
 				4960AD8A1C28E2A5001037C4 /* Dictionary.m in Sources */,
 				4960AD8D1C28E2A5001037C4 /* SearchViewController.m in Sources */,
 				37B3F29A1512F946005F45FA /* main.m in Sources */,
+				499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */,
+				499DFD971C40B79D00F45D0E /* AboutViewController.swift in Sources */,
 				4960AD851C28E2A5001037C4 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -498,14 +517,18 @@
 		37B31129151A62CB005F45FA /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NZSLDict/NZSL Dict-Prefix.pch";
 				INFOPLIST_FILE = "NZSLDict/NZSL Dict-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = "NZSL Dict";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSL Dict-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -584,12 +607,17 @@
 		37B3F2AB1512F946005F45FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NZSLDict/NZSL Dict-Prefix.pch";
 				INFOPLIST_FILE = "NZSLDict/NZSL Dict-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = "NZSL Dict";
+				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSL Dict-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -597,12 +625,16 @@
 		37B3F2AC1512F946005F45FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NZSLDict/NZSL Dict-Prefix.pch";
 				INFOPLIST_FILE = "NZSLDict/NZSL Dict-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = "NZSL Dict";
+				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSL Dict-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

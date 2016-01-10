@@ -7,8 +7,7 @@
 //
 
 #import "DiagramView.h"
-
-#import "DetailView.h"
+#import "NZSL_Dict-Swift.h"
 
 @implementation DiagramView {
     DetailView *detailView;
@@ -22,11 +21,11 @@
         // Initialization code
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
-        detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, DETAIL_VIEW_HEIGHT)];
+        detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, DetailView.height)];
         detailView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:detailView];
     
-        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, DETAIL_VIEW_HEIGHT, self.bounds.size.width, self.bounds.size.height-DETAIL_VIEW_HEIGHT)];
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, DetailView.height, self.bounds.size.width, self.bounds.size.height-DetailView.height)];
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         imageView.backgroundColor = [UIColor whiteColor];
         imageView.contentMode = UIViewContentModeScaleAspectFit;

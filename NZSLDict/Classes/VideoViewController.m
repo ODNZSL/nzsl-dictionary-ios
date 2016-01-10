@@ -12,7 +12,7 @@
 
 #import "AppDelegate.h"
 #import "Dictionary.h"
-#import "DetailView.h"
+#import "NZSL_Dict-Swift.h"
 
 @interface VideoViewController ()
 
@@ -55,11 +55,11 @@
     searchBar.delegate = self;
     [view addSubview:searchBar];
     
-    detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, top_offset+44, view.bounds.size.width, DETAIL_VIEW_HEIGHT)];
+    detailView = [[DetailView alloc] initWithFrame:CGRectMake(0, top_offset+44, view.bounds.size.width, DetailView.height)];
     detailView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [view addSubview:detailView];
     
-    videoBack = [[UIView alloc] initWithFrame:CGRectMake(0, top_offset+44+DETAIL_VIEW_HEIGHT, view.bounds.size.width, view.bounds.size.height-(top_offset+44+DETAIL_VIEW_HEIGHT))];
+    videoBack = [[UIView alloc] initWithFrame:CGRectMake(0, top_offset+44+DetailView.height, view.bounds.size.width, view.bounds.size.height-(top_offset+44+DetailView.height))];
     videoBack.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [view addSubview:videoBack];
     
