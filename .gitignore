@@ -1,5 +1,13 @@
-# Xcode
+# Xcode Gitignores
 #
+# Github's starter ignore:
+#
+#   https://github.com/github/gitignore/blob/master/Global/Xcode.gitignore
+#
+# Good overview explaining reasoning for these ignores:
+#
+#     https://gist.github.com/adamgit/3786883
+
 build/
 *.pbxuser
 !default.pbxuser
@@ -9,19 +17,22 @@ build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata
+xcuserdata/
 *.xccheckout
 *.moved-aside
-DerivedData
+DerivedData/
 *.hmap
 *.ipa
-*.xcuserstate
-*.xcodeproj
+*.xcscmblueprint
 
 *.DS_Store
 
 # NZSL Assets
-NZSLDict/nzsl/picture
+# Ignore everything except the .gitkeep file. We want this path to exist in the
+# repo because the scripts from
+# https://github.com/rabid/nzsl-dictionary-scripts depend on it
+Data/picture/*
+!Data/picture/.gitkeep
 
 # CocoaPods
 #
