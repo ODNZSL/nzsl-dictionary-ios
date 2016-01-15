@@ -5,11 +5,8 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     var webView: UIWebView!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        print("in init")
-        // init(nibName:bundle:) is the designated initializer for a UIViewController
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
-        // TODO: where does tabBarItem come from?
         self.tabBarItem = UITabBarItem(title: "About", image: UIImage(named: "info"), tag: 0)
     }
 
@@ -47,8 +44,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     }
 
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-
-        if request.URL!.isFileReferenceURL() {
+        if request.URL!.fileURL {
             return true
         }
 

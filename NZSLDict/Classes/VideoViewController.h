@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ViewControllerPhone.h"
+@protocol ViewControllerDelegate;
 
 @interface VideoViewController : UIViewController <UISearchBarDelegate>
 

@@ -1,17 +1,17 @@
+////
+////  HistoryViewController.h
+////  NZSL Dict
+////
+////  Created by Greg Hewgill on 25/04/13.
+////
+////
 //
-//  HistoryViewController.h
-//  NZSL Dict
+//#import <UIKit/UIKit.h>
 //
-//  Created by Greg Hewgill on 25/04/13.
+//#import "SearchViewController.h"
 //
+//@interface HistoryViewController : UITableViewController
 //
-
-#import <UIKit/UIKit.h>
-
-#import "SearchViewController.h"
-
-@interface HistoryViewController : UITableViewController
-
-@property id<SearchViewControllerDelegate> delegate;
-
-@end
+//@property id<SearchViewControllerDelegate> delegate;
+//
+//@end

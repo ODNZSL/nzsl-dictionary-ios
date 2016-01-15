@@ -12,7 +12,7 @@
 
 #import "AppDelegate.h"
 #import "Dictionary.h"
-#import "NZSL_Dict-Swift.h"
+#import "NZSLDict-Swift.h"
 
 @interface VideoViewController ()
 

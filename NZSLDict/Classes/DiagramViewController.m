@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "Dictionary.h"
 #import "DiagramView.h"
+#import "NZSLDict-Swift.h"
 
 @interface DiagramViewController ()
 

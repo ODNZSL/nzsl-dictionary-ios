@@ -7,7 +7,7 @@
 //
 
 #import "DiagramView.h"
-#import "NZSL_Dict-Swift.h"
+#import "NZSLDict-Swift.h"
 
 @implementation DiagramView {
     DetailView *detailView;

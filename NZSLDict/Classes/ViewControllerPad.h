@@ -1,4 +1,4 @@
-//
+
 //  ViewControllerPad.h
 //  NZSL Dict
 //
@@ -6,8 +6,8 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-
-@interface ViewControllerPad : UISplitViewController
-
-@end
+//#import <UIKit/UIKit.h>
+//
+//@interface ViewControllerPad : UISplitViewController
+//
+//@end

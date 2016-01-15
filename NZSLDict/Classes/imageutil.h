@@ -6,6 +6,7 @@
 //
 //
 
+// EOIN: this is only required before IOS7 so can be removed once other files are converted to swift
 #import <UIKit/UIKit.h>
 
 #ifndef NZSL_Dict_imageutil_h
