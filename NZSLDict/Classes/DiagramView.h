@@ -1,17 +1,17 @@
+////
+////  DiagramView.h
+////  NZSL Dict
+////
+////  Created by Greg Hewgill on 27/04/13.
+////
+////
 //
-//  DiagramView.h
-//  NZSL Dict
+//#import <UIKit/UIKit.h>
 //
-//  Created by Greg Hewgill on 27/04/13.
+//#import "SignsDictionary.h"
 //
+//@interface DiagramView : UIView
 //
-
-#import <UIKit/UIKit.h>
-
-#import "Dictionary.h"
-
-@interface DiagramView : UIView
-
-- (void)showEntry:(DictEntry *)entry;
-
-@end
+//- (void)showEntry:(DictEntry *)entry;
+//
+//@end

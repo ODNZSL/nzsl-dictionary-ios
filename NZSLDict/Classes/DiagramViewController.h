@@ -1,17 +1,17 @@
+////
+////  DiagramViewController.h
+////  NZSL Dict
+////
+////  Created by Greg Hewgill on 25/04/13.
+////
+////
 //
-//  DiagramViewController.h
-//  NZSL Dict
+//#import <UIKit/UIKit.h>
 //
-//  Created by Greg Hewgill on 25/04/13.
+//@protocol ViewControllerDelegate;
 //
+//@interface DiagramViewController : UIViewController <UISearchBarDelegate>
 //
-
-#import <UIKit/UIKit.h>
-
-@protocol ViewControllerDelegate;
-
-@interface DiagramViewController : UIViewController <UISearchBarDelegate>
-
-@property id<ViewControllerDelegate> delegate;
-
-@end
+//@property id<ViewControllerDelegate> delegate;
+//
+//@end

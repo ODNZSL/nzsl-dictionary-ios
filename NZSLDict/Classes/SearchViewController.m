@@ -9,7 +9,7 @@
 #import "SearchViewController.h"
 
 #import "AppDelegate.h"
-#import "Dictionary.h"
+#import "SignsDictionary.h"
 #import "imageutil.h"
 
 //#define LAUNCH_IMAGE
@@ -22,7 +22,7 @@ static NSString *HandshapeIconCellIdentifier = @"CellIcon";
 @end
 
 @implementation SearchViewController {
-    Dictionary *dict;
+    SignsDictionary *dict;
     DictEntry *wordOfTheDay;
     UISegmentedControl *modeSwitch;
     UISearchBar *searchBar;
@@ -175,7 +175,7 @@ static NSString *HandshapeIconCellIdentifier = @"CellIcon";
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
 #ifndef LAUNCH_IMAGE
-    dict = [[Dictionary alloc] initWithFile:@"nzsl.dat"];
+    dict = [[SignsDictionary alloc] initWithFile:@"nzsl.dat"];
     wordOfTheDay = [dict wordOfTheDay];
     if ([wotdLabel respondsToSelector:@selector(setAttributedText:)]) {
         // iOS 6 supports attributed text in labels

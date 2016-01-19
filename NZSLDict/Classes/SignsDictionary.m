@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Dictionary.h"
+#import "SignsDictionary.h"
 
 #import <CommonCrypto/CommonDigest.h>
 #import <sqlite3.h>
@@ -78,7 +78,7 @@ void sort_results(NSMutableArray *sr)
     }];
 }
 
-@implementation Dictionary {
+@implementation SignsDictionary {
     sqlite3 *db;
     int count;
 }

@@ -20,6 +20,11 @@
 		49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F991C4821A800C355B2 /* AppDelegate.swift */; };
 		49342F9C1C483D4F00C355B2 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */; };
 		49342F9E1C484B5800C355B2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F9D1C484B5800C355B2 /* Constants.swift */; };
+		49342FA41C48746900C355B2 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA31C48746900C355B2 /* DiagramView.swift */; };
+		49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA51C48821200C355B2 /* DetailViewController.swift */; };
+		49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA71C488C7100C355B2 /* DiagramViewController.swift */; };
+		49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA91C4890CF00C355B2 /* SearchViewController.swift */; };
+		49342FAC1C489B9800C355B2 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FAB1C489B9800C355B2 /* SearchViewControllerDelegate.swift */; };
 		49608D001C279005001037C4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49608CFF1C279005001037C4 /* libsqlite3.tbd */; };
 		4960AD251C28E19D001037C4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD181C28E19D001037C4 /* Default-568h@2x.png */; };
 		4960AD261C28E19D001037C4 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD191C28E19D001037C4 /* Default-Landscape@2x~ipad.png */; };
@@ -66,7 +71,7 @@
 		4960AD871C28E2A5001037C4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD711C28E2A5001037C4 /* DetailViewController.m */; };
 		4960AD881C28E2A5001037C4 /* DiagramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD731C28E2A5001037C4 /* DiagramView.m */; };
 		4960AD891C28E2A5001037C4 /* DiagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD751C28E2A5001037C4 /* DiagramViewController.m */; };
-		4960AD8A1C28E2A5001037C4 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD771C28E2A5001037C4 /* Dictionary.m */; };
+		4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD771C28E2A5001037C4 /* SignsDictionary.m */; };
 		4960AD8B1C28E2A5001037C4 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD791C28E2A5001037C4 /* HistoryViewController.m */; };
 		4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7B1C28E2A5001037C4 /* imageutil.m */; };
 		4960AD8D1C28E2A5001037C4 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7D1C28E2A5001037C4 /* SearchViewController.m */; };
@@ -95,6 +100,11 @@
 		49342F991C4821A800C355B2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		49342F9D1C484B5800C355B2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		49342FA31C48746900C355B2 /* DiagramView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
+		49342FA51C48821200C355B2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		49342FA71C488C7100C355B2 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
+		49342FA91C4890CF00C355B2 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		49342FAB1C489B9800C355B2 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		49608CFF1C279005001037C4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4960AD121C27AA53001037C4 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
 		4960AD181C28E19D001037C4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -148,8 +158,8 @@
 		4960AD731C28E2A5001037C4 /* DiagramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagramView.m; sourceTree = "<group>"; };
 		4960AD741C28E2A5001037C4 /* DiagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagramViewController.h; sourceTree = "<group>"; };
 		4960AD751C28E2A5001037C4 /* DiagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagramViewController.m; sourceTree = "<group>"; };
-		4960AD761C28E2A5001037C4 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
-		4960AD771C28E2A5001037C4 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dictionary.m; sourceTree = "<group>"; };
+		4960AD761C28E2A5001037C4 /* SignsDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignsDictionary.h; sourceTree = "<group>"; };
+		4960AD771C28E2A5001037C4 /* SignsDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignsDictionary.m; sourceTree = "<group>"; };
 		4960AD781C28E2A5001037C4 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		4960AD791C28E2A5001037C4 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		4960AD7A1C28E2A5001037C4 /* imageutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageutil.h; sourceTree = "<group>"; };
@@ -305,18 +315,17 @@
 				49342F991C4821A800C355B2 /* AppDelegate.swift */,
 				49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */,
 				49342F9D1C484B5800C355B2 /* Constants.swift */,
-				4960AD701C28E2A5001037C4 /* DetailViewController.h */,
-				4960AD711C28E2A5001037C4 /* DetailViewController.m */,
-				4960AD721C28E2A5001037C4 /* DiagramView.h */,
-				4960AD731C28E2A5001037C4 /* DiagramView.m */,
-				4960AD741C28E2A5001037C4 /* DiagramViewController.h */,
-				4960AD751C28E2A5001037C4 /* DiagramViewController.m */,
-				4960AD761C28E2A5001037C4 /* Dictionary.h */,
-				4960AD771C28E2A5001037C4 /* Dictionary.m */,
-				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
-				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
+				49342FA31C48746900C355B2 /* DiagramView.swift */,
+				49342FA51C48821200C355B2 /* DetailViewController.swift */,
+				49342FA71C488C7100C355B2 /* DiagramViewController.swift */,
+				49342FA91C4890CF00C355B2 /* SearchViewController.swift */,
+				49342FAB1C489B9800C355B2 /* SearchViewControllerDelegate.swift */,
 				4960AD7C1C28E2A5001037C4 /* SearchViewController.h */,
 				4960AD7D1C28E2A5001037C4 /* SearchViewController.m */,
+				4960AD761C28E2A5001037C4 /* SignsDictionary.h */,
+				4960AD771C28E2A5001037C4 /* SignsDictionary.m */,
+				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
+				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
 				4960AD7E1C28E2A5001037C4 /* VideoViewController.h */,
 				4960AD7F1C28E2A5001037C4 /* VideoViewController.m */,
 				499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */,
@@ -340,6 +349,12 @@
 				4960AD6F1C28E2A5001037C4 /* DetailView.m */,
 				4960AD781C28E2A5001037C4 /* HistoryViewController.h */,
 				4960AD791C28E2A5001037C4 /* HistoryViewController.m */,
+				4960AD721C28E2A5001037C4 /* DiagramView.h */,
+				4960AD731C28E2A5001037C4 /* DiagramView.m */,
+				4960AD701C28E2A5001037C4 /* DetailViewController.h */,
+				4960AD711C28E2A5001037C4 /* DetailViewController.m */,
+				4960AD741C28E2A5001037C4 /* DiagramViewController.h */,
+				4960AD751C28E2A5001037C4 /* DiagramViewController.m */,
 			);
 			name = Converted;
 			sourceTree = "<group>";
@@ -473,16 +488,21 @@
 				4960AD8E1C28E2A5001037C4 /* VideoViewController.m in Sources */,
 				4960AD8B1C28E2A5001037C4 /* HistoryViewController.m in Sources */,
 				49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */,
+				49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */,
 				4960AD8F1C28E2A5001037C4 /* ViewControllerPad.m in Sources */,
 				49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */,
 				4960AD841C28E2A5001037C4 /* AboutViewController.m in Sources */,
 				4960AD881C28E2A5001037C4 /* DiagramView.m in Sources */,
 				4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */,
+				49342FAC1C489B9800C355B2 /* SearchViewControllerDelegate.swift in Sources */,
 				49342F9C1C483D4F00C355B2 /* HistoryViewController.swift in Sources */,
 				4960AD861C28E2A5001037C4 /* DetailView.m in Sources */,
-				4960AD8A1C28E2A5001037C4 /* Dictionary.m in Sources */,
+				49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */,
+				49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */,
+				4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */,
 				4960AD8D1C28E2A5001037C4 /* SearchViewController.m in Sources */,
 				4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */,
+				49342FA41C48746900C355B2 /* DiagramView.swift in Sources */,
 				37B3F29A1512F946005F45FA /* main.m in Sources */,
 				499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */,
 				499DFD971C40B79D00F45D0E /* AboutViewController.swift in Sources */,

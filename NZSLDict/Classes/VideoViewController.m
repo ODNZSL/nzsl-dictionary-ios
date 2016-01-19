@@ -11,7 +11,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 #import "AppDelegate.h"
-#import "Dictionary.h"
+#import "SignsDictionary.h"
 #import "NZSLDict-Swift.h"
 
 @interface VideoViewController ()

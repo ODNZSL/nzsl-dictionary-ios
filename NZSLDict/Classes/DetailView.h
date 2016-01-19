@@ -8,7 +8,7 @@
 //
 //#import <UIKit/UIKit.h>
 //
-//#import "Dictionary.h"
+//#import "SignsDictionary.h"
 //
 //#define DETAIL_VIEW_INSET 2
 //#define DETAIL_VIEW_HEIGHT (60 + DETAIL_VIEW_INSET*2)
