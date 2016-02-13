@@ -53,7 +53,7 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
         return true
     }
 
-    func didSelectEntry(entry: DictEntry!) {
+    func didSelectEntry(entry: DictEntry) {
         self.selectedViewController = diagramController
     }
 

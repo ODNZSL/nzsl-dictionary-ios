@@ -1,20 +1,20 @@
-////
-////  DetailView.h
-////  NZSL Dict
-////
-////  Created by Greg Hewgill on 29/04/13.
-////
-////
 //
-//#import <UIKit/UIKit.h>
+//  DetailView.h
+//  NZSL Dict
 //
-//#import "SignsDictionary.h"
+//  Created by Greg Hewgill on 29/04/13.
 //
-//#define DETAIL_VIEW_INSET 2
-//#define DETAIL_VIEW_HEIGHT (60 + DETAIL_VIEW_INSET*2)
 //
-//@interface DetailView : UIView
-//
-//- (void)showEntry:(DictEntry *)entry;
-//
-//@end
+
+#import <UIKit/UIKit.h>
+
+#import "SignsDictionary.h"
+
+#define DETAIL_VIEW_INSET 2
+#define DETAIL_VIEW_HEIGHT (60 + DETAIL_VIEW_INSET*2)
+
+@interface DetailView : UIView
+
+- (void)showEntry:(DictEntry *)entry;
+
+@end

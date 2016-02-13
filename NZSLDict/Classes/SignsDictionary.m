@@ -89,7 +89,7 @@ static NSString *normalise(NSString *s)
     return [[[NSString alloc] initWithData:d encoding:NSASCIIStringEncoding] lowercaseString];
 }
 
-- (Dictionary *)initWithFile:(NSString *)xfileName
+- (SignsDictionary *)initWithFile:(NSString *)xfileName
 {
     NSString *fname = [[NSBundle mainBundle] pathForResource:@"nzsl.db" ofType:nil];
     if (sqlite3_open_v2([fname UTF8String], &db, SQLITE_OPEN_READONLY, NULL) != SQLITE_OK) {

@@ -1,13 +1,13 @@
-////
-////  DetailViewController.h
-////  NZSL Dict
-////
-////  Created by Greg Hewgill on 28/03/12.
-////  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-////
 //
-//#import <UIKit/UIKit.h>
+//  DetailViewController.h
+//  NZSL Dict
 //
-//@interface DetailViewController : UIViewController <UISplitViewControllerDelegate>
+//  Created by Greg Hewgill on 28/03/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-//@end
+
+#import <UIKit/UIKit.h>
+
+@interface DetailViewController : UIViewController <UISplitViewControllerDelegate>
+
+@end
