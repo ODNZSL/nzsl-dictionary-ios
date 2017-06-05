@@ -1,4 +1,4 @@
-//
+
 //  ViewControllerPad.h
 //  NZSL Dict
 //

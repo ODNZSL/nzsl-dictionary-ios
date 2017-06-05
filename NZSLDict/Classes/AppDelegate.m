@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "ViewControllerPhone.h"
+#import "NZSLDict-Swift.h"
 #import "ViewControllerPad.h"
 #import "DetailViewController.h"
 

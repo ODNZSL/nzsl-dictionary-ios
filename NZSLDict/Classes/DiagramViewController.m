@@ -9,8 +9,9 @@
 #import "DiagramViewController.h"
 
 #import "AppDelegate.h"
-#import "Dictionary.h"
+#import "SignsDictionary.h"
 #import "DiagramView.h"
+#import "NZSLDict-Swift.h"
 
 @interface DiagramViewController ()
 

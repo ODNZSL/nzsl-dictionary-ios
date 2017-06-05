@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "Dictionary.h"
+#import "SignsDictionary.h"
 
 #import <CommonCrypto/CommonDigest.h>
 #import <sqlite3.h>
@@ -78,7 +78,7 @@ void sort_results(NSMutableArray *sr)
     }];
 }
 
-@implementation Dictionary {
+@implementation SignsDictionary {
     sqlite3 *db;
     int count;
 }
@@ -89,7 +89,7 @@ static NSString *normalise(NSString *s)
     return [[[NSString alloc] initWithData:d encoding:NSASCIIStringEncoding] lowercaseString];
 }
 
-- (Dictionary *)initWithFile:(NSString *)xfileName
+- (SignsDictionary *)initWithFile:(NSString *)xfileName
 {
     NSString *fname = [[NSBundle mainBundle] pathForResource:@"nzsl.db" ofType:nil];
     if (sqlite3_open_v2([fname UTF8String], &db, SQLITE_OPEN_READONLY, NULL) != SQLITE_OK) {

@@ -4,11 +4,11 @@
 //
 //  Created by Greg Hewgill on 25/04/13.
 //
-//
+
 
 #import <UIKit/UIKit.h>
 
-#import "ViewControllerPhone.h"
+@protocol ViewControllerDelegate;
 
 @interface VideoViewController : UIViewController <UISearchBarDelegate>
 

@@ -1,5 +1,5 @@
 //
-//  Dictionary.h
+//  SignsDictionary.h
 //  NZSL Dict
 //
 //  Created by Greg Hewgill on 24/03/12.
@@ -23,9 +23,9 @@
 
 @end
 
-@interface Dictionary : NSObject
+@interface SignsDictionary : NSObject
 
-- (Dictionary *)initWithFile:(NSString *)fileName;
+- (SignsDictionary *)initWithFile:(NSString *)fileName;
 - (DictEntry *)findExact:(NSString *)target;
 - (NSArray *)searchFor:(NSString *)target;
 - (NSArray *)searchHandshape:(NSString *)targetHandshape location:(NSString *)targetLocation;

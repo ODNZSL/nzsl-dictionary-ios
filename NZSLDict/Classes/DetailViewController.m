@@ -13,7 +13,8 @@
 #import "AppDelegate.h"
 #import "AboutViewController.h"
 #import "DiagramView.h"
-#import "Dictionary.h"
+#import "SignsDictionary.h"
+#import "NZSLDict-Swift.h"
 
 @interface DetailViewController ()
 

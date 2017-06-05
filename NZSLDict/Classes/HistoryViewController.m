@@ -9,7 +9,7 @@
 #import "HistoryViewController.h"
 
 #import "AppDelegate.h"
-#import "Dictionary.h"
+#import "SignsDictionary.h"
 #import "imageutil.h"
 
 @interface HistoryViewController ()

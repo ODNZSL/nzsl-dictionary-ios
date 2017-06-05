@@ -12,7 +12,8 @@
 #import "SearchViewController.h"
 #import "VideoViewController.h"
 #import "HistoryViewController.h"
-#import "AboutViewController.h"
+//#import "AboutViewController.h"
+#import "NZSLDict-Swift.h"
 
 @interface ViewControllerPhone ()
 

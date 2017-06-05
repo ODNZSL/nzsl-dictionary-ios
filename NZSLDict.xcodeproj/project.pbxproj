@@ -14,7 +14,16 @@
 		37B3F2901512F946005F45FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3F28F1512F946005F45FA /* Foundation.framework */; };
 		37B3F2921512F946005F45FA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3F2911512F946005F45FA /* CoreGraphics.framework */; };
 		37B3F2981512F946005F45FA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B3F2961512F946005F45FA /* InfoPlist.strings */; };
-		37B3F29A1512F946005F45FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B3F2991512F946005F45FA /* main.m */; };
+		4911054B1C4642F600A742BE /* ViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4911054A1C4642F600A742BE /* ViewControllerDelegate.swift */; };
+		49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F971C481EB500C355B2 /* ViewControllerPad.swift */; };
+		49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F991C4821A800C355B2 /* AppDelegate.swift */; };
+		49342F9C1C483D4F00C355B2 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */; };
+		49342F9E1C484B5800C355B2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F9D1C484B5800C355B2 /* Constants.swift */; };
+		49342FA41C48746900C355B2 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA31C48746900C355B2 /* DiagramView.swift */; };
+		49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA51C48821200C355B2 /* DetailViewController.swift */; };
+		49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA71C488C7100C355B2 /* DiagramViewController.swift */; };
+		49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA91C4890CF00C355B2 /* SearchViewController.swift */; };
+		49342FAC1C489B9800C355B2 /* SearchViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FAB1C489B9800C355B2 /* SearchViewControllerDelegate.swift */; };
 		49608D001C279005001037C4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49608CFF1C279005001037C4 /* libsqlite3.tbd */; };
 		4960AD251C28E19D001037C4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD181C28E19D001037C4 /* Default-568h@2x.png */; };
 		4960AD261C28E19D001037C4 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD191C28E19D001037C4 /* Default-Landscape@2x~ipad.png */; };
@@ -55,33 +64,36 @@
 		4960AD661C28E22E001037C4 /* screenshot-iphone5-home.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD4C1C28E22E001037C4 /* screenshot-iphone5-home.png */; };
 		4960AD671C28E22E001037C4 /* screenshot-iphone5-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD4D1C28E22E001037C4 /* screenshot-iphone5-search.png */; };
 		4960AD681C28E22E001037C4 /* screenshot-iphone5-video.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD4E1C28E22E001037C4 /* screenshot-iphone5-video.png */; };
-		4960AD841C28E2A5001037C4 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD6B1C28E2A5001037C4 /* AboutViewController.m */; };
-		4960AD851C28E2A5001037C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD6D1C28E2A5001037C4 /* AppDelegate.m */; };
-		4960AD861C28E2A5001037C4 /* DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD6F1C28E2A5001037C4 /* DetailView.m */; };
-		4960AD871C28E2A5001037C4 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD711C28E2A5001037C4 /* DetailViewController.m */; };
-		4960AD881C28E2A5001037C4 /* DiagramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD731C28E2A5001037C4 /* DiagramView.m */; };
-		4960AD891C28E2A5001037C4 /* DiagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD751C28E2A5001037C4 /* DiagramViewController.m */; };
-		4960AD8A1C28E2A5001037C4 /* Dictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD771C28E2A5001037C4 /* Dictionary.m */; };
-		4960AD8B1C28E2A5001037C4 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD791C28E2A5001037C4 /* HistoryViewController.m */; };
+		4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD771C28E2A5001037C4 /* SignsDictionary.m */; };
 		4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7B1C28E2A5001037C4 /* imageutil.m */; };
-		4960AD8D1C28E2A5001037C4 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7D1C28E2A5001037C4 /* SearchViewController.m */; };
-		4960AD8E1C28E2A5001037C4 /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7F1C28E2A5001037C4 /* VideoViewController.m */; };
-		4960AD8F1C28E2A5001037C4 /* ViewControllerPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD811C28E2A5001037C4 /* ViewControllerPad.m */; };
-		4960AD901C28E2A5001037C4 /* ViewControllerPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */; };
+		4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969EAF61C462A69002032B7 /* ViewControllerPhone.swift */; };
+		499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499DFD911C3F4FE100F45D0E /* DetailView.swift */; };
+		499DFD971C40B79D00F45D0E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499DFD961C40B79D00F45D0E /* AboutViewController.swift */; };
+		49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD49ED1C6FC42000124A16 /* VideoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		374E59DF173260B9004C7D44 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B3111415133261005F45FA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		37B3112615199CAC005F45FA /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
-		37B3F2891512F946005F45FA /* NZSL Dict.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NZSL Dict.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37B3F2891512F946005F45FA /* NZSLDict.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NZSLDict.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B3F28D1512F946005F45FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		37B3F28F1512F946005F45FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		37B3F2911512F946005F45FA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		37B3F2951512F946005F45FA /* NZSL Dict-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NZSL Dict-Info.plist"; sourceTree = "<group>"; };
+		37B3F2951512F946005F45FA /* NZSLDict-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NZSLDict-Info.plist"; sourceTree = "<group>"; };
 		37B3F2971512F946005F45FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		37B3F2991512F946005F45FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		37B3F29B1512F946005F45FA /* NZSL Dict-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NZSL Dict-Prefix.pch"; sourceTree = "<group>"; };
+		37B3F2991512F946005F45FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../main.m; sourceTree = "<group>"; };
+		37B3F29B1512F946005F45FA /* NZSLDict-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NZSLDict-Prefix.pch"; sourceTree = "<group>"; };
+		4911054A1C4642F600A742BE /* ViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerDelegate.swift; sourceTree = "<group>"; };
+		49342F971C481EB500C355B2 /* ViewControllerPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPad.swift; sourceTree = "<group>"; };
+		49342F991C4821A800C355B2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		49342F9D1C484B5800C355B2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		49342FA31C48746900C355B2 /* DiagramView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
+		49342FA51C48821200C355B2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		49342FA71C488C7100C355B2 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
+		49342FA91C4890CF00C355B2 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		49342FAB1C489B9800C355B2 /* SearchViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewControllerDelegate.swift; sourceTree = "<group>"; };
 		49608CFF1C279005001037C4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4960AD121C27AA53001037C4 /* Data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Data; sourceTree = "<group>"; };
 		4960AD181C28E19D001037C4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -135,8 +147,8 @@
 		4960AD731C28E2A5001037C4 /* DiagramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagramView.m; sourceTree = "<group>"; };
 		4960AD741C28E2A5001037C4 /* DiagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagramViewController.h; sourceTree = "<group>"; };
 		4960AD751C28E2A5001037C4 /* DiagramViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagramViewController.m; sourceTree = "<group>"; };
-		4960AD761C28E2A5001037C4 /* Dictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dictionary.h; sourceTree = "<group>"; };
-		4960AD771C28E2A5001037C4 /* Dictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dictionary.m; sourceTree = "<group>"; };
+		4960AD761C28E2A5001037C4 /* SignsDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignsDictionary.h; sourceTree = "<group>"; };
+		4960AD771C28E2A5001037C4 /* SignsDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignsDictionary.m; sourceTree = "<group>"; };
 		4960AD781C28E2A5001037C4 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		4960AD791C28E2A5001037C4 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		4960AD7A1C28E2A5001037C4 /* imageutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageutil.h; sourceTree = "<group>"; };
@@ -149,7 +161,12 @@
 		4960AD811C28E2A5001037C4 /* ViewControllerPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerPad.m; sourceTree = "<group>"; };
 		4960AD821C28E2A5001037C4 /* ViewControllerPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerPhone.h; sourceTree = "<group>"; };
 		4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerPhone.m; sourceTree = "<group>"; };
+		4969EAF61C462A69002032B7 /* ViewControllerPhone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPhone.swift; sourceTree = "<group>"; };
+		499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NZSLDict-Bridging-Header.h"; sourceTree = "<group>"; };
+		499DFD911C3F4FE100F45D0E /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		499DFD961C40B79D00F45D0E /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		49AFE04F1C28ED0D00462381 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		49BD49ED1C6FC42000124A16 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +202,7 @@
 		37B3F28A1512F946005F45FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				37B3F2891512F946005F45FA /* NZSL Dict.app */,
+				37B3F2891512F946005F45FA /* NZSLDict.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,10 +232,9 @@
 		37B3F2941512F946005F45FA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				37B3F2951512F946005F45FA /* NZSL Dict-Info.plist */,
+				37B3F2951512F946005F45FA /* NZSLDict-Info.plist */,
 				37B3F2961512F946005F45FA /* InfoPlist.strings */,
-				37B3F2991512F946005F45FA /* main.m */,
-				37B3F29B1512F946005F45FA /* NZSL Dict-Prefix.pch */,
+				37B3F29B1512F946005F45FA /* NZSLDict-Prefix.pch */,
 				37B3112615199CAC005F45FA /* about.html */,
 			);
 			name = "Supporting Files";
@@ -280,42 +296,66 @@
 		4960AD691C28E2A5001037C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4960AD6A1C28E2A5001037C4 /* AboutViewController.h */,
-				4960AD6B1C28E2A5001037C4 /* AboutViewController.m */,
-				4960AD6C1C28E2A5001037C4 /* AppDelegate.h */,
-				4960AD6D1C28E2A5001037C4 /* AppDelegate.m */,
-				4960AD6E1C28E2A5001037C4 /* DetailView.h */,
-				4960AD6F1C28E2A5001037C4 /* DetailView.m */,
-				4960AD701C28E2A5001037C4 /* DetailViewController.h */,
-				4960AD711C28E2A5001037C4 /* DetailViewController.m */,
-				4960AD721C28E2A5001037C4 /* DiagramView.h */,
-				4960AD731C28E2A5001037C4 /* DiagramView.m */,
-				4960AD741C28E2A5001037C4 /* DiagramViewController.h */,
-				4960AD751C28E2A5001037C4 /* DiagramViewController.m */,
-				4960AD761C28E2A5001037C4 /* Dictionary.h */,
-				4960AD771C28E2A5001037C4 /* Dictionary.m */,
-				4960AD781C28E2A5001037C4 /* HistoryViewController.h */,
-				4960AD791C28E2A5001037C4 /* HistoryViewController.m */,
+				499DFD951C40B65E00F45D0E /* Converted and removed from target */,
+				499DFD911C3F4FE100F45D0E /* DetailView.swift */,
+				499DFD961C40B79D00F45D0E /* AboutViewController.swift */,
+				4969EAF61C462A69002032B7 /* ViewControllerPhone.swift */,
+				4911054A1C4642F600A742BE /* ViewControllerDelegate.swift */,
+				49342F971C481EB500C355B2 /* ViewControllerPad.swift */,
+				49342F991C4821A800C355B2 /* AppDelegate.swift */,
+				49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */,
+				49342F9D1C484B5800C355B2 /* Constants.swift */,
+				49342FA31C48746900C355B2 /* DiagramView.swift */,
+				49342FA51C48821200C355B2 /* DetailViewController.swift */,
+				49342FA71C488C7100C355B2 /* DiagramViewController.swift */,
+				49342FAB1C489B9800C355B2 /* SearchViewControllerDelegate.swift */,
+				49342FA91C4890CF00C355B2 /* SearchViewController.swift */,
+				49BD49ED1C6FC42000124A16 /* VideoViewController.swift */,
+				4960AD761C28E2A5001037C4 /* SignsDictionary.h */,
+				4960AD771C28E2A5001037C4 /* SignsDictionary.m */,
 				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
 				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
-				4960AD7C1C28E2A5001037C4 /* SearchViewController.h */,
-				4960AD7D1C28E2A5001037C4 /* SearchViewController.m */,
+				499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		499DFD951C40B65E00F45D0E /* Converted and removed from target */ = {
+			isa = PBXGroup;
+			children = (
 				4960AD7E1C28E2A5001037C4 /* VideoViewController.h */,
 				4960AD7F1C28E2A5001037C4 /* VideoViewController.m */,
+				4960AD7C1C28E2A5001037C4 /* SearchViewController.h */,
+				4960AD7D1C28E2A5001037C4 /* SearchViewController.m */,
+				4960AD6C1C28E2A5001037C4 /* AppDelegate.h */,
+				4960AD6D1C28E2A5001037C4 /* AppDelegate.m */,
+				37B3F2991512F946005F45FA /* main.m */,
 				4960AD801C28E2A5001037C4 /* ViewControllerPad.h */,
 				4960AD811C28E2A5001037C4 /* ViewControllerPad.m */,
 				4960AD821C28E2A5001037C4 /* ViewControllerPhone.h */,
 				4960AD831C28E2A5001037C4 /* ViewControllerPhone.m */,
+				4960AD6A1C28E2A5001037C4 /* AboutViewController.h */,
+				4960AD6B1C28E2A5001037C4 /* AboutViewController.m */,
+				4960AD6E1C28E2A5001037C4 /* DetailView.h */,
+				4960AD6F1C28E2A5001037C4 /* DetailView.m */,
+				4960AD781C28E2A5001037C4 /* HistoryViewController.h */,
+				4960AD791C28E2A5001037C4 /* HistoryViewController.m */,
+				4960AD721C28E2A5001037C4 /* DiagramView.h */,
+				4960AD731C28E2A5001037C4 /* DiagramView.m */,
+				4960AD701C28E2A5001037C4 /* DetailViewController.h */,
+				4960AD711C28E2A5001037C4 /* DetailViewController.m */,
+				4960AD741C28E2A5001037C4 /* DiagramViewController.h */,
+				4960AD751C28E2A5001037C4 /* DiagramViewController.m */,
 			);
-			path = Classes;
+			name = "Converted and removed from target";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		37B3F2881512F946005F45FA /* NZSL Dict */ = {
+		37B3F2881512F946005F45FA /* NZSLDict */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 37B3F2AA1512F946005F45FA /* Build configuration list for PBXNativeTarget "NZSL Dict" */;
+			buildConfigurationList = 37B3F2AA1512F946005F45FA /* Build configuration list for PBXNativeTarget "NZSLDict" */;
 			buildPhases = (
 				37B3F2851512F946005F45FA /* Sources */,
 				37B3F2861512F946005F45FA /* Frameworks */,
@@ -326,9 +366,9 @@
 			);
 			dependencies = (
 			);
-			name = "NZSL Dict";
+			name = NZSLDict;
 			productName = NZSLDict;
-			productReference = 37B3F2891512F946005F45FA /* NZSL Dict.app */;
+			productReference = 37B3F2891512F946005F45FA /* NZSLDict.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -337,9 +377,10 @@
 		37B3F2801512F946005F45FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 			};
-			buildConfigurationList = 37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSL Dict" */;
+			buildConfigurationList = 37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSLDict" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -351,7 +392,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				37B3F2881512F946005F45FA /* NZSL Dict */,
+				37B3F2881512F946005F45FA /* NZSLDict */,
 			);
 		};
 /* End PBXProject section */
@@ -430,20 +471,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4960AD871C28E2A5001037C4 /* DetailViewController.m in Sources */,
-				4960AD901C28E2A5001037C4 /* ViewControllerPhone.m in Sources */,
-				4960AD891C28E2A5001037C4 /* DiagramViewController.m in Sources */,
-				4960AD8E1C28E2A5001037C4 /* VideoViewController.m in Sources */,
-				4960AD8B1C28E2A5001037C4 /* HistoryViewController.m in Sources */,
-				4960AD8F1C28E2A5001037C4 /* ViewControllerPad.m in Sources */,
-				4960AD841C28E2A5001037C4 /* AboutViewController.m in Sources */,
-				4960AD881C28E2A5001037C4 /* DiagramView.m in Sources */,
+				4911054B1C4642F600A742BE /* ViewControllerDelegate.swift in Sources */,
+				49342F9E1C484B5800C355B2 /* Constants.swift in Sources */,
+				49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */,
+				49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */,
+				49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */,
 				4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */,
-				4960AD861C28E2A5001037C4 /* DetailView.m in Sources */,
-				4960AD8A1C28E2A5001037C4 /* Dictionary.m in Sources */,
-				4960AD8D1C28E2A5001037C4 /* SearchViewController.m in Sources */,
-				37B3F29A1512F946005F45FA /* main.m in Sources */,
-				4960AD851C28E2A5001037C4 /* AppDelegate.m in Sources */,
+				49342FAC1C489B9800C355B2 /* SearchViewControllerDelegate.swift in Sources */,
+				49342F9C1C483D4F00C355B2 /* HistoryViewController.swift in Sources */,
+				49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */,
+				49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */,
+				4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */,
+				4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */,
+				49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */,
+				49342FA41C48746900C355B2 /* DiagramView.swift in Sources */,
+				499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */,
+				499DFD971C40B79D00F45D0E /* AboutViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,14 +541,19 @@
 		37B31129151A62CB005F45FA /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NZSLDict/NZSL Dict-Prefix.pch";
-				INFOPLIST_FILE = "NZSLDict/NZSL Dict-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "NZSLDict/NZSLDict-Prefix.pch";
+				INFOPLIST_FILE = "NZSLDict/NZSLDict-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
-				PRODUCT_NAME = "NZSL Dict";
+				PRODUCT_NAME = NZSLDict;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSLDict-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Distribution;
@@ -584,12 +632,18 @@
 		37B3F2AB1512F946005F45FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NZSLDict/NZSL Dict-Prefix.pch";
-				INFOPLIST_FILE = "NZSLDict/NZSL Dict-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "NZSLDict/NZSLDict-Prefix.pch";
+				INFOPLIST_FILE = "NZSLDict/NZSLDict-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
-				PRODUCT_NAME = "NZSL Dict";
+				PRODUCT_NAME = NZSLDict;
+				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSLDict-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -597,12 +651,17 @@
 		37B3F2AC1512F946005F45FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NZSLDict/NZSL Dict-Prefix.pch";
-				INFOPLIST_FILE = "NZSLDict/NZSL Dict-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "NZSLDict/NZSLDict-Prefix.pch";
+				INFOPLIST_FILE = "NZSLDict/NZSLDict-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
-				PRODUCT_NAME = "NZSL Dict";
+				PRODUCT_NAME = NZSLDict;
+				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSLDict-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -610,7 +669,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSL Dict" */ = {
+		37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSLDict" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				37B3F2A81512F946005F45FA /* Debug */,
@@ -620,7 +679,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		37B3F2AA1512F946005F45FA /* Build configuration list for PBXNativeTarget "NZSL Dict" */ = {
+		37B3F2AA1512F946005F45FA /* Build configuration list for PBXNativeTarget "NZSLDict" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				37B3F2AB1512F946005F45FA /* Debug */,
