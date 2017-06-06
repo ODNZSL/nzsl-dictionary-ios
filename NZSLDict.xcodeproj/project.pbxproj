@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03B1C8981EE75B4F008A875C /* SignsDictionaryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */; };
 		374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E59DF173260B9004C7D44 /* QuartzCore.framework */; };
 		37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3111415133261005F45FA /* MediaPlayer.framework */; };
 		37B3112715199CAC005F45FA /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 37B3112615199CAC005F45FA /* about.html */; };
@@ -72,7 +73,20 @@
 		49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD49ED1C6FC42000124A16 /* VideoViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		03B1C8911EE75B0F008A875C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37B3F2801512F946005F45FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37B3F2881512F946005F45FA;
+			remoteInfo = NZSLDict;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		03B1C88C1EE75B0E008A875C /* NZSLDictTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NZSLDictTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03B1C8901EE75B0F008A875C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignsDictionaryTest.swift; path = ../SignsDictionaryTest.swift; sourceTree = "<group>"; };
 		374E59DF173260B9004C7D44 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B3111415133261005F45FA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		37B3112615199CAC005F45FA /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
@@ -170,6 +184,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03B1C8891EE75B0E008A875C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37B3F2861512F946005F45FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +207,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03B1C88D1EE75B0F008A875C /* NZSLDictTests */ = {
+			isa = PBXGroup;
+			children = (
+				03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */,
+				03B1C8901EE75B0F008A875C /* Info.plist */,
+			);
+			path = NZSLDictTests;
+			sourceTree = "<group>";
+		};
 		37B3F27E1512F946005F45FA = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +224,7 @@
 				4960AD171C28E19C001037C4 /* Homescreen Icons */,
 				4960AD121C27AA53001037C4 /* Data */,
 				37B3F2931512F946005F45FA /* NZSLDict */,
+				03B1C88D1EE75B0F008A875C /* NZSLDictTests */,
 				37B3F28C1512F946005F45FA /* Frameworks */,
 				37B3F28A1512F946005F45FA /* Products */,
 			);
@@ -203,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				37B3F2891512F946005F45FA /* NZSLDict.app */,
+				03B1C88C1EE75B0E008A875C /* NZSLDictTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -353,6 +385,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		03B1C88B1EE75B0E008A875C /* NZSLDictTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03B1C8961EE75B0F008A875C /* Build configuration list for PBXNativeTarget "NZSLDictTests" */;
+			buildPhases = (
+				03B1C8881EE75B0E008A875C /* Sources */,
+				03B1C8891EE75B0E008A875C /* Frameworks */,
+				03B1C88A1EE75B0E008A875C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				03B1C8921EE75B0F008A875C /* PBXTargetDependency */,
+			);
+			name = NZSLDictTests;
+			productName = NZSLDictTests;
+			productReference = 03B1C88C1EE75B0E008A875C /* NZSLDictTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		37B3F2881512F946005F45FA /* NZSLDict */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 37B3F2AA1512F946005F45FA /* Build configuration list for PBXNativeTarget "NZSLDict" */;
@@ -377,8 +427,17 @@
 		37B3F2801512F946005F45FA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					03B1C88B1EE75B0E008A875C = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 37B3F2881512F946005F45FA;
+					};
+					37B3F2881512F946005F45FA = {
+						DevelopmentTeam = 6G3Y9JE4M4;
+					};
+				};
 			};
 			buildConfigurationList = 37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSLDict" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -393,11 +452,19 @@
 			projectRoot = "";
 			targets = (
 				37B3F2881512F946005F45FA /* NZSLDict */,
+				03B1C88B1EE75B0E008A875C /* NZSLDictTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		03B1C88A1EE75B0E008A875C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37B3F2871512F946005F45FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -467,6 +534,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03B1C8881EE75B0E008A875C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03B1C8981EE75B4F008A875C /* SignsDictionaryTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37B3F2851512F946005F45FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -492,6 +567,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		03B1C8921EE75B0F008A875C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37B3F2881512F946005F45FA /* NZSLDict */;
+			targetProxy = 03B1C8911EE75B0F008A875C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		37B3F2961512F946005F45FA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -504,6 +587,80 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		03B1C8931EE75B0F008A875C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = NZSLDictTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = nz.co.rabid.NZSLDictTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NZSLDict.app/NZSLDict";
+			};
+			name = Debug;
+		};
+		03B1C8941EE75B0F008A875C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = NZSLDictTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = nz.co.rabid.NZSLDictTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NZSLDict.app/NZSLDict";
+			};
+			name = Release;
+		};
+		03B1C8951EE75B0F008A875C /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = NZSLDictTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = nz.co.rabid.NZSLDictTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NZSLDict.app/NZSLDict";
+			};
+			name = Distribution;
+		};
 		37B31128151A62CB005F45FA /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -542,7 +699,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -633,6 +791,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -642,6 +802,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = NZSLDict;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSLDict-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
@@ -652,6 +813,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -661,6 +824,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = NZSLDict;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "NZSLDict/Classes/NZSLDict-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
@@ -669,6 +833,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03B1C8961EE75B0F008A875C /* Build configuration list for PBXNativeTarget "NZSLDictTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03B1C8931EE75B0F008A875C /* Debug */,
+				03B1C8941EE75B0F008A875C /* Release */,
+				03B1C8951EE75B0F008A875C /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		37B3F2831512F946005F45FA /* Build configuration list for PBXProject "NZSLDict" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
