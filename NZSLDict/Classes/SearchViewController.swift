@@ -308,6 +308,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     func selectSearchMode(sender: UISegmentedControl) {
+        self.tabBarController?.selectedIndex = 0
         switch sender.selectedSegmentIndex {
         case 0:
             searchBar.text = ""
