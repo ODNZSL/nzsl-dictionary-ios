@@ -142,7 +142,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
     override func loadView() {
         self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
-        searchBar = UISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
+        searchBar = PaddedUISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
         searchBar.autoresizingMask = .FlexibleWidth
         searchBar.barTintColor = AppThemePrimaryColor
         searchBar.delegate = self
@@ -152,7 +152,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch.autoresizingMask = .FlexibleLeftMargin
         modeSwitch.frame = CGRectMake(view.bounds.size.width - modeSwitch.bounds.size.width - 4, 0 + 6, modeSwitch.bounds.size.width, 32)
         modeSwitch.selectedSegmentIndex = 0
-        modeSwitch.tintColor = AppThemeAccentColor
+        modeSwitch.tintColor = UIColor.whiteColor();
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), forControlEvents: .ValueChanged)
       
         self.view.addSubview(modeSwitch)
