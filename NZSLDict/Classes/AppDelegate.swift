@@ -5,14 +5,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        var rootViewController: UIViewController!
+
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 
         if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
-            self.window!.rootViewController = ViewControllerPhone()
+            rootViewController = ViewControllerPhone()
         } else {
-            self.window!.rootViewController = ViewControllerPad()
+            rootViewController = ViewControllerPad()
         }
+        
+        let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
+        navigationController.navigationBar.barStyle = UIBarStyle.Black;
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationController.navigationBar.barTintColor = AppThemePrimaryColor;
+        navigationController.navigationBar.translucent = false
+        
+    
+        self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
+        
+
         return true
     }
 
