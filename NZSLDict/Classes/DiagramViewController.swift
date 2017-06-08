@@ -3,7 +3,6 @@ import UIKit
 class DiagramViewController: UIViewController, UISearchBarDelegate {
     var delegate: ViewControllerDelegate!
     var currentEntry: DictEntry!
-    var searchBar: UISearchBar!
     var diagramView: DiagramView!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -23,12 +22,8 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
     override func loadView() {
         let view: UIView = UIView(frame: UIScreen.mainScreen().bounds)
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        let top_offset: CGFloat = 20
-        searchBar = UISearchBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 44))
-        searchBar.autoresizingMask = .FlexibleWidth
-        searchBar.delegate = self
-        view.addSubview(searchBar)
-        diagramView = DiagramView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height - (top_offset + 44)))
+        
+        diagramView = DiagramView(frame: CGRectMake(0, 0, view.bounds.size.width, view.bounds.size.height))
         view.addSubview(diagramView)
         self.view = view
     }
@@ -38,6 +33,10 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
         if self.respondsToSelector("edgesForExtendedLayout") {
             self.edgesForExtendedLayout = .None
         }
+    }
+    
+    func selectSearchMode(sender: UISegmentedControl) {
+            self.tabBarController?.selectedIndex = 0
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -53,16 +52,6 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
     }
 
     func showCurrentEntry() {
-        searchBar.text = currentEntry.gloss
         diagramView.showEntry(currentEntry)
-    }
-
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
-    }
-
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        self.delegate.returnToSearchView()
-        return false
     }
 }
