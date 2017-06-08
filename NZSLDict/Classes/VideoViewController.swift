@@ -3,7 +3,6 @@ import MediaPlayer
 
 class VideoViewController: UIViewController, UISearchBarDelegate {
     var currentEntry: DictEntry!
-    var searchBar: UISearchBar!
     var detailView: DetailView!
     var videoBack: UIView!
     var activity: UIActivityIndicatorView!
@@ -28,17 +27,10 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         let view: UIView = UIView(frame: UIScreen.mainScreen().bounds)
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 
-        let top_offset: CGFloat = 20
-
-        searchBar = UISearchBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 44))
-        searchBar.autoresizingMask = .FlexibleWidth
-        searchBar.delegate = self
-        view.addSubview(searchBar)
-
-        detailView = DetailView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, DetailView.height))
+        detailView = DetailView(frame: CGRectMake(0, 0, view.bounds.size.width, DetailView.height))
         detailView.autoresizingMask = .FlexibleWidth
         view.addSubview(detailView)
-        videoBack = UIView(frame: CGRectMake(0, top_offset + 44 + DetailView.height, view.bounds.size.width, view.bounds.size.height - (top_offset + 44 + DetailView.height)))
+        videoBack = UIView(frame: CGRectMake(0, DetailView.height, view.bounds.size.width, view.bounds.size.height - DetailView.height))
         videoBack.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(videoBack)
 
@@ -63,7 +55,6 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     }
 
     func showCurrentEntry() {
-        searchBar.text = currentEntry.gloss
         detailView.showEntry(currentEntry)
         self.performSelector("startVideo", withObject: nil, afterDelay: 0)
     }
@@ -106,12 +97,4 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         }
     }
 
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
-    }
-
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        self.delegate.returnToSearchView()
-        return false
-    }
 }
