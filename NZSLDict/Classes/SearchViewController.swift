@@ -122,11 +122,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
         self.tabBarItem = UITabBarItem(tabBarSystemItem: .Search, tag: 0)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "adjustForKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "adjustForKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -145,26 +141,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     // MARK View lifecycle
 
     override func loadView() {
-        let view: UIView = UIView(frame: UIScreen.mainScreen().bounds)
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        view.backgroundColor = UIColor(white: 0.9, alpha: 1)
-
-        let top_offset: CGFloat = 20
-
-        searchBar = UISearchBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 44))
+        self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
+        searchBar = PaddedUISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
         searchBar.autoresizingMask = .FlexibleWidth
-        searchBar.placeholder = "Enter Word"
+        searchBar.barTintColor = AppThemePrimaryColor
         searchBar.delegate = self
-        view.addSubview(searchBar)
+        self.view.addSubview(searchBar)
 
         modeSwitch = UISegmentedControl(items: ["Abc", UIImage(named: "hands")!])
         modeSwitch.autoresizingMask = .FlexibleLeftMargin
-        modeSwitch.frame = CGRectMake(view.bounds.size.width - modeSwitch.bounds.size.width - 4, top_offset + 6, modeSwitch.bounds.size.width, 32)
+        modeSwitch.frame = CGRectMake(view.bounds.size.width - modeSwitch.bounds.size.width - 4, 0 + 6, modeSwitch.bounds.size.width, 32)
         modeSwitch.selectedSegmentIndex = 0
-        modeSwitch.addTarget(self, action: "selectSearchMode:", forControlEvents: .ValueChanged)
-
-        view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height - (top_offset + 44)))
+        modeSwitch.tintColor = UIColor.whiteColor();
+        modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), forControlEvents: .ValueChanged)
+      
+        self.view.addSubview(modeSwitch)
+        searchTable = UITableView(frame: CGRectMake(0, 0 + 44, view.bounds.size.width, view.bounds.size.height - (0 + 44)))
         searchTable.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
@@ -178,7 +170,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView = UIView(frame: searchTable.frame)
         wotdView.autoresizingMask = .FlexibleWidth
         wotdView.backgroundColor = UIColor.whiteColor()
-        view.addSubview(wotdView)
+        self.view.addSubview(wotdView)
         wotdLabel = UILabel(frame: CGRectMake(0, 0, wotdView.bounds.size.width, 20))
         wotdLabel.autoresizingMask = .FlexibleWidth
         wotdLabel.textAlignment = .Center
@@ -240,7 +232,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         locationSelector.dataSource = self
         locationSelector.delegate = self
         searchSelectorView.addSubview(locationSelector)
-        self.view = view
     }
 
     override func viewDidLoad() {
@@ -252,7 +243,37 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         dict = SignsDictionary(file: "nzsl.dat")
         wordOfTheDay = dict.wordOfTheDay()
-
+        
+        tabBarController?.title = nil
+        let navbarTitleFirstSegment = UILabel()
+        let navbarTitleSecondSegment = UILabel()
+        navbarTitleFirstSegment.textColor = UIColor.whiteColor();
+        navbarTitleSecondSegment.textColor = UIColor.whiteColor();
+        
+        if navbarTitleFirstSegment.respondsToSelector("setAttributedText:") {
+            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(22)])
+            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.italicSystemFontOfSize(22)])
+        
+            navbarTitleFirstSegment.attributedText = navbarTitleFirstSegmentText
+            navbarTitleSecondSegment.attributedText = navbarTitleSecondSegmentText
+        }
+        else {
+            navbarTitleFirstSegment.text = "NZSL "
+            navbarTitleSecondSegment.text = "dictionary"
+        }
+        
+        navbarTitleFirstSegment.sizeToFit();
+        navbarTitleSecondSegment.sizeToFit();
+        
+        self.tabBarController?.navigationItem.setLeftBarButtonItems([
+            UIBarButtonItem.init(customView: navbarTitleFirstSegment),
+            UIBarButtonItem.init(customView: navbarTitleSecondSegment)
+        ], animated: false)
+        
+        
+        let navigationBarRightButtonItem = UIBarButtonItem.init(customView: modeSwitch);
+        self.tabBarController?.navigationItem.setRightBarButtonItem(navigationBarRightButtonItem, animated: false)
+        
         if wotdLabel.respondsToSelector("setAttributedText:") {
             // iOS 6 supports attributed text in labels
             let xas: NSMutableAttributedString = NSMutableAttributedString(string: "Word of the day: ")
@@ -272,59 +293,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         self.selectSearchMode(modeSwitch)
     }
 
-    func shrinkSearchBar() {
-        let x: UIView = searchBar.subviews[0]
-        let y: UIView = x.subviews[1]
-        y.frame = CGRectMake(y.frame.origin.x, y.frame.origin.y, x.frame.size.width - (y.frame.origin.x * 2 + 100), y.frame.size.height)
-    }
-
-    override func viewDidLayoutSubviews() {
-        self.shrinkSearchBar()
-    }
-
     override func viewDidAppear(animated: Bool) {
-        self.shrinkSearchBar()
         if modeSwitch.selectedSegmentIndex == 0 && searchBar.text!.characters.count == 0 {
             searchBar.becomeFirstResponder()
         }
-    }
-
-
-    // TODO: not sure this workaround required in ios7+ ???
-    func adjustForKeyboard(notification: NSNotification) {
-//        var v: NSValue = notification.userInfo![UIKeyboardFrameEndUserInfoKey as NSObject]
-//        var kr: CGRect = v.CGRectValue()
-//        // This workaround avoids a problem when launching on the iPad in non-portrait mode.
-//        // On launch, the convertRect: call does not properly take into account the rotation
-//        // from device coordinates to interface coordinates. We seem to be able to detect
-//        // this when the following is true:
-//        var interface_orientation: UIInterfaceOrientation = UIApplication.sharedApplication().statusBarOrientation
-//        var device_orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
-//        //NSLog(@"interface %d device %d", interface_orientation, device_orientation);
-//        var fudge_rotation: Bool = Int(device_orientation) != Int(interface_orientation)
-//
-//        if fudge_rotation {
-//            //NSLog(@"before fudge %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//            var screen: CGRect = UIScreen.mainScreen().bounds
-//            switch interface_orientation {
-//            case .LandscapeLeft:
-//                kr = CGRectMake(screen.size.height - (kr.origin.y + kr.size.height), kr.origin.x, kr.size.height, kr.size.width)
-//            case .LandscapeRight:
-//                kr = CGRectMake(kr.origin.y, screen.size.width - (kr.origin.x + kr.size.width), kr.size.height, kr.size.width)
-//            case .PortraitUpsideDown:
-//                kr = CGRectMake(screen.size.width - (kr.origin.x + kr.size.width), screen.size.height - (kr.origin.y + kr.size.height), kr.size.width, kr.size.height)
-//            default:
-//                break
-//            }
-//
-//            //NSLog(@"  after %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//        }
-//        else {
-//            //NSLog(@"  before convertRect %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//            kr = self.view!.convertRect(kr, fromView: nil)
-//            //NSLog(@"  after %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//        }
-//        subsequent_keyboard = true
     }
 
     func selectWotd(sender: UITapGestureRecognizer) {
@@ -336,6 +308,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     func selectSearchMode(sender: UISegmentedControl) {
+        self.tabBarController?.selectedIndex = 0
         switch sender.selectedSegmentIndex {
         case 0:
             searchBar.text = ""

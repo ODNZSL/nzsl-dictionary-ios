@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03617D8B1EE8DA2400E26B34 /* PaddedUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */; };
 		03B1C8981EE75B4F008A875C /* SignsDictionaryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */; };
 		374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E59DF173260B9004C7D44 /* QuartzCore.framework */; };
 		37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3111415133261005F45FA /* MediaPlayer.framework */; };
@@ -84,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedUISearchBar.swift; sourceTree = "<group>"; };
 		03B1C88C1EE75B0E008A875C /* NZSLDictTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NZSLDictTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B1C8901EE75B0F008A875C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignsDictionaryTest.swift; path = ../SignsDictionaryTest.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
 				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
 				499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */,
+				03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -549,6 +552,7 @@
 				4911054B1C4642F600A742BE /* ViewControllerDelegate.swift in Sources */,
 				49342F9E1C484B5800C355B2 /* Constants.swift in Sources */,
 				49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */,
+				03617D8B1EE8DA2400E26B34 /* PaddedUISearchBar.swift in Sources */,
 				49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */,
 				49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */,
 				4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */,
