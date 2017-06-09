@@ -25,6 +25,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var scrollView: UIScrollView!
     var aboutContentWebView: UIWebView!
 
+    // MARK: Fixed datasource initialization
     // why do they leave the first element blank?
     // to match up with something thtat starts indexes at 1?
     let handShapes: [String] = [
@@ -344,6 +345,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         self.scrollView.contentSize.height = contentRect.size.height + 150
     }
 
+    // MARK: Callback functions
     func selectWotd(sender: UITapGestureRecognizer) {
         if sender.state == .Ended {
             self.selectEntry(wordOfTheDay)
