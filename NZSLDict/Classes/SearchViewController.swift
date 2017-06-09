@@ -4,7 +4,7 @@ import UIKit
 let HandshapeAnyCellIdentifier: String = "CellAny"
 let HandshapeIconCellIdentifier: String = "CellIcon"
 
-class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate , UIWebViewDelegate {
 
     var delegate: SearchViewControllerDelegate! // this was auto converted as 'weak var' TODO figure this out
     var dict: SignsDictionary!
@@ -14,6 +14,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var searchTable: UITableView!
     var wotdView: UIView!
     var wotdLabel: UILabel!
+    var wotdGlossLabel: UILabel!
     var wotdImageView: UIImageView!
     var searchSelectorView: UIView!
     var handshapeSelector: UICollectionView!
@@ -21,6 +22,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var searchResults: [AnyObject] = [] // TODO tighten up the types here once SignsDictionary has been converted
     var swipeRecognizer: UISwipeGestureRecognizer!
     var subsequent_keyboard: Bool!
+    var scrollView: UIScrollView!
+    var aboutContentWebView: UIWebView!
 
     // why do they leave the first element blank?
     // to match up with something thtat starts indexes at 1?
@@ -161,29 +164,59 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchTable.rowHeight = 50
         searchTable.dataSource = self
         searchTable.delegate = self
+        
         view.addSubview(searchTable)
         swipeRecognizer = UISwipeGestureRecognizer(target: self, action: "hideKeyboard")
         swipeRecognizer.direction = [.Up, .Down]
         swipeRecognizer.delegate = self
         searchTable.addGestureRecognizer(swipeRecognizer)
-
-        wotdView = UIView(frame: searchTable.frame)
+        
+        scrollView = UIScrollView.init(frame: searchTable.frame);
+        scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
+        scrollView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        scrollView.backgroundColor = UIColor.whiteColor()
+        
+        
+        
+        wotdView = UIView.init(frame: CGRectMake(0, 0, self.view.frame.width, 125))
         wotdView.autoresizingMask = .FlexibleWidth
         wotdView.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(wotdView)
-        wotdLabel = UILabel(frame: CGRectMake(0, 0, wotdView.bounds.size.width, 20))
-        wotdLabel.autoresizingMask = .FlexibleWidth
-        wotdLabel.textAlignment = .Center
+        
+        wotdLabel = UILabel(frame: CGRectMake(16, 16, wotdView.bounds.size.width * 0.7, 20))
+        wotdLabel.autoresizingMask = .FlexibleHeight
+        wotdLabel.text = "Word of the day"
+        wotdLabel.font = UIFont.systemFontOfSize(14)
+        wotdLabel.textColor = AppSecondaryTextColour
         wotdView.addSubview(wotdLabel)
+        
+        wotdGlossLabel = UILabel(frame: CGRectMake(16, 40, wotdView.bounds.size.width * 0.6, 24))
+        wotdGlossLabel.autoresizingMask = .FlexibleHeight
+        wotdGlossLabel.numberOfLines = 0
+        wotdGlossLabel.font = UIFont.systemFontOfSize(20)
+        wotdGlossLabel.textColor = UIColor.blackColor();
+        wotdView.addSubview(wotdGlossLabel)
 
 
-        wotdImageView = UIImageView(frame: CGRectMake(0, 20, wotdView.bounds.size.width, wotdView.bounds.size.height - 20))
+
+        wotdImageView = UIImageView(frame: CGRectMake(wotdView.bounds.width * 0.7, 0, wotdView.bounds.width * 0.3 - 16, 125))
         wotdImageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         wotdImageView.backgroundColor = UIColor.whiteColor()
         wotdImageView.contentMode = .ScaleAspectFit
         wotdImageView.userInteractionEnabled = true
-        wotdImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectWotd:"))
+        wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectWotd:"))
         wotdView.addSubview(wotdImageView)
+        
+        
+        aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.bounds.maxY + 44, wotdView.frame.width, 500))
+        aboutContentWebView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        aboutContentWebView.delegate = self
+        
+        scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
+        scrollView.addSubview(wotdView)
+        
+        self.view.addSubview(scrollView)
+
+        
         searchSelectorView = UIView(frame: CGRectMake(0, 0, view.bounds.size.width, 200))
         searchSelectorView.autoresizingMask = .FlexibleWidth
 
@@ -240,6 +273,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         if self.respondsToSelector("edgesForExtendedLayout") {
             self.edgesForExtendedLayout = .None
         }
+        
+        guard let aboutPath = NSBundle.mainBundle().pathForResource("about.html", ofType: nil) else {
+            print("Failed to find about.html")
+            return
+        }
+        
+        let aboutUrl = NSURL(fileURLWithPath: aboutPath)
+        let request = NSURLRequest(URL: aboutUrl)
+        aboutContentWebView.loadRequest(request)
+
 
         dict = SignsDictionary(file: "nzsl.dat")
         wordOfTheDay = dict.wordOfTheDay()
@@ -274,16 +317,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         let navigationBarRightButtonItem = UIBarButtonItem.init(customView: modeSwitch);
         self.tabBarController?.navigationItem.setRightBarButtonItem(navigationBarRightButtonItem, animated: false)
         
-        if wotdLabel.respondsToSelector("setAttributedText:") {
-            // iOS 6 supports attributed text in labels
-            let xas: NSMutableAttributedString = NSMutableAttributedString(string: "Word of the day: ")
-            xas.appendAttributedString(NSAttributedString(string: wordOfTheDay.gloss, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(18)]))
-            wotdLabel.attributedText = xas
-        }
-        else {
-            wotdLabel.text = "Word of the day: \(wordOfTheDay.gloss)"
-        }
-
+        wotdGlossLabel.text = wordOfTheDay.gloss
+        wotdGlossLabel.sizeToFit()
         wotdImageView.image = UIImage(named: wordOfTheDay.image)
 
         self.selectEntry(wordOfTheDay)
@@ -297,6 +332,16 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         if modeSwitch.selectedSegmentIndex == 0 && searchBar.text!.characters.count == 0 {
             searchBar.becomeFirstResponder()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        // Autosize the scrollview
+        var contentRect = CGRectZero
+        for view: UIView in self.scrollView.subviews {
+            contentRect = CGRectUnion(contentRect, view.frame)
+        }
+        self.scrollView.contentSize = contentRect.size
+        self.scrollView.contentSize.height = contentRect.size.height + 150
     }
 
     func selectWotd(sender: UITapGestureRecognizer) {
@@ -314,14 +359,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             searchBar.text = ""
             searchBar.userInteractionEnabled = true
             searchBar.becomeFirstResponder()
-            wotdView.hidden = false
+            scrollView.hidden = false
             searchTable.tableHeaderView = nil
             searchTable.reloadData()
         case 1:
             searchBar.text = "(handshape search)"
             searchBar.resignFirstResponder()
             searchBar.userInteractionEnabled = false
-            wotdView.hidden = true
+            scrollView.hidden = true
             searchTable.tableHeaderView = searchSelectorView
 
             // The UICollectionViewDelegate protocol requires that we provide an NSIndexPath instance
@@ -342,10 +387,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count == 0 {
-            wotdView.hidden = false
+            scrollView.hidden = false
             return
         }
-        wotdView.hidden = true
+        scrollView.hidden = true
         searchResults = dict.searchFor(searchText)
         searchTable.reloadData()
     }
@@ -477,6 +522,72 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchResults = dict.searchHandshape(targetHandshape, location: location)
         searchTable.reloadData()
     }
+    
+    
+    func webViewDidStartLoad(webView: UIWebView) {
+        var frame = webView.frame
+        frame.size.height = 5.0
+        webView.frame = frame
+    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        let mWebViewTextSize = webView.sizeThatFits(CGSizeMake(1.0, 1.0))
+        // Pass about any size
+        var mWebViewFrame = webView.frame
+        mWebViewFrame.size.height = mWebViewTextSize.height
+        webView.frame = mWebViewFrame
+        //Disable bouncing in webview
+        webView.scrollView.bounces = false
+    }
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if request.URL!.fileURL {
+            return true
+        }
+        
+        if request.URL!.scheme == "follow" {
+            openTwitterClientForUserName("NZSLDict")
+            return false
+        }
+        
+        UIApplication.sharedApplication().openURL(request.URL!)
+        return false
+    }
+    
+    // https://gist.github.com/vhbit/958738
+    func openTwitterClientForUserName(userName: String) -> Bool {
+        let urls = [
+            "twitter:@{username}", // Twitter
+            "tweetbot:///user_profile/{username}", // TweetBot
+            "echofon:///user_timeline?{username}", // Echofon
+            "twit:///user?screen_name={username}", // Twittelator Pro
+            "x-seesmic://twitter_profile?twitter_screen_name={username}", // Seesmic
+            "x-birdfeed://user?screen_name={username}", // Birdfeed
+            "tweetings:///user?screen_name={username}", // Tweetings
+            "simplytweet:?link=http://twitter.com/{username}", // SimplyTweet
+            "icebird://user?screen_name={username}", // IceBird
+            "fluttr://user/{username}", // Fluttr
+            /** uncomment if you don't have a special handling for no registered twitter clients */
+            "http://twitter.com/{username}", // Web fallback,
+        ]
+        
+        let application: UIApplication = UIApplication.sharedApplication()
+        
+        for candidate in urls {
+            let urlString = candidate.stringByReplacingOccurrencesOfString("{username}", withString:userName)
+            if let url = NSURL(string: urlString) {
+                print("testing \(url)")
+                if application.canOpenURL(url) {
+                    print("we can open \(url)")
+                    application.openURL(url)
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
+
 }
 
 
