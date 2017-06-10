@@ -10,16 +10,16 @@ class HistoryViewController: UITableViewController {
 
     override init(style: UITableViewStyle) {
         super.init(style: style)
-        self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.History, tag: 0)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addEntry:", name: EntrySelectedName, object: nil)
+        self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.history, tag: 0)
+        NotificationCenter.default.addObserver(self, selector: #selector(HistoryViewController.addEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
     }
 
     convenience init() {
-        self.init(style: UITableViewStyle.Plain)
+        self.init(style: UITableViewStyle.plain)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewDidLoad() {
@@ -28,7 +28,7 @@ class HistoryViewController: UITableViewController {
         self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
     }
 
-    func addEntry(notification: NSNotification) {
+    func addEntry(_ notification: Notification) {
 
         guard let userInfo = notification.userInfo else {
             fatalError("Got not userInfo dictionary")
@@ -41,12 +41,12 @@ class HistoryViewController: UITableViewController {
         }
 
         // if the current entry is in the history array then remove it
-        if let i = history.indexOf(entry) {
-            history.removeAtIndex(i)
+        if let i = history.index(of: entry) {
+            history.remove(at: i)
         }
 
         // insert the current entry at the start of the history array
-        history.insert(entry, atIndex: 0)
+        history.insert(entry, at: 0)
 
         // Keep the history array to the desired maximum length
         while (history.count > 100) {
@@ -58,28 +58,28 @@ class HistoryViewController: UITableViewController {
 
     // MARK: Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return history.count
     }
 
 
     // MARK: Table view delegate
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cellIdentifier = "Cell"
         let entry: DictEntry = history[indexPath.row]
 
-        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
+        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
 
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: cellIdentifier)
-            let iv: UIImageView = UIImageView(frame: CGRectMake(0, 2, tableView.rowHeight*2, tableView.rowHeight-4))
-            iv.contentMode = UIViewContentMode.ScaleAspectFit
+            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: cellIdentifier)
+            let iv: UIImageView = UIImageView(frame: CGRect(x: 0, y: 2, width: tableView.rowHeight*2, height: tableView.rowHeight-4))
+            iv.contentMode = UIViewContentMode.scaleAspectFit
             cell!.accessoryView = iv
         }
 
@@ -96,14 +96,14 @@ class HistoryViewController: UITableViewController {
         return cell!
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dictEntryFromHistory = history[indexPath.row]
         let userInfo = [
             "entry": dictEntryFromHistory,
             "no_add_history": "no_add"
-        ]
+        ] as [String : Any]
 
-        NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: EntrySelectedName), object: self, userInfo: userInfo)
         self.delegate.didSelectEntry(dictEntryFromHistory)
     }
 }
