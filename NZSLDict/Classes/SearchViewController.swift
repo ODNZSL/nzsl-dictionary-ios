@@ -393,7 +393,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             return
         }
         scrollView.isHidden = true
-        searchResults = dict.search(for: searchText) as! [AnyObject]
+        searchResults = dict.search(for: searchText)! as [AnyObject]
         searchTable.reloadData()
     }
 
@@ -521,7 +521,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
 
         // searchHandshape(targetHandshape: String?, location: String?) -> [AnyObject]
-        searchResults = dict.searchHandshape(targetHandshape, location: location) as! [AnyObject]
+        searchResults = dict.searchHandshape(targetHandshape, location: location)! as [AnyObject]
         searchTable.reloadData()
     }
     
@@ -557,7 +557,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
     
     // https://gist.github.com/vhbit/958738
-    func openTwitterClientForUserName(_ userName: String) -> Bool {
+    func openTwitterClientForUserName(_ userName: String) {
         let urls = [
             "twitter:@{username}", // Twitter
             "tweetbot:///user_profile/{username}", // TweetBot
@@ -582,12 +582,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 if application.canOpenURL(url) {
                     print("we can open \(url)")
                     application.openURL(url)
-                    return true
                 }
             }
         }
-        
-        return false
     }
 
 }

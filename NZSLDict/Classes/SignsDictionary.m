@@ -320,7 +320,7 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
     char buf[20];
     snprintf(buf, sizeof(buf), "%04d-%02d-%02d", 1900+tm->tm_year, 1+tm->tm_mon, tm->tm_mday);
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(buf, strlen(buf), digest);
+    CC_SHA1(buf, (CC_LONG)strlen(buf), digest);
     int i = ((digest[0] << 8) | (digest[1])) % count;
     
     BOOL (^reject)(DictEntry *e) = ^(DictEntry *e) {

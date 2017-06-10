@@ -85,7 +85,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     }
 
     func playerPlaybackDidFinish(_ notification: Notification) {
-        guard let userInfo: NSDictionary = notification.userInfo as! NSDictionary else { return }
+        guard let userInfo: NSDictionary = notification.userInfo as NSDictionary?  else { return }
         guard let rawReason = userInfo[MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? Int else { return }
         guard let reason: MPMovieFinishReason = MPMovieFinishReason(rawValue: rawReason) else { return }
 

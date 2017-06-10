@@ -57,7 +57,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     }
 
     // https://gist.github.com/vhbit/958738
-    func openTwitterClientForUserName(_ userName: String) -> Bool {
+    func openTwitterClientForUserName(_ userName: String) {
         let urls = [
             "twitter:@{username}", // Twitter
             "tweetbot:///user_profile/{username}", // TweetBot
@@ -82,11 +82,8 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
                 if application.canOpenURL(url) {
                     print("we can open \(url)")
                     application.openURL(url)
-                    return true
                 }
             }
         }
-
-        return false
     }
 }
