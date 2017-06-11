@@ -24,9 +24,9 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
 
         self.viewControllers = [
             searchController,
-            diagramController,
-            videoController,
             historyController,
+            diagramController,
+            videoController
         ]
 
         searchController.delegate = self
