@@ -10,7 +10,7 @@ class HistoryViewController: UITableViewController {
 
     override init(style: UITableViewStyle) {
         super.init(style: style)
-        self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.Recents, tag: 0)
+        self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.MostRecent, tag: 0)
             
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addEntry:", name: EntrySelectedName, object: nil)
     }
