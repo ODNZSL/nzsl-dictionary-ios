@@ -13,6 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             rootViewController = ViewControllerPhone()
         } else {
             rootViewController = ViewControllerPad()
+            self.window!.rootViewController = rootViewController
+            self.window!.makeKeyAndVisible();
+            return true
         }
         
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
