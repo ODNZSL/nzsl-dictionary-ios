@@ -24,6 +24,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var subsequent_keyboard: Bool!
     var scrollView: UIScrollView!
     var aboutContentWebView: UIWebView!
+    
+    // This is a fixed default in iOS
+    var detailViewMasterWidth = CGFloat(320)
+    var statusBarHeight = CGFloat(20)
 
     // MARK: Fixed datasource initialization
     // why do they leave the first element blank?
@@ -145,29 +149,37 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     // MARK View lifecycle
 
     override func loadView() {
-        if (self.tabBarController != nil) {
-            self.view = UIView.init(frame: CGRectMake(0, 20, 320, UIScreen.mainScreen().applicationFrame.height))
+        if (onPad()) {
+            // Create search frame set to fit within the master frame of the
+            // detail view controller;
+            // @see DetailViewController
+            self.view = UIView.init(frame: CGRectMake(0, statusBarHeight, detailViewMasterWidth, UIScreen.mainScreen().applicationFrame.height))
         } else {
             self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
         }
 
         
-        searchBar = PaddedUISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
-        searchBar.autoresizingMask = .FlexibleWidth
+        searchBar = PaddedUISearchBar(frame: CGRectMake(0, onPad() ? statusBarHeight : 0, view.bounds.size.width, onPad() ? 96 : 44))
+        searchBar.backgroundImage = UIImage()
+        searchBar.autoresizingMask = [.FlexibleWidth]
+        searchBar.tintColor = AppThemePrimaryColor
+        searchBar.tintAdjustmentMode = .Normal
         searchBar.barTintColor = AppThemePrimaryColor
-        searchBar.opaque = false
+        searchBar.opaque = true
+        
         searchBar.delegate = self
         self.view.addSubview(searchBar)
 
         modeSwitch = UISegmentedControl(items: ["Abc", UIImage(named: "hands")!])
         modeSwitch.autoresizingMask = .FlexibleLeftMargin
-        modeSwitch.frame = CGRectMake(view.bounds.size.width - modeSwitch.bounds.size.width - 4, 0 + 6, modeSwitch.bounds.size.width, 32)
+        modeSwitch.frame = CGRectMake(view.bounds.size.width -
+            modeSwitch.bounds.size.width - 8, 0 + 16, modeSwitch.bounds.size.width, 32)
         modeSwitch.selectedSegmentIndex = 0
         modeSwitch.tintColor = UIColor.whiteColor();
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), forControlEvents: .ValueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRectMake(0, 0 + 44, view.frame.size.width, view.frame.size.height - (0 + 44)))
+        searchTable = UITableView(frame: CGRectMake(0, onPad() ? 96 : 44, view.frame.size.width, view.frame.size.height - (0 + 44)))
         searchTable.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
