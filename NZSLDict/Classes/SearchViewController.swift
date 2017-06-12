@@ -215,8 +215,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addSubview(wotdImageView)
         
         
-        aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.bounds.maxY + 44, wotdView.frame.width, 500))
-        aboutContentWebView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.frame.maxY + 44, wotdView.frame.width, 500))
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
