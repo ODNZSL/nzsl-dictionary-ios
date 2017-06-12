@@ -145,6 +145,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
+    func onPad()-> Bool {
+        return UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+    }
 
     // MARK View lifecycle
 
