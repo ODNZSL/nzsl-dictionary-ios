@@ -450,7 +450,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         let entry: DictEntry = searchResults[indexPath.row] as! DictEntry
         self.selectEntry(entry)
         searchBar.resignFirstResponder()
-        self.delegate.didSelectEntry(entry)
+        self.delegate?.didSelectEntry(entry)
     }
 
 
