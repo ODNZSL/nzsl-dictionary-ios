@@ -43,7 +43,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationTitle = UINavigationItem(title: "")
         navigationBar.setItems([navigationTitle], animated: false)
 
-        diagramView = DiagramView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height / 2))
+        diagramView = DiagramView(frame: CGRectMake(0, navigationBar.frame.maxY, view.bounds.size.width, view.bounds.size.height / 2))
         diagramView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight, .FlexibleBottomMargin]
         view.addSubview(diagramView)
 
