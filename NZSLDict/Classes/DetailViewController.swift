@@ -8,7 +8,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     var navigationTitle: UINavigationItem!
     var player: MPMoviePlayerController!
     var activity: UIActivityIndicatorView!
-    var aboutPopoverController: UIPopoverController!
 
     var currentEntry: DictEntry!
 
@@ -42,7 +41,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         view.addSubview(navigationBar)
         
         navigationTitle = UINavigationItem(title: "")
-        navigationTitle.rightBarButtonItem = UIBarButtonItem(title: "About", style: .Plain, target: self, action: "showAbout:")
         navigationBar.setItems([navigationTitle], animated: false)
 
         diagramView = DiagramView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height / 2))
@@ -116,17 +114,4 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         }
     }
 
-    func showAbout(sender: AnyObject) {
-        if aboutPopoverController == nil {
-            let controller: AboutViewController = AboutViewController(nibName: "AboutViewController", bundle: nil)
-            aboutPopoverController = UIPopoverController(contentViewController: controller)
-        }
-
-        if aboutPopoverController.popoverVisible {
-            aboutPopoverController.dismissPopoverAnimated(true)
-        }
-        else {
-            aboutPopoverController.presentPopoverFromBarButtonItem(sender as! UIBarButtonItem, permittedArrowDirections: .Any, animated: true)
-        }
-    }
 }
