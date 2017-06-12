@@ -100,8 +100,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func playerPlaybackStateDidChange(notification: NSNotification) {
-        activity.stopAnimating()
-        activity.removeFromSuperview()
+        activity?.stopAnimating()
+        activity?.removeFromSuperview()
         activity = nil
     }
 
