@@ -158,6 +158,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
         }
 
+        view.backgroundColor = AppThemePrimaryLightColor
         
         searchBar = PaddedUISearchBar(frame: CGRectMake(0, onPad() ? statusBarHeight : 0, view.bounds.size.width, onPad() ? 96 : 44))
         searchBar.backgroundImage = UIImage()
