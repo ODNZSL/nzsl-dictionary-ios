@@ -315,14 +315,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         navbarTitleFirstSegment.sizeToFit();
         navbarTitleSecondSegment.sizeToFit();
         
-        self.tabBarController?.navigationItem.setLeftBarButtonItems([
+        self.tabBarController!.navigationItem.setLeftBarButtonItems([
             UIBarButtonItem.init(customView: navbarTitleFirstSegment),
             UIBarButtonItem.init(customView: navbarTitleSecondSegment)
         ], animated: false)
         
         
         let navigationBarRightButtonItem = UIBarButtonItem.init(customView: modeSwitch);
-        self.tabBarController?.navigationItem.setRightBarButtonItem(navigationBarRightButtonItem, animated: false)
+        self.tabBarController!.navigationItem.setRightBarButtonItem(navigationBarRightButtonItem, animated: false)
         
         wotdGlossLabel.text = wordOfTheDay.gloss
         wotdGlossLabel.sizeToFit()
@@ -356,7 +356,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         if sender.state == .Ended {
             self.selectEntry(wordOfTheDay)
             searchBar.resignFirstResponder()
-            self.delegate.didSelectEntry(wordOfTheDay)
+            self.delegate?.didSelectEntry(wordOfTheDay)
         }
     }
 
