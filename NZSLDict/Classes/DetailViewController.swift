@@ -37,6 +37,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationBar.autoresizingMask = .FlexibleWidth
         navigationBar.delegate = self
         view.addSubview(navigationBar)
+        
+        navigationTitle = UINavigationItem(title: "")
+        navigationTitle.rightBarButtonItem = UIBarButtonItem(title: "About", style: .Plain, target: self, action: "showAbout:")
+        navigationBar.setItems([navigationTitle], animated: false)
 
         diagramView = DiagramView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height / 2))
         diagramView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight, .FlexibleBottomMargin]
@@ -57,14 +61,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         self.view = view
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationTitle = UINavigationItem(title: "")
-        navigationTitle.rightBarButtonItem = UIBarButtonItem(title: "About", style: .Plain, target: self, action: "showAbout:")
-        navigationBar.setItems([navigationTitle], animated: false)
-    }
-
-    override func shouldAutorotate() -> Bool {
+     override func shouldAutorotate() -> Bool {
         return true
     }
 
