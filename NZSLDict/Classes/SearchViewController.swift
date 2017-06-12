@@ -155,6 +155,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar = PaddedUISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
         searchBar.autoresizingMask = .FlexibleWidth
         searchBar.barTintColor = AppThemePrimaryColor
+        searchBar.opaque = false
         searchBar.delegate = self
         self.view.addSubview(searchBar)
 
