@@ -24,6 +24,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var subsequent_keyboard: Bool!
     var scrollView: UIScrollView!
     var aboutContentWebView: UIWebView!
+    
+    // This is a fixed default in iOS
+    var detailViewMasterWidth = CGFloat(320)
+    var statusBarHeight = CGFloat(20)
 
     // MARK: Fixed datasource initialization
     // why do they leave the first element blank?
@@ -141,26 +145,46 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
+    func onPad()-> Bool {
+        return UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad
+    }
 
     // MARK View lifecycle
 
     override func loadView() {
-        self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
-        searchBar = PaddedUISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
-        searchBar.autoresizingMask = .FlexibleWidth
+        if (onPad()) {
+            // Create search frame set to fit within the master frame of the
+            // detail view controller;
+            // @see DetailViewController
+            self.view = UIView.init(frame: CGRectMake(0, statusBarHeight, detailViewMasterWidth, UIScreen.mainScreen().applicationFrame.height))
+        } else {
+            self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
+        }
+
+        view.backgroundColor = AppThemePrimaryLightColor
+        
+        searchBar = PaddedUISearchBar(frame: CGRectMake(0, onPad() ? statusBarHeight : 0, view.bounds.size.width, onPad() ? 96 : 44))
+        searchBar.backgroundImage = UIImage()
+        searchBar.autoresizingMask = [.FlexibleWidth]
+        searchBar.tintColor = AppThemePrimaryColor
+        searchBar.tintAdjustmentMode = .Normal
         searchBar.barTintColor = AppThemePrimaryColor
+        searchBar.opaque = true
+        
         searchBar.delegate = self
         self.view.addSubview(searchBar)
 
         modeSwitch = UISegmentedControl(items: ["Abc", UIImage(named: "hands")!])
         modeSwitch.autoresizingMask = .FlexibleLeftMargin
-        modeSwitch.frame = CGRectMake(view.bounds.size.width - modeSwitch.bounds.size.width - 4, 0 + 6, modeSwitch.bounds.size.width, 32)
+        modeSwitch.frame = CGRectMake(view.bounds.size.width -
+            modeSwitch.bounds.size.width - 8, 0 + 16, modeSwitch.bounds.size.width, 32)
         modeSwitch.selectedSegmentIndex = 0
         modeSwitch.tintColor = UIColor.whiteColor();
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), forControlEvents: .ValueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRectMake(0, 0 + 44, view.bounds.size.width, view.bounds.size.height - (0 + 44)))
+        searchTable = UITableView(frame: CGRectMake(0, onPad() ? 96 : 44, view.frame.size.width, view.frame.size.height - (0 + 44)))
         searchTable.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
@@ -174,7 +198,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         scrollView = UIScrollView.init(frame: searchTable.frame);
         scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
-        scrollView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+        scrollView.autoresizingMask = [.FlexibleHeight]
         scrollView.backgroundColor = UIColor.whiteColor()
         
         
@@ -208,8 +232,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addSubview(wotdImageView)
         
         
-        aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.bounds.maxY + 44, wotdView.frame.width, 500))
-        aboutContentWebView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.frame.maxY + 44, wotdView.frame.width, 500))
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
@@ -309,14 +332,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         navbarTitleFirstSegment.sizeToFit();
         navbarTitleSecondSegment.sizeToFit();
         
-        self.tabBarController?.navigationItem.setLeftBarButtonItems([
+        self.tabBarController!.navigationItem.setLeftBarButtonItems([
             UIBarButtonItem.init(customView: navbarTitleFirstSegment),
             UIBarButtonItem.init(customView: navbarTitleSecondSegment)
         ], animated: false)
         
         
         let navigationBarRightButtonItem = UIBarButtonItem.init(customView: modeSwitch);
-        self.tabBarController?.navigationItem.setRightBarButtonItem(navigationBarRightButtonItem, animated: false)
+        self.tabBarController!.navigationItem.setRightBarButtonItem(navigationBarRightButtonItem, animated: false)
         
         wotdGlossLabel.text = wordOfTheDay.gloss
         wotdGlossLabel.sizeToFit()
@@ -350,7 +373,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         if sender.state == .Ended {
             self.selectEntry(wordOfTheDay)
             searchBar.resignFirstResponder()
-            self.delegate.didSelectEntry(wordOfTheDay)
+            self.delegate?.didSelectEntry(wordOfTheDay)
         }
     }
 
@@ -398,7 +421,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     func selectEntry(entry: DictEntry) {
-        NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: self, userInfo: ["entry": entry])
+        NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: nil, userInfo: ["entry": entry])
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -444,7 +467,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         let entry: DictEntry = searchResults[indexPath.row] as! DictEntry
         self.selectEntry(entry)
         searchBar.resignFirstResponder()
-        self.delegate.didSelectEntry(entry)
+        self.delegate?.didSelectEntry(entry)
     }
 
 

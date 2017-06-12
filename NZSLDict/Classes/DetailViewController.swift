@@ -8,13 +8,12 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     var navigationTitle: UINavigationItem!
     var player: MPMoviePlayerController!
     var activity: UIActivityIndicatorView!
-    var aboutPopoverController: UIPopoverController!
 
     var currentEntry: DictEntry!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showEntry:", name: EntrySelectedName, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: EntrySelectedName, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerPlaybackStateDidChange:", name: MPMoviePlayerPlaybackStateDidChangeNotification, object: player)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerPlaybackDidFinish:", name: MPMoviePlayerPlaybackDidFinishNotification, object: player)
     }
@@ -33,12 +32,18 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
         let top_offset: CGFloat = 20
 
-        navigationBar = UINavigationBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 44))
+        navigationBar = UINavigationBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 96 - top_offset))
+        navigationBar.barTintColor = AppThemePrimaryColor
+        navigationBar.opaque = false
         navigationBar.autoresizingMask = .FlexibleWidth
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         navigationBar.delegate = self
         view.addSubview(navigationBar)
+        
+        navigationTitle = UINavigationItem(title: "")
+        navigationBar.setItems([navigationTitle], animated: false)
 
-        diagramView = DiagramView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height / 2))
+        diagramView = DiagramView(frame: CGRectMake(0, navigationBar.frame.maxY, view.bounds.size.width, view.bounds.size.height / 2))
         diagramView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight, .FlexibleBottomMargin]
         view.addSubview(diagramView)
 
@@ -57,14 +62,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         self.view = view
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationTitle = UINavigationItem(title: "")
-        navigationTitle.rightBarButtonItem = UIBarButtonItem(title: "About", style: .Plain, target: self, action: "showAbout:")
-        navigationBar.setItems([navigationTitle], animated: false)
-    }
-
-    override func shouldAutorotate() -> Bool {
+     override func shouldAutorotate() -> Bool {
         return true
     }
 
@@ -81,10 +79,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func showEntry(notification: NSNotification) {
-        currentEntry = notification.userInfo!["entry"] as! DictEntry
-        navigationTitle.title = currentEntry.gloss
-        diagramView.showEntry(currentEntry)
-        player.view!.removeFromSuperview()
+        currentEntry = notification.userInfo?["entry"] as? DictEntry
+        navigationTitle?.title = currentEntry.gloss
+        diagramView?.showEntry(currentEntry)
+        player?.view!.removeFromSuperview()
         player = nil
     }
 
@@ -102,13 +100,13 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func playerPlaybackStateDidChange(notification: NSNotification) {
-        activity.stopAnimating()
-        activity.removeFromSuperview()
+        activity?.stopAnimating()
+        activity?.removeFromSuperview()
         activity = nil
     }
 
     func playerPlaybackDidFinish(notification: NSNotification) {
-        let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as! MPMovieFinishReason
+        let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? MPMovieFinishReason
 
         if reason == .PlaybackError {
             let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
@@ -116,17 +114,4 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         }
     }
 
-    func showAbout(sender: AnyObject) {
-        if aboutPopoverController == nil {
-            let controller: AboutViewController = AboutViewController(nibName: "AboutViewController", bundle: nil)
-            aboutPopoverController = UIPopoverController(contentViewController: controller)
-        }
-
-        if aboutPopoverController.popoverVisible {
-            aboutPopoverController.dismissPopoverAnimated(true)
-        }
-        else {
-            aboutPopoverController.presentPopoverFromBarButtonItem(sender as! UIBarButtonItem, permittedArrowDirections: .Any, animated: true)
-        }
-    }
 }
