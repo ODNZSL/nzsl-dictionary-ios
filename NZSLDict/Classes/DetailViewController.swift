@@ -78,10 +78,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func showEntry(notification: NSNotification) {
-        currentEntry = notification.userInfo!["entry"] as! DictEntry
-        navigationTitle.title = currentEntry.gloss
-        diagramView.showEntry(currentEntry)
-        player.view!.removeFromSuperview()
+        currentEntry = notification.userInfo?["entry"] as? DictEntry
+        navigationTitle?.title = currentEntry.gloss
+        diagramView?.showEntry(currentEntry)
+        player?.view!.removeFromSuperview()
         player = nil
     }
 
