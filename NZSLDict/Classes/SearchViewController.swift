@@ -145,7 +145,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     // MARK View lifecycle
 
     override func loadView() {
-        self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
+        if (self.tabBarController != nil) {
+            self.view = UIView.init(frame: CGRectMake(0, 20, 320, UIScreen.mainScreen().applicationFrame.height))
+        } else {
+            self.view = UIView.init(frame: UIScreen.mainScreen().applicationFrame)
+        }
+
+        
         searchBar = PaddedUISearchBar(frame: CGRectMake(0, 0, view.bounds.size.width, 44))
         searchBar.autoresizingMask = .FlexibleWidth
         searchBar.barTintColor = AppThemePrimaryColor
