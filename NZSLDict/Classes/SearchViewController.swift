@@ -404,7 +404,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     func selectEntry(entry: DictEntry) {
-        NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: self, userInfo: ["entry": entry])
+        NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: nil, userInfo: ["entry": entry])
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
