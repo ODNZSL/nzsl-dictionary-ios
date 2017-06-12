@@ -106,7 +106,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func playerPlaybackDidFinish(notification: NSNotification) {
-        let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as! MPMovieFinishReason
+        let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? MPMovieFinishReason
 
         if reason == .PlaybackError {
             let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
