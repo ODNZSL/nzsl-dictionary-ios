@@ -167,7 +167,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), forControlEvents: .ValueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRectMake(0, 0 + 44, view.bounds.size.width, view.bounds.size.height - (0 + 44)))
+        searchTable = UITableView(frame: CGRectMake(0, 0 + 44, view.frame.size.width, view.frame.size.height - (0 + 44)))
         searchTable.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
