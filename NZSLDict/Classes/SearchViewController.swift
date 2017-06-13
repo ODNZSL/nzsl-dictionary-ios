@@ -351,12 +351,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         locationSelector.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Left)
         self.selectSearchMode(modeSwitch)
     }
-
-    override func viewDidAppear(animated: Bool) {
-        if modeSwitch.selectedSegmentIndex == 0 && searchBar.text!.characters.count == 0 {
-            searchBar.becomeFirstResponder()
-        }
-    }
     
     override func viewDidLayoutSubviews() {
         // Autosize the scrollview
