@@ -198,7 +198,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         scrollView = UIScrollView.init(frame: searchTable.frame);
         scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
-        scrollView.autoresizingMask = [.FlexibleHeight]
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         scrollView.backgroundColor = UIColor.whiteColor()
         
         
@@ -233,6 +233,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         
         aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.frame.maxY + 44, wotdView.frame.width, 500))
+        aboutContentWebView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
