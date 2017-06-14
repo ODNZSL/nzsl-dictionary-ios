@@ -5,6 +5,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     var currentEntry: DictEntry!
     var detailView: DetailView!
     var videoBack: UIView!
+    var networkErrorMessage: UIView!
     var activity: UIActivityIndicatorView!
     var player: MPMoviePlayerController!
     var delegate: ViewControllerDelegate!
@@ -33,6 +34,22 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         videoBack = UIView(frame: CGRectMake(0, DetailView.height, view.bounds.size.width, view.bounds.size.height - DetailView.height))
         videoBack.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(videoBack)
+        
+        networkErrorMessage = UIView.init(frame: videoBack.frame)
+        networkErrorMessage.autoresizingMask = detailView.autoresizingMask
+        networkErrorMessage.backgroundColor = UIColor.whiteColor()
+        let networkErrorMessageImage = UIImageView.init(frame: CGRectMake(0, 24, networkErrorMessage.frame.width, 72))
+        networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")
+        networkErrorMessageImage.contentMode = .Center
+        
+        let networkErrorMessageText = UITextView.init(frame: CGRectMake(0, 24 + networkErrorMessageImage.frame.height, networkErrorMessage.frame.width, 100))
+        networkErrorMessageText.textAlignment = .Center
+        networkErrorMessageText.text = "Playing videos requires access to the Internet."
+        
+        networkErrorMessage.addSubview(networkErrorMessageImage)
+        networkErrorMessage.addSubview(networkErrorMessageText)
+        networkErrorMessage.autoresizesSubviews = true
+        view.addSubview(networkErrorMessage)
 
         self.view = view
     }
@@ -75,6 +92,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         activity.frame = CGRectOffset(activity.frame, (videoBack.bounds.size.width - activity.bounds.size.width) / 2, (videoBack.bounds.size.height - activity.bounds.size.height) / 2)
         activity.startAnimating()
     }
+    
 
     func playerPlaybackStateDidChange(notification: NSNotification) {
         if activity == nil { return }
@@ -91,10 +109,9 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
 
         switch reason {
         case .PlaybackError:
-            let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
-            alert.show()
+            networkErrorMessage.hidden = false
+            videoBack.hidden = true
         default: break
         }
     }
-
 }
