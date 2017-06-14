@@ -8,6 +8,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     var navigationTitle: UINavigationItem!
     var player: MPMoviePlayerController!
     var activity: UIActivityIndicatorView!
+    var reachability: Reachability?
+    var networkErrorMessage: UIView!
 
     var currentEntry: DictEntry!
 
@@ -24,6 +26,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
     deinit {
        NSNotificationCenter.defaultCenter().removeObserver(self)
+        reachability?.stopNotifier()
+        reachability = nil
     }
 
     override func loadView() {
@@ -40,7 +44,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationBar.delegate = self
         view.addSubview(navigationBar)
         
-        navigationTitle = UINavigationItem(title: "")
+        navigationTitle = UINavigationItem(title: "NZSL Dictionary")
         navigationBar.setItems([navigationTitle], animated: false)
 
         diagramView = DiagramView(frame: CGRectMake(0, navigationBar.frame.maxY, view.bounds.size.width, view.bounds.size.height / 2))
@@ -59,6 +63,26 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.titleLabel!.textColor = UIColor.blackColor()
         playButton.addTarget(self, action: "startPlayer:", forControlEvents: .TouchUpInside)
         videoView.addSubview(playButton)
+        
+        
+        networkErrorMessage = UIView.init(frame: videoView.frame)
+        networkErrorMessage.autoresizingMask = videoView.autoresizingMask
+        networkErrorMessage.backgroundColor = UIColor.whiteColor()
+        let networkErrorMessageImage = UIImageView.init(frame: CGRectMake(0, 24, networkErrorMessage.frame.width, 72))
+        networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")
+        networkErrorMessageImage.contentMode = .Center
+        
+        let networkErrorMessageText = UITextView.init(frame: CGRectMake(0, 24 + networkErrorMessageImage.frame.height, networkErrorMessage.frame.width, 100))
+        networkErrorMessageText.textAlignment = .Center
+        networkErrorMessageText.text = "Playing videos requires access to the Internet."
+        
+        networkErrorMessage.addSubview(networkErrorMessageImage)
+        networkErrorMessage.addSubview(networkErrorMessageText)
+        networkErrorMessage.autoresizesSubviews = true
+        view.addSubview(networkErrorMessage)
+        
+        setupNetworkStatusMonitoring()
+        
         self.view = view
     }
 
@@ -67,7 +91,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        player.view!.frame = videoView.bounds
+        if player == nil { return }
+        player.view!.frame = videoView.frame
     }
 
     func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
@@ -84,6 +109,36 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         diagramView?.showEntry(currentEntry)
         player?.view!.removeFromSuperview()
         player = nil
+    }
+    
+    func setupNetworkStatusMonitoring() {
+        reachability = Reachability.reachabilityForInternetConnection()
+        
+        
+        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.networkErrorMessage.hidden = true
+                self.videoView.hidden = false
+                
+            }
+        }
+        
+        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.networkErrorMessage.hidden = false
+                self.videoView.hidden = true
+            }
+        }
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.reachability!.startNotifier()
     }
 
     @IBAction func startPlayer(sender: AnyObject) {
@@ -109,8 +164,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? MPMovieFinishReason
 
         if reason == .PlaybackError {
-            let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
-            alert.show()
+            networkErrorMessage.hidden = false
+            videoView.hidden = true
         }
     }
 
