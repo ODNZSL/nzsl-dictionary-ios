@@ -61,11 +61,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.3.3</string>
+	<string>2.3.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2.3.3</string>
+	<string>2.3.4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -79,6 +79,13 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/Montserrat-Regular.ttf</string>
+		<string>Fonts/Montserrat-Italic.ttf</string>
+		<string>Fonts/Montserrat-BoldItalic.ttf</string>
+		<string>Fonts/Montserrat-Bold.ttf</string>
+	</array>
 	<key>UILaunchImages</key>
 	<array>
 		<dict>
@@ -164,13 +171,6 @@
 			<key>UILaunchImageSize</key>
 			<string>{320, 480}</string>
 		</dict>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Fonts/Montserrat-Regular.ttf</string>
-		<string>Fonts/Montserrat-Italic.ttf</string>
-		<string>Fonts/Montserrat-BoldItalic.ttf</string>
-		<string>Fonts/Montserrat-Bold.ttf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
