@@ -15,6 +15,7 @@
 		03B1C8981EE75B4F008A875C /* SignsDictionaryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */; };
 		03C248B61EF1E37800569CE0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03884A2C1EEFC20300EF5412 /* SystemConfiguration.framework */; };
 		03C248BA1EF1E4BE00569CE0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 03C248B91EF1E4BE00569CE0 /* Reachability.m */; };
+		03EAA39E1EF0D56A001B3C6F /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 03EAA39C1EF0D52E001B3C6F /* Fonts */; };
 		374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E59DF173260B9004C7D44 /* QuartzCore.framework */; };
 		37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3111415133261005F45FA /* MediaPlayer.framework */; };
 		37B3112715199CAC005F45FA /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 37B3112615199CAC005F45FA /* about.html */; };
@@ -102,6 +103,7 @@
 		03C248B21EF1E12000569CE0 /* Reachability */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Reachability; sourceTree = "<group>"; };
 		03C248B81EF1E4BE00569CE0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		03C248B91EF1E4BE00569CE0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		03EAA39C1EF0D52E001B3C6F /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		374E59DF173260B9004C7D44 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B3111415133261005F45FA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		37B3112615199CAC005F45FA /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			children = (
 				03884A2E1EF0947D00EF5412 /* ic_videocam_off.png */,
 				03884A2F1EF0947D00EF5412 /* ic_videocam_off@2x.png */,
+				03EAA39C1EF0D52E001B3C6F /* Fonts */,
 				039081C81EEA3F800050C180 /* app-icon-transparent.png */,
 				49AFE04F1C28ED0D00462381 /* README.md */,
 				4960AD341C28E22E001037C4 /* App Icons */,
@@ -494,6 +497,7 @@
 			files = (
 				03884A301EF0947D00EF5412 /* ic_videocam_off.png in Resources */,
 				03884A311EF0947D00EF5412 /* ic_videocam_off@2x.png in Resources */,
+				03EAA39E1EF0D56A001B3C6F /* Fonts in Resources */,
 				039081C91EEA3F800050C180 /* app-icon-transparent.png in Resources */,
 				4960AD5F1C28E22E001037C4 /* screenshot-iphone-diagram.png in Resources */,
 				4960AD611C28E22E001037C4 /* screenshot-iphone-home.png in Resources */,

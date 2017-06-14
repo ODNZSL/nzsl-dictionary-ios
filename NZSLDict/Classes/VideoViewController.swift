@@ -32,7 +32,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 
         detailView = DetailView(frame: CGRectMake(0, 0, view.bounds.size.width, DetailView.height))
-        detailView.autoresizingMask = .FlexibleWidth
+        detailView.autoresizingMask = [.FlexibleWidth]
         view.addSubview(detailView)
         videoBack = UIView(frame: CGRectMake(0, DetailView.height, view.bounds.size.width, view.bounds.size.height - DetailView.height))
         videoBack.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]

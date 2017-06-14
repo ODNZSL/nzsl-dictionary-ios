@@ -198,7 +198,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         scrollView = UIScrollView.init(frame: searchTable.frame);
         scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
-        scrollView.autoresizingMask = [.FlexibleHeight]
+        scrollView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         scrollView.backgroundColor = UIColor.whiteColor()
         
         
@@ -233,6 +233,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         
         aboutContentWebView = UIWebView.init(frame: CGRectMake(0, wotdView.frame.maxY + 44, wotdView.frame.width, 500))
+        aboutContentWebView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
@@ -314,12 +315,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         tabBarController?.title = nil
         let navbarTitleFirstSegment = UILabel()
         let navbarTitleSecondSegment = UILabel()
+        
         navbarTitleFirstSegment.textColor = UIColor.whiteColor();
         navbarTitleSecondSegment.textColor = UIColor.whiteColor();
         
         if navbarTitleFirstSegment.respondsToSelector("setAttributedText:") {
-            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(22)])
-            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.italicSystemFontOfSize(22)])
+            
+            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.init(name: "Montserrat-Bold", size: 22)!])
+            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.init(name: "Montserrat-Italic", size: 22)!])
         
             navbarTitleFirstSegment.attributedText = navbarTitleFirstSegmentText
             navbarTitleSecondSegment.attributedText = navbarTitleSecondSegmentText
@@ -350,12 +353,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         handshapeSelector.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Left)
         locationSelector.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Left)
         self.selectSearchMode(modeSwitch)
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        if modeSwitch.selectedSegmentIndex == 0 && searchBar.text!.characters.count == 0 {
-            searchBar.becomeFirstResponder()
-        }
     }
     
     override func viewDidLayoutSubviews() {

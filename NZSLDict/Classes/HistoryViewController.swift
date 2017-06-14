@@ -105,6 +105,6 @@ class HistoryViewController: UITableViewController {
         ]
 
         NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: self, userInfo: userInfo)
-        self.delegate.didSelectEntry(dictEntryFromHistory)
+        self.delegate?.didSelectEntry(dictEntryFromHistory)
     }
 }
