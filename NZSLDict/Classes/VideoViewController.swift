@@ -66,12 +66,8 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
             self.edgesForExtendedLayout = .None
         }
         
-        do {
-            try reachability!.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
 
+       reachability!.startNotifier()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -81,15 +77,10 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     }
     
     func setupNetworkStatusMonitoring() {
-        do {
-            reachability = try Reachability.reachabilityForInternetConnection()
-        } catch {
-            print("Unable to create Reachability")
-            return
-        }
+        reachability = Reachability.reachabilityForInternetConnection()
+            
         
-        
-        reachability!.whenReachable = { reachability in
+        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
@@ -98,7 +89,8 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
                 
             }
         }
-        reachability!.whenUnreachable = { reachability in
+        
+        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
