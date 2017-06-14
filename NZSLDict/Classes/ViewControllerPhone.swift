@@ -16,6 +16,7 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBar.backgroundColor = UIColor.whiteColor()
 
         searchController = SearchViewController()
         diagramController = DiagramViewController()
@@ -28,7 +29,7 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
             diagramController,
             videoController
         ]
-
+        
         searchController.delegate = self
         diagramController.delegate = self
         videoController.delegate = self
