@@ -165,6 +165,13 @@
 			<string>{320, 480}</string>
 		</dict>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/Montserrat-Regular.ttf</string>
+		<string>Fonts/Montserrat-Italic.ttf</string>
+		<string>Fonts/Montserrat-BoldItalic.ttf</string>
+		<string>Fonts/Montserrat-Bold.ttf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

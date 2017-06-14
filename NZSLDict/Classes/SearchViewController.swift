@@ -315,12 +315,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         tabBarController?.title = nil
         let navbarTitleFirstSegment = UILabel()
         let navbarTitleSecondSegment = UILabel()
+        
         navbarTitleFirstSegment.textColor = UIColor.whiteColor();
         navbarTitleSecondSegment.textColor = UIColor.whiteColor();
         
         if navbarTitleFirstSegment.respondsToSelector("setAttributedText:") {
-            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(22)])
-            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.italicSystemFontOfSize(22)])
+            
+            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.init(name: "Montserrat-Bold", size: 22)!])
+            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.init(name: "Montserrat-Italic", size: 22)!])
         
             navbarTitleFirstSegment.attributedText = navbarTitleFirstSegmentText
             navbarTitleSecondSegment.attributedText = navbarTitleSecondSegmentText

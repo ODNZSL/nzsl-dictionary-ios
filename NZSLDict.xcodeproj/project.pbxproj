@@ -11,6 +11,7 @@
 		039081C91EEA3F800050C180 /* app-icon-transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 039081C81EEA3F800050C180 /* app-icon-transparent.png */; };
 		039081CB1EEA4A2E0050C180 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039081CA1EEA4A2E0050C180 /* AboutViewController.swift */; };
 		03B1C8981EE75B4F008A875C /* SignsDictionaryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */; };
+		03EAA39E1EF0D56A001B3C6F /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 03EAA39C1EF0D52E001B3C6F /* Fonts */; };
 		374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374E59DF173260B9004C7D44 /* QuartzCore.framework */; };
 		37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3111415133261005F45FA /* MediaPlayer.framework */; };
 		37B3112715199CAC005F45FA /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 37B3112615199CAC005F45FA /* about.html */; };
@@ -92,6 +93,7 @@
 		03B1C88C1EE75B0E008A875C /* NZSLDictTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NZSLDictTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B1C8901EE75B0F008A875C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03B1C8971EE75B4F008A875C /* SignsDictionaryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignsDictionaryTest.swift; path = ../SignsDictionaryTest.swift; sourceTree = "<group>"; };
+		03EAA39C1EF0D52E001B3C6F /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		374E59DF173260B9004C7D44 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		37B3111415133261005F45FA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		37B3112615199CAC005F45FA /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		37B3F27E1512F946005F45FA = {
 			isa = PBXGroup;
 			children = (
+				03EAA39C1EF0D52E001B3C6F /* Fonts */,
 				039081C81EEA3F800050C180 /* app-icon-transparent.png */,
 				49AFE04F1C28ED0D00462381 /* README.md */,
 				4960AD341C28E22E001037C4 /* App Icons */,
@@ -475,6 +478,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03EAA39E1EF0D56A001B3C6F /* Fonts in Resources */,
 				039081C91EEA3F800050C180 /* app-icon-transparent.png in Resources */,
 				4960AD5F1C28E22E001037C4 /* screenshot-iphone-diagram.png in Resources */,
 				4960AD611C28E22E001037C4 /* screenshot-iphone-home.png in Resources */,
