@@ -118,6 +118,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
             }
         }
         
+        self.playButton.enabled = reachability?.currentReachabilityStatus() != .NotReachable
+        
     }
     
     override func viewDidLoad() {
