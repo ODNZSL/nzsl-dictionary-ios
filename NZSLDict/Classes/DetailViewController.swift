@@ -106,9 +106,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
-                self.networkErrorMessage.hidden = true
-                self.videoView.hidden = false
-                
+                self.playButton.enabled = true
             }
         }
         
@@ -116,8 +114,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
             dispatch_async(dispatch_get_main_queue()) {
-                self.networkErrorMessage.hidden = false
-                self.videoView.hidden = true
+                self.playButton.enabled = false
             }
         }
         
