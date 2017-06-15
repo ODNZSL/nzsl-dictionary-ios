@@ -8,6 +8,9 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     var navigationTitle: UINavigationItem!
     var player: MPMoviePlayerController!
     var activity: UIActivityIndicatorView!
+    var playButton: UIButton!
+    var reachability: Reachability?
+    var networkErrorMessage: UIView!
 
     var currentEntry: DictEntry!
 
@@ -24,6 +27,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
     deinit {
        NSNotificationCenter.defaultCenter().removeObserver(self)
+        reachability?.stopNotifier()
+        reachability = nil
     }
 
     override func loadView() {
@@ -40,7 +45,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationBar.delegate = self
         view.addSubview(navigationBar)
         
-        navigationTitle = UINavigationItem(title: "")
+        navigationTitle = UINavigationItem(title: "NZSL Dictionary")
         navigationBar.setItems([navigationTitle], animated: false)
 
         diagramView = DiagramView(frame: CGRectMake(0, navigationBar.frame.maxY, view.bounds.size.width, view.bounds.size.height / 2))
@@ -52,13 +57,19 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         videoView.backgroundColor = UIColor.blackColor()
         view.addSubview(videoView)
 
-        let playButton: UIButton = UIButton(type: .RoundedRect)
-        playButton.frame = CGRectMake((videoView.bounds.size.width - 100) / 2, (videoView.bounds.size.height - 40) / 2, 100, 40)
+        playButton = UIButton(type: .RoundedRect)
+        playButton.frame = CGRectMake(0, (videoView.bounds.size.height - 40) / 2, videoView.bounds.width, 40)
+        playButton.titleLabel?.textAlignment = .Center
         playButton.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
         playButton.setTitle("Play Video", forState: .Normal)
-        playButton.titleLabel!.textColor = UIColor.blackColor()
+        playButton.setTitle("Playing videos requires access to the Internet.", forState: .Disabled)
+        playButton.setTitleColor(UIColor.whiteColor(), forState: .Disabled)
+        
         playButton.addTarget(self, action: "startPlayer:", forControlEvents: .TouchUpInside)
         videoView.addSubview(playButton)
+        
+        setupNetworkStatusMonitoring()
+        
         self.view = view
     }
 
@@ -67,7 +78,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        player.view!.frame = videoView.bounds
+        if player == nil { return }
+        player.view!.frame = videoView.frame
     }
 
     func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
@@ -84,6 +96,34 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         diagramView?.showEntry(currentEntry)
         player?.view!.removeFromSuperview()
         player = nil
+    }
+    
+    func setupNetworkStatusMonitoring() {
+        reachability = Reachability.reachabilityForInternetConnection()
+        
+        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.playButton.enabled = true
+            }
+        }
+        
+        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.playButton.enabled = false
+            }
+        }
+        
+        self.playButton.enabled = reachability?.currentReachabilityStatus() != .NotReachable
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.reachability!.startNotifier()
     }
 
     @IBAction func startPlayer(sender: AnyObject) {

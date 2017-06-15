@@ -5,9 +5,11 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     var currentEntry: DictEntry!
     var detailView: DetailView!
     var videoBack: UIView!
+    var networkErrorMessage: UIView!
     var activity: UIActivityIndicatorView!
     var player: MPMoviePlayerController!
     var delegate: ViewControllerDelegate!
+    var reachability: Reachability?
 
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -21,6 +23,8 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        reachability?.stopNotifier()
+        reachability = nil
     }
 
     override func loadView() {
@@ -33,6 +37,25 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         videoBack = UIView(frame: CGRectMake(0, DetailView.height, view.bounds.size.width, view.bounds.size.height - DetailView.height))
         videoBack.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(videoBack)
+        
+        networkErrorMessage = UIView.init(frame: videoBack.frame)
+        networkErrorMessage.autoresizingMask = detailView.autoresizingMask
+        networkErrorMessage.backgroundColor = UIColor.whiteColor()
+        let networkErrorMessageImage = UIImageView.init(frame: CGRectMake(0, 24, networkErrorMessage.frame.width, 72))
+        networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")
+        networkErrorMessageImage.contentMode = .Center
+        
+        let networkErrorMessageText = UITextView.init(frame: CGRectMake(0, 24 + networkErrorMessageImage.frame.height, networkErrorMessage.frame.width, 100))
+        networkErrorMessageText.textAlignment = .Center
+        networkErrorMessageText.text = "Playing videos requires access to the Internet."
+        
+        networkErrorMessage.addSubview(networkErrorMessageImage)
+        networkErrorMessage.addSubview(networkErrorMessageText)
+        networkErrorMessage.autoresizesSubviews = true
+        view.addSubview(networkErrorMessage)
+        
+        
+        setupNetworkStatusMonitoring()
 
         self.view = view
     }
@@ -42,12 +65,42 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         if self.respondsToSelector("edgesForExtendedLayout") {
             self.edgesForExtendedLayout = .None
         }
+        
+
+       reachability!.startNotifier()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.showCurrentEntry()
+        
     }
+    
+    func setupNetworkStatusMonitoring() {
+        reachability = Reachability.reachabilityForInternetConnection()
+            
+        
+        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.networkErrorMessage.hidden = true
+                self.videoBack.hidden = false
+                
+            }
+        }
+        
+        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            dispatch_async(dispatch_get_main_queue()) {
+                self.networkErrorMessage.hidden = false
+                self.videoBack.hidden = true
+            }
+        }
+        
+    }
+
 
     func showEntry(notification: NSNotification) {
         currentEntry = notification.userInfo!["entry"] as! DictEntry
@@ -75,6 +128,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         activity.frame = CGRectOffset(activity.frame, (videoBack.bounds.size.width - activity.bounds.size.width) / 2, (videoBack.bounds.size.height - activity.bounds.size.height) / 2)
         activity.startAnimating()
     }
+    
 
     func playerPlaybackStateDidChange(notification: NSNotification) {
         if activity == nil { return }
@@ -91,10 +145,9 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
 
         switch reason {
         case .PlaybackError:
-            let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
-            alert.show()
+            networkErrorMessage.hidden = false
+            videoBack.hidden = true
         default: break
         }
     }
-
 }
