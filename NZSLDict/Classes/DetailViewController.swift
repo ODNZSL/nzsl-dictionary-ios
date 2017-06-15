@@ -62,6 +62,9 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.titleLabel?.textAlignment = .Center
         playButton.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
         playButton.setTitle("Play Video", forState: .Normal)
+        playButton.setTitle("Playing videos requires access to the Internet.", forState: .Disabled)
+        playButton.setTitleColor(UIColor.whiteColor(), forState: .Disabled)
+        
         playButton.addTarget(self, action: "startPlayer:", forControlEvents: .TouchUpInside)
         videoView.addSubview(playButton)
         
