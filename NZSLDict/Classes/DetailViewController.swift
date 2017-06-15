@@ -68,23 +68,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.addTarget(self, action: "startPlayer:", forControlEvents: .TouchUpInside)
         videoView.addSubview(playButton)
         
-        
-        networkErrorMessage = UIView.init(frame: videoView.frame)
-        //networkErrorMessage.autoresizingMask = videoView.autoresizingMask
-        networkErrorMessage.backgroundColor = UIColor.whiteColor()
-        let networkErrorMessageImage = UIImageView.init(frame: CGRectMake(0, 24, networkErrorMessage.bounds.width, 72))
-        networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")
-        networkErrorMessageImage.contentMode = .Center
-        
-        let networkErrorMessageText = UITextView.init(frame: CGRectMake(0, 24 + networkErrorMessageImage.bounds.height, networkErrorMessage.bounds.width, 100))
-        networkErrorMessageText.textAlignment = .Center
-        networkErrorMessageText.text = "Playing videos requires access to the Internet."
-        
-        networkErrorMessage.addSubview(networkErrorMessageImage)
-        networkErrorMessage.addSubview(networkErrorMessageText)
-        //networkErrorMessage.autoresizesSubviews = true
-        view.addSubview(networkErrorMessage)
-        
         setupNetworkStatusMonitoring()
         
         self.view = view
