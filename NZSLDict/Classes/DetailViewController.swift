@@ -101,7 +101,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     func setupNetworkStatusMonitoring() {
         reachability = Reachability.reachabilityForInternetConnection()
         
-        
         reachability!.reachableBlock = { (reach: Reachability?) -> Void in
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
@@ -150,8 +149,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? MPMovieFinishReason
 
         if reason == .PlaybackError {
-            networkErrorMessage.hidden = false
-            videoView.hidden = true
+            let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
+            alert.show()
         }
     }
 
