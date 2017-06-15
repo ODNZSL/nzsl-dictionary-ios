@@ -99,6 +99,10 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
             }
         }
         
+        if reachability?.currentReachabilityStatus() != .NotReachable {
+            reachability?.reachableBlock(reachability)
+        }
+        
     }
 
 
