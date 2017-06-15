@@ -8,6 +8,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     var navigationTitle: UINavigationItem!
     var player: MPMoviePlayerController!
     var activity: UIActivityIndicatorView!
+    var playButton: UIButton!
     var reachability: Reachability?
     var networkErrorMessage: UIView!
 
@@ -56,7 +57,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         videoView.backgroundColor = UIColor.blackColor()
         view.addSubview(videoView)
 
-        let playButton: UIButton = UIButton(type: .RoundedRect)
+        playButton = UIButton(type: .RoundedRect)
         playButton.frame = CGRectMake((videoView.bounds.size.width - 100) / 2, (videoView.bounds.size.height - 40) / 2, 100, 40)
         playButton.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleTopMargin, .FlexibleBottomMargin]
         playButton.setTitle("Play Video", forState: .Normal)
