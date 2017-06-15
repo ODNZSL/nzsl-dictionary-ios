@@ -66,19 +66,19 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         
         
         networkErrorMessage = UIView.init(frame: videoView.frame)
-        networkErrorMessage.autoresizingMask = videoView.autoresizingMask
+        //networkErrorMessage.autoresizingMask = videoView.autoresizingMask
         networkErrorMessage.backgroundColor = UIColor.whiteColor()
-        let networkErrorMessageImage = UIImageView.init(frame: CGRectMake(0, 24, networkErrorMessage.frame.width, 72))
+        let networkErrorMessageImage = UIImageView.init(frame: CGRectMake(0, 24, networkErrorMessage.bounds.width, 72))
         networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")
         networkErrorMessageImage.contentMode = .Center
         
-        let networkErrorMessageText = UITextView.init(frame: CGRectMake(0, 24 + networkErrorMessageImage.frame.height, networkErrorMessage.frame.width, 100))
+        let networkErrorMessageText = UITextView.init(frame: CGRectMake(0, 24 + networkErrorMessageImage.bounds.height, networkErrorMessage.bounds.width, 100))
         networkErrorMessageText.textAlignment = .Center
         networkErrorMessageText.text = "Playing videos requires access to the Internet."
         
         networkErrorMessage.addSubview(networkErrorMessageImage)
         networkErrorMessage.addSubview(networkErrorMessageText)
-        networkErrorMessage.autoresizesSubviews = true
+        //networkErrorMessage.autoresizesSubviews = true
         view.addSubview(networkErrorMessage)
         
         setupNetworkStatusMonitoring()
