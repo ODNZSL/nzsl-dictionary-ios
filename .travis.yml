@@ -1,4 +1,3 @@
 language: objective-c
-osx_image: xcode8.3
-xcode_project: NZSLDict.xcodeproj 
+xcode_workspace: NZSLDict.xcworkspace
 xcode_scheme: NZSLDictTests
