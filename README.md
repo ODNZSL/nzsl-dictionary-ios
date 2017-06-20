@@ -1,5 +1,7 @@
 # Official NZSL Dictionary App for iOS devices
 
+[![Build Status](https://travis-ci.org/rabid/nzsl-dictionary-ios.svg?branch=master)](https://travis-ci.org/rabid/nzsl-dictionary-ios)
+
 This repository holds the code necessary to develop the NZSL Dictionary App for iOS. This codebase can be imported into XCode and you are invited to fork it to add features and bug fixes.
 
 The original code was developed by [Greg Hewgill](http://hewgill.com/) and generously gifted to the [Deaf Studies Research Unit](http://www.victoria.ac.nz/lals/centres-and-institutes/dsru) of [Victoria University of Wellignton](http://www.victoria.ac.nz/). It is maintained by [Rabid Technologies](http://www.rabid.co.nz/). 
