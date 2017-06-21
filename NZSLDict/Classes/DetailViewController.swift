@@ -37,7 +37,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
         let top_offset: CGFloat = 20
 
-        navigationBar = UINavigationBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 96 - top_offset))
+        navigationBar = UINavigationBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 96))
         navigationBar.barTintColor = AppThemePrimaryColor
         navigationBar.opaque = false
         navigationBar.autoresizingMask = .FlexibleWidth
