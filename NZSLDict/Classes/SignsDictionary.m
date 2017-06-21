@@ -168,7 +168,7 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
 
 - (NSArray *)searchFor:(NSString *)target
 {
-    NSMutableArray *sr = [NSMutableArray array];
+    NSMutableOrderedSet *sr = [[NSMutableOrderedSet alloc] init];
     NSString *exactTerm = normalise(target);
     NSString *containsTerm = [NSString stringWithFormat:@"%%%@%%", exactTerm];
     
@@ -220,13 +220,10 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
     }
     
     sqlite3_finalize(containsSecondaryMatchStmt);
-    
-    NSMutableArray* uniqueResults = [[NSMutableArray alloc] init];
-    for (id e in sr) {
-        if ( ! [uniqueResults containsObject:e] ) [uniqueResults addObject:e];
-    }
 
-    return uniqueResults;
+    [sr array];
+
+    return [sr array];
 }
 
 - (NSArray *)searchHandshape:(NSString *)targetHandshape location:(NSString *)targetLocation
