@@ -60,4 +60,36 @@ class SignsDictionaryTest: XCTestCase {
         assert(firstResult.gloss == "neutral");
     }
     
+    func test_duplicateResultsAreRemoved() {
+        // There are 3 unique results for Auckland. This search term is used
+        // because it was known to break and show duplicates, but also includes 
+        // more than 1 unique result for the term
+        let results = signsDictionary.searchFor("Auckland");
+        let resultsMatchingAuckland = results.filter { $0.gloss == "Auckland" }
+        assert(resultsMatchingAuckland.count == 3)
+    }
+    
+    func test_searchForStartsWithMainGloss() {
+        let results = signsDictionary.searchFor("bus");
+        let firstResult = results[0] as! DictEntry;
+        assert(firstResult.gloss == "bus stop");
+    }
+    
+    func test_searchForStartsWithMaoriGloss() {
+        let results = signsDictionary.searchFor("Aorang");
+        let firstResult = results[0] as! DictEntry;
+        assert(firstResult.gloss == "Feilding");
+    }
+    
+    func test_searchForPrioritisesResults() {
+        // A nice general term that returns a range of matched signs
+        let results = signsDictionary.searchFor("bus");
+        let result1 = results[0] as! DictEntry;
+        let result2 = results[1] as! DictEntry;
+        let result3 = results[2] as! DictEntry;
+        
+        assert(result1.gloss == "bus stop");
+        assert(result2.gloss == "bus, truck");
+        assert(result3.gloss == "bush, tree");
+    }
 }
