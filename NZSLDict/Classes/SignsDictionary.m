@@ -18,6 +18,29 @@
     return [NSString stringWithFormat:@"handshape.%@.png", self.handshape];
 }
 
+- (BOOL)isEqualToDictEntry:(DictEntry *)entry {
+    if (!entry) { return NO; }
+    return (!self.image && !entry.image) || [self.image isEqualToString:entry.image];
+}
+
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    }
+    
+    if (![object isKindOfClass:[DictEntry class]]) {
+        return NO;
+    }
+    
+    return [self isEqualToDictEntry:(DictEntry *)object];
+}
+
+- (NSUInteger) hash {
+    return [self.image hash];
+}
+
 static NSString *Locations[][2] = {
     {@"in front of body", @"location.1.1.in_front_of_body.png"},
     //@"palm",
@@ -56,6 +79,12 @@ static NSString *Locations[][2] = {
 
 @end
 
+
+@implementation SignsDictionary {
+    sqlite3 *db;
+    int count;
+}
+
 void sort_results(NSMutableArray *sr)
 {
     [sr sortUsingComparator:^(id obj1, id obj2) {
@@ -78,10 +107,6 @@ void sort_results(NSMutableArray *sr)
     }];
 }
 
-@implementation SignsDictionary {
-    sqlite3 *db;
-    int count;
-}
 
 static NSString *normalise(NSString *s)
 {
@@ -145,27 +170,30 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
 
 - (NSArray *)searchFor:(NSString *)target
 {
-    NSMutableArray *sr = [NSMutableArray array];
+    NSMutableOrderedSet *sr = [[NSMutableOrderedSet alloc] init];
     NSString *exactTerm = normalise(target);
     NSString *containsTerm = [NSString stringWithFormat:@"%%%@%%", exactTerm];
+    NSString *startsWithTerm = [NSString stringWithFormat:@"%@%%", exactTerm];
     
     sqlite3_stmt *exactPrimaryMatchStmt;
+    sqlite3_stmt *startsWithPrimaryMatchStmt;
     sqlite3_stmt *containsPrimaryMatchStmt;
     sqlite3_stmt *exactSecondaryMatchStmt;
     sqlite3_stmt *containsSecondaryMatchStmt;
     
     bool statementPreparedOk = true;
-    statementPreparedOk = sqlite3_prepare_v2(db, "SELECT * FROM words WHERE gloss = ? OR maori = ?", -1, &exactPrimaryMatchStmt, NULL) == SQLITE_OK &&\
+    statementPreparedOk = sqlite3_prepare_v2(db, "SELECT * FROM words WHERE lower(gloss) = ? OR lower(maori) = ?", -1, &exactPrimaryMatchStmt, NULL) == SQLITE_OK &&\
+                          sqlite3_prepare_v2(db, "SELECT * FROM words WHERE gloss LIKE ? OR maori LIKE ?", -1, &startsWithPrimaryMatchStmt, NULL) == SQLITE_OK &&\
                           sqlite3_prepare_v2(db, "SELECT * FROM words WHERE gloss LIKE ? OR maori LIKE ?", -1, &containsPrimaryMatchStmt, NULL) == SQLITE_OK &&\
-                          sqlite3_prepare_v2(db, "SELECT * FROM words WHERE minor = ?", -1, &exactSecondaryMatchStmt, NULL) == SQLITE_OK &&\
+                          sqlite3_prepare_v2(db, "SELECT * FROM words WHERE lower(minor) = ?", -1, &exactSecondaryMatchStmt, NULL) == SQLITE_OK &&\
                           sqlite3_prepare_v2(db, "SELECT * FROM words WHERE minor LIKE ?", -1, &containsSecondaryMatchStmt, NULL) == SQLITE_OK;
     
     if (!statementPreparedOk) return nil;
     
-
-
     sqlite3_bind_text(exactPrimaryMatchStmt, 1, [exactTerm UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(exactPrimaryMatchStmt, 2, [exactTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(startsWithPrimaryMatchStmt, 1, [startsWithTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(startsWithPrimaryMatchStmt, 2, [startsWithTerm UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(containsPrimaryMatchStmt, 1, [containsTerm UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(containsPrimaryMatchStmt, 2, [containsTerm UTF8String], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(exactSecondaryMatchStmt, 1, [exactTerm UTF8String], -1, SQLITE_TRANSIENT);
@@ -177,6 +205,13 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
     }
     
     sqlite3_finalize(exactPrimaryMatchStmt);
+    
+    while (sqlite3_step(startsWithPrimaryMatchStmt) == SQLITE_ROW) {
+        [sr addObject:entry_from_row(startsWithPrimaryMatchStmt)];
+    }
+    
+    sqlite3_finalize(startsWithPrimaryMatchStmt);
+    
     
     while (sqlite3_step(containsPrimaryMatchStmt) == SQLITE_ROW) {
         [sr addObject:entry_from_row(containsPrimaryMatchStmt)];
@@ -197,13 +232,10 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
     }
     
     sqlite3_finalize(containsSecondaryMatchStmt);
-    
-    NSMutableArray* uniqueResults = [[NSMutableArray alloc] init];
-    for (id e in sr) {
-        if ( ! [uniqueResults containsObject:e] ) [uniqueResults addObject:e];
-    }
 
-    return uniqueResults;
+    [sr array];
+
+    return [sr array];
 }
 
 - (NSArray *)searchHandshape:(NSString *)targetHandshape location:(NSString *)targetLocation

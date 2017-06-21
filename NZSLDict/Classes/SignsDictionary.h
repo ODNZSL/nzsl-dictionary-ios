@@ -20,6 +20,7 @@
 @property (strong) NSString *video;
 @property (strong) NSString *handshape;
 @property (strong) NSString *location;
+- (BOOL)isEqualToDictEntry:(DictEntry *)entry;
 
 @end
 
