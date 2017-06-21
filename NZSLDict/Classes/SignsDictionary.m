@@ -18,6 +18,29 @@
     return [NSString stringWithFormat:@"handshape.%@.png", self.handshape];
 }
 
+- (BOOL)isEqualToDictEntry:(DictEntry *)entry {
+    if (!entry) { return NO; }
+    return (!self.image && !entry.image) || [self.image isEqualToString:entry.image];
+}
+
+#pragma mark - NSObject
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    }
+    
+    if (![object isKindOfClass:[DictEntry class]]) {
+        return NO;
+    }
+    
+    return [self isEqualToDictEntry:(DictEntry *)object];
+}
+
+- (NSUInteger) hash {
+    return [self.image hash];
+}
+
 static NSString *Locations[][2] = {
     {@"in front of body", @"location.1.1.in_front_of_body.png"},
     //@"palm",
