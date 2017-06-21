@@ -92,9 +92,39 @@
 	<array>
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
-			<string>7.0</string>
+			<string>6.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default</string>
+			<string>Default</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>6.0</string>
+			<key>UILaunchImageName</key>
+			<string>Default-1104h</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{621, 1104}</string>
+		</dict>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>6.0</string>
+			<key>UILaunchImageName</key>
+			<string>Default-667h</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{375, 668}</string>
+		</dict>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>6.0</string>
+			<key>UILaunchImageName</key>
+			<string>Default</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
@@ -102,19 +132,9 @@
 		</dict>
 		<dict>
 			<key>UILaunchImageMinimumOSVersion</key>
-			<string>7.0</string>
+			<string>6.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default</string>
-			<key>UILaunchImageOrientation</key>
-			<string>Portrait</string>
-			<key>UILaunchImageSize</key>
-			<string>{320, 568}</string>
-		</dict>
-		<dict>
-			<key>UILaunchImageMinimumOSVersion</key>
-			<string>7.0</string>
-			<key>UILaunchImageName</key>
-			<string>ios7Default</string>
+			<string>Default</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
@@ -127,7 +147,7 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default-Landscape</string>
+			<string>Default-Landscape</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Landscape</string>
 			<key>UILaunchImageSize</key>
@@ -137,7 +157,7 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default-Portrait</string>
+			<string>Default-Portrait</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
@@ -147,7 +167,7 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default</string>
+			<string>Default</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
@@ -157,7 +177,7 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default</string>
+			<string>Default</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
@@ -167,7 +187,7 @@
 			<key>UILaunchImageMinimumOSVersion</key>
 			<string>7.0</string>
 			<key>UILaunchImageName</key>
-			<string>ios7Default</string>
+			<string>Default</string>
 			<key>UILaunchImageOrientation</key>
 			<string>Portrait</string>
 			<key>UILaunchImageSize</key>
