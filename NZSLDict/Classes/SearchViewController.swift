@@ -4,7 +4,7 @@ import UIKit
 let HandshapeAnyCellIdentifier: String = "CellAny"
 let HandshapeIconCellIdentifier: String = "CellIcon"
 
-class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate , UIWebViewDelegate {
 
     var delegate: SearchViewControllerDelegate! // this was auto converted as 'weak var' TODO figure this out
     var dict: SignsDictionary!
@@ -14,6 +14,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var searchTable: UITableView!
     var wotdView: UIView!
     var wotdLabel: UILabel!
+    var wotdGlossLabel: UILabel!
     var wotdImageView: UIImageView!
     var searchSelectorView: UIView!
     var handshapeSelector: UICollectionView!
@@ -21,7 +22,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var searchResults: [AnyObject] = [] // TODO tighten up the types here once SignsDictionary has been converted
     var swipeRecognizer: UISwipeGestureRecognizer!
     var subsequent_keyboard: Bool!
+    var scrollView: UIScrollView!
+    var aboutContentWebView: UIWebView!
 
+    // MARK: Fixed datasource initialization
     // why do they leave the first element blank?
     // to match up with something thtat starts indexes at 1?
     let handShapes: [String] = [
@@ -120,13 +124,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
     // MARK: Initializers
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
-        self.tabBarItem = UITabBarItem(tabBarSystemItem: .Search, tag: 0)
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "adjustForKeyboard:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "adjustForKeyboard:", name: UIKeyboardWillHideNotification, object: nil)
+        self.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -139,249 +139,269 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     //     NSNotificationCenter.defaultCenter().removeObserver(self)
     // }
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK View lifecycle
 
     override func loadView() {
-        let view: UIView = UIView(frame: UIScreen.mainScreen().bounds)
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        view.backgroundColor = UIColor(white: 0.9, alpha: 1)
-
-        let top_offset: CGFloat = 20
-
-        searchBar = UISearchBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 44))
-        searchBar.autoresizingMask = .FlexibleWidth
-        searchBar.placeholder = "Enter Word"
+        self.view = UIView.init(frame: UIScreen.main.applicationFrame)
+        searchBar = PaddedUISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44))
+        searchBar.autoresizingMask = .flexibleWidth
+        searchBar.barTintColor = AppThemePrimaryColor
         searchBar.delegate = self
-        view.addSubview(searchBar)
+        self.view.addSubview(searchBar)
 
         modeSwitch = UISegmentedControl(items: ["Abc", UIImage(named: "hands")!])
-        modeSwitch.autoresizingMask = .FlexibleLeftMargin
-        modeSwitch.frame = CGRectMake(view.bounds.size.width - modeSwitch.bounds.size.width - 4, top_offset + 6, modeSwitch.bounds.size.width, 32)
+        modeSwitch.autoresizingMask = .flexibleLeftMargin
+        modeSwitch.frame = CGRect(x: view.bounds.size.width - modeSwitch.bounds.size.width - 4, y: 0 + 6, width: modeSwitch.bounds.size.width, height: 32)
         modeSwitch.selectedSegmentIndex = 0
-        modeSwitch.addTarget(self, action: "selectSearchMode:", forControlEvents: .ValueChanged)
-
-        view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height - (top_offset + 44)))
-        searchTable.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        modeSwitch.tintColor = UIColor.white;
+        modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), for: .valueChanged)
+      
+        self.view.addSubview(modeSwitch)
+        searchTable = UITableView(frame: CGRect(x: 0, y: 0 + 44, width: view.bounds.size.width, height: view.bounds.size.height - (0 + 44)))
+        searchTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
         searchTable.delegate = self
+        
         view.addSubview(searchTable)
-        swipeRecognizer = UISwipeGestureRecognizer(target: self, action: "hideKeyboard")
-        swipeRecognizer.direction = [.Up, .Down]
+        swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(SearchViewController.hideKeyboard))
+        swipeRecognizer.direction = [.up, .down]
         swipeRecognizer.delegate = self
         searchTable.addGestureRecognizer(swipeRecognizer)
-
-        wotdView = UIView(frame: searchTable.frame)
-        wotdView.autoresizingMask = .FlexibleWidth
-        wotdView.backgroundColor = UIColor.whiteColor()
-        view.addSubview(wotdView)
-        wotdLabel = UILabel(frame: CGRectMake(0, 0, wotdView.bounds.size.width, 20))
-        wotdLabel.autoresizingMask = .FlexibleWidth
-        wotdLabel.textAlignment = .Center
+        
+        scrollView = UIScrollView.init(frame: searchTable.frame);
+        scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
+        scrollView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        scrollView.backgroundColor = UIColor.white
+        
+        
+        
+        wotdView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 125))
+        wotdView.autoresizingMask = .flexibleWidth
+        wotdView.backgroundColor = UIColor.white
+        
+        wotdLabel = UILabel(frame: CGRect(x: 16, y: 16, width: wotdView.bounds.size.width * 0.7, height: 20))
+        wotdLabel.autoresizingMask = .flexibleHeight
+        wotdLabel.text = "Word of the day"
+        wotdLabel.font = UIFont.systemFont(ofSize: 14)
+        wotdLabel.textColor = AppSecondaryTextColour
         wotdView.addSubview(wotdLabel)
+        
+        wotdGlossLabel = UILabel(frame: CGRect(x: 16, y: 40, width: wotdView.bounds.size.width * 0.6, height: 24))
+        wotdGlossLabel.autoresizingMask = .flexibleHeight
+        wotdGlossLabel.numberOfLines = 0
+        wotdGlossLabel.font = UIFont.systemFont(ofSize: 20)
+        wotdGlossLabel.textColor = UIColor.black;
+        wotdView.addSubview(wotdGlossLabel)
 
 
-        wotdImageView = UIImageView(frame: CGRectMake(0, 20, wotdView.bounds.size.width, wotdView.bounds.size.height - 20))
-        wotdImageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        wotdImageView.backgroundColor = UIColor.whiteColor()
-        wotdImageView.contentMode = .ScaleAspectFit
-        wotdImageView.userInteractionEnabled = true
-        wotdImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "selectWotd:"))
+
+        wotdImageView = UIImageView(frame: CGRect(x: wotdView.bounds.width * 0.7, y: 0, width: wotdView.bounds.width * 0.3 - 16, height: 125))
+        wotdImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        wotdImageView.backgroundColor = UIColor.white
+        wotdImageView.contentMode = .scaleAspectFit
+        wotdImageView.isUserInteractionEnabled = true
+        wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchViewController.selectWotd(_:))))
         wotdView.addSubview(wotdImageView)
-        searchSelectorView = UIView(frame: CGRectMake(0, 0, view.bounds.size.width, 200))
-        searchSelectorView.autoresizingMask = .FlexibleWidth
+        
+        
+        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.bounds.maxY + 44, width: wotdView.frame.width, height: 500))
+        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        aboutContentWebView.delegate = self
+        
+        scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
+        scrollView.addSubview(wotdView)
+        
+        self.view.addSubview(scrollView)
 
-        let handshapeLabel: UILabel = UILabel(frame: CGRectMake(0, 0, view.bounds.size.width, 20))
-        handshapeLabel.autoresizingMask = .FlexibleWidth
-        handshapeLabel.backgroundColor = UIColor.lightGrayColor()
-        handshapeLabel.textColor = UIColor.whiteColor()
-        handshapeLabel.shadowColor = UIColor.grayColor()
-        handshapeLabel.shadowOffset = CGSizeMake(0, 1)
-        handshapeLabel.font = UIFont.boldSystemFontOfSize(16)
+        
+        searchSelectorView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 200))
+        searchSelectorView.autoresizingMask = .flexibleWidth
+
+        let handshapeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 20))
+        handshapeLabel.autoresizingMask = .flexibleWidth
+        handshapeLabel.backgroundColor = UIColor.lightGray
+        handshapeLabel.textColor = UIColor.white
+        handshapeLabel.shadowColor = UIColor.gray
+        handshapeLabel.shadowOffset = CGSize(width: 0, height: 1)
+        handshapeLabel.font = UIFont.boldSystemFont(ofSize: 16)
         handshapeLabel.text = "  Handshape"
         searchSelectorView.addSubview(handshapeLabel)
 
         let hslayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        hslayout.scrollDirection = .Horizontal
-        hslayout.itemSize = CGSizeMake(80, 80)
-        handshapeSelector = UICollectionView(frame: CGRectMake(0, 20, view.bounds.size.width, 80), collectionViewLayout: hslayout)
-        handshapeSelector.autoresizingMask = .FlexibleWidth
-        handshapeSelector.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
-        handshapeSelector.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        handshapeSelector.backgroundColor = UIColor.whiteColor()
+        hslayout.scrollDirection = .horizontal
+        hslayout.itemSize = CGSize(width: 80, height: 80)
+        handshapeSelector = UICollectionView(frame: CGRect(x: 0, y: 20, width: view.bounds.size.width, height: 80), collectionViewLayout: hslayout)
+        handshapeSelector.autoresizingMask = .flexibleWidth
+        handshapeSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
+        handshapeSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
+        handshapeSelector.backgroundColor = UIColor.white
         handshapeSelector.scrollsToTop = false
         handshapeSelector.dataSource = self
         handshapeSelector.delegate = self
         searchSelectorView.addSubview(handshapeSelector)
 
-        let locationLabel: UILabel = UILabel(frame: CGRectMake(0, 100, view.bounds.size.width, 20))
-        locationLabel.autoresizingMask = .FlexibleWidth
-        locationLabel.backgroundColor = UIColor.lightGrayColor()
-        locationLabel.textColor = UIColor.whiteColor()
-        locationLabel.shadowColor = UIColor.grayColor()
-        locationLabel.shadowOffset = CGSizeMake(0, 1)
-        locationLabel.font = UIFont.boldSystemFontOfSize(16)
+        let locationLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 100, width: view.bounds.size.width, height: 20))
+        locationLabel.autoresizingMask = .flexibleWidth
+        locationLabel.backgroundColor = UIColor.lightGray
+        locationLabel.textColor = UIColor.white
+        locationLabel.shadowColor = UIColor.gray
+        locationLabel.shadowOffset = CGSize(width: 0, height: 1)
+        locationLabel.font = UIFont.boldSystemFont(ofSize: 16)
         locationLabel.text = "  Location"
         searchSelectorView.addSubview(locationLabel)
 
         let loclayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        loclayout.scrollDirection = .Horizontal
-        loclayout.itemSize = CGSizeMake(80, 80)
-        locationSelector = UICollectionView(frame: CGRectMake(0, 120, view.bounds.size.width, 80), collectionViewLayout: loclayout)
-        locationSelector.autoresizingMask = .FlexibleWidth
-        locationSelector.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
-        locationSelector.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        locationSelector.backgroundColor = UIColor.whiteColor()
+        loclayout.scrollDirection = .horizontal
+        loclayout.itemSize = CGSize(width: 80, height: 80)
+        locationSelector = UICollectionView(frame: CGRect(x: 0, y: 120, width: view.bounds.size.width, height: 80), collectionViewLayout: loclayout)
+        locationSelector.autoresizingMask = .flexibleWidth
+        locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
+        locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
+        locationSelector.backgroundColor = UIColor.white
         locationSelector.scrollsToTop = false
         locationSelector.dataSource = self
         locationSelector.delegate = self
         searchSelectorView.addSubview(locationSelector)
-        self.view = view
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if self.respondsToSelector("edgesForExtendedLayout") {
-            self.edgesForExtendedLayout = .None
+        if self.responds(to: #selector(getter: UIViewController.edgesForExtendedLayout)) {
+            self.edgesForExtendedLayout = UIRectEdge()
         }
+        
+        guard let aboutPath = Bundle.main.path(forResource: "about.html", ofType: nil) else {
+            print("Failed to find about.html")
+            return
+        }
+        
+        let aboutUrl = URL(fileURLWithPath: aboutPath)
+        let request = URLRequest(url: aboutUrl)
+        aboutContentWebView.loadRequest(request)
+
 
         dict = SignsDictionary(file: "nzsl.dat")
         wordOfTheDay = dict.wordOfTheDay()
-
-        if wotdLabel.respondsToSelector("setAttributedText:") {
-            // iOS 6 supports attributed text in labels
-            let xas: NSMutableAttributedString = NSMutableAttributedString(string: "Word of the day: ")
-            xas.appendAttributedString(NSAttributedString(string: wordOfTheDay.gloss, attributes: [NSFontAttributeName: UIFont.boldSystemFontOfSize(18)]))
-            wotdLabel.attributedText = xas
+        
+        tabBarController?.title = nil
+        let navbarTitleFirstSegment = UILabel()
+        let navbarTitleSecondSegment = UILabel()
+        navbarTitleFirstSegment.textColor = UIColor.white;
+        navbarTitleSecondSegment.textColor = UIColor.white;
+        
+        if navbarTitleFirstSegment.responds(to: #selector(setter: UITextField.attributedText)) {
+            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 22)])
+            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 22)])
+        
+            navbarTitleFirstSegment.attributedText = navbarTitleFirstSegmentText
+            navbarTitleSecondSegment.attributedText = navbarTitleSecondSegmentText
         }
         else {
-            wotdLabel.text = "Word of the day: \(wordOfTheDay.gloss)"
+            navbarTitleFirstSegment.text = "NZSL "
+            navbarTitleSecondSegment.text = "dictionary"
         }
-
+        
+        navbarTitleFirstSegment.sizeToFit();
+        navbarTitleSecondSegment.sizeToFit();
+        
+        self.tabBarController?.navigationItem.setLeftBarButtonItems([
+            UIBarButtonItem.init(customView: navbarTitleFirstSegment),
+            UIBarButtonItem.init(customView: navbarTitleSecondSegment)
+        ], animated: false)
+        
+        
+        let navigationBarRightButtonItem = UIBarButtonItem.init(customView: modeSwitch);
+        self.tabBarController?.navigationItem.setRightBarButton(navigationBarRightButtonItem, animated: false)
+        
+        wotdGlossLabel.text = wordOfTheDay.gloss
+        wotdGlossLabel.sizeToFit()
         wotdImageView.image = UIImage(named: wordOfTheDay.image)
 
         self.selectEntry(wordOfTheDay)
 
-        handshapeSelector.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Left)
-        locationSelector.selectItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: .Left)
+        handshapeSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
+        locationSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
         self.selectSearchMode(modeSwitch)
     }
 
-    func shrinkSearchBar() {
-        let x: UIView = searchBar.subviews[0]
-        let y: UIView = x.subviews[1]
-        y.frame = CGRectMake(y.frame.origin.x, y.frame.origin.y, x.frame.size.width - (y.frame.origin.x * 2 + 100), y.frame.size.height)
-    }
-
-    override func viewDidLayoutSubviews() {
-        self.shrinkSearchBar()
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        self.shrinkSearchBar()
+    override func viewDidAppear(_ animated: Bool) {
         if modeSwitch.selectedSegmentIndex == 0 && searchBar.text!.characters.count == 0 {
             searchBar.becomeFirstResponder()
         }
     }
-
-
-    // TODO: not sure this workaround required in ios7+ ???
-    func adjustForKeyboard(notification: NSNotification) {
-//        var v: NSValue = notification.userInfo![UIKeyboardFrameEndUserInfoKey as NSObject]
-//        var kr: CGRect = v.CGRectValue()
-//        // This workaround avoids a problem when launching on the iPad in non-portrait mode.
-//        // On launch, the convertRect: call does not properly take into account the rotation
-//        // from device coordinates to interface coordinates. We seem to be able to detect
-//        // this when the following is true:
-//        var interface_orientation: UIInterfaceOrientation = UIApplication.sharedApplication().statusBarOrientation
-//        var device_orientation: UIDeviceOrientation = UIDevice.currentDevice().orientation
-//        //NSLog(@"interface %d device %d", interface_orientation, device_orientation);
-//        var fudge_rotation: Bool = Int(device_orientation) != Int(interface_orientation)
-//
-//        if fudge_rotation {
-//            //NSLog(@"before fudge %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//            var screen: CGRect = UIScreen.mainScreen().bounds
-//            switch interface_orientation {
-//            case .LandscapeLeft:
-//                kr = CGRectMake(screen.size.height - (kr.origin.y + kr.size.height), kr.origin.x, kr.size.height, kr.size.width)
-//            case .LandscapeRight:
-//                kr = CGRectMake(kr.origin.y, screen.size.width - (kr.origin.x + kr.size.width), kr.size.height, kr.size.width)
-//            case .PortraitUpsideDown:
-//                kr = CGRectMake(screen.size.width - (kr.origin.x + kr.size.width), screen.size.height - (kr.origin.y + kr.size.height), kr.size.width, kr.size.height)
-//            default:
-//                break
-//            }
-//
-//            //NSLog(@"  after %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//        }
-//        else {
-//            //NSLog(@"  before convertRect %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//            kr = self.view!.convertRect(kr, fromView: nil)
-//            //NSLog(@"  after %g %g %g %g", kr.origin.x, kr.origin.y, kr.size.width, kr.size.height);
-//        }
-//        subsequent_keyboard = true
+    
+    override func viewDidLayoutSubviews() {
+        // Autosize the scrollview
+        var contentRect = CGRect.zero
+        for view: UIView in self.scrollView.subviews {
+            contentRect = contentRect.union(view.frame)
+        }
+        self.scrollView.contentSize = contentRect.size
+        self.scrollView.contentSize.height = contentRect.size.height + 150
     }
 
-    func selectWotd(sender: UITapGestureRecognizer) {
-        if sender.state == .Ended {
+    // MARK: Callback functions
+    func selectWotd(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
             self.selectEntry(wordOfTheDay)
             searchBar.resignFirstResponder()
             self.delegate.didSelectEntry(wordOfTheDay)
         }
     }
 
-    func selectSearchMode(sender: UISegmentedControl) {
+    func selectSearchMode(_ sender: UISegmentedControl) {
+        self.tabBarController?.selectedIndex = 0
         switch sender.selectedSegmentIndex {
         case 0:
             searchBar.text = ""
-            searchBar.userInteractionEnabled = true
+            searchBar.isUserInteractionEnabled = true
             searchBar.becomeFirstResponder()
-            wotdView.hidden = false
+            scrollView.isHidden = false
             searchTable.tableHeaderView = nil
             searchTable.reloadData()
         case 1:
             searchBar.text = "(handshape search)"
             searchBar.resignFirstResponder()
-            searchBar.userInteractionEnabled = false
-            wotdView.hidden = true
+            searchBar.isUserInteractionEnabled = false
+            scrollView.isHidden = true
             searchTable.tableHeaderView = searchSelectorView
 
             // The UICollectionViewDelegate protocol requires that we provide an NSIndexPath instance
             // and prevents us from making it optional but the NSIndexPath we provide here is ignored
             // by our implementation
-            self.collectionView(handshapeSelector, didSelectItemAtIndexPath: NSIndexPath(index: 0))
+            self.collectionView(handshapeSelector, didSelectItemAt: IndexPath(index: 0))
         default: break
         }
 
         if searchResults.count > 0 {
-            searchTable.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Bottom, animated: false)
+            searchTable.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: false)
         }
     }
 
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return .topAttached
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count == 0 {
-            wotdView.hidden = false
+            scrollView.isHidden = false
             return
         }
-        wotdView.hidden = true
-        searchResults = dict.searchFor(searchText)
+        scrollView.isHidden = true
+        searchResults = dict.search(for: searchText)! as [AnyObject]
         searchTable.reloadData()
     }
 
-    func selectEntry(entry: DictEntry) {
-        NSNotificationCenter.defaultCenter().postNotificationName(EntrySelectedName, object: self, userInfo: ["entry": entry])
+    func selectEntry(_ entry: DictEntry) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: EntrySelectedName), object: self, userInfo: ["entry": entry])
     }
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 
@@ -391,23 +411,23 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
     // MARK: UITableViewDataSource methods
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
 
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "\(searchResults.count) sign\(searchResults.count == 1 ? "" : "s")"
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellId = "Cell"
 
-        var cell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellId)
+        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellId)
 
         if cell == nil {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-            let iv: UIImageView = UIImageView(frame: CGRectMake(0, 2, tableView.rowHeight * 2, tableView.rowHeight - 4))
-            iv.contentMode = .ScaleAspectFit
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
+            let iv: UIImageView = UIImageView(frame: CGRect(x: 0, y: 2, width: tableView.rowHeight * 2, height: tableView.rowHeight - 4))
+            iv.contentMode = .scaleAspectFit
             cell!.accessoryView = iv
         }
 
@@ -420,7 +440,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         return cell!
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let entry: DictEntry = searchResults[indexPath.row] as! DictEntry
         self.selectEntry(entry)
         searchBar.resignFirstResponder()
@@ -430,7 +450,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
     // MARK: UICollectionViewDelegate methods
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == handshapeSelector {
             return handShapes.count
         }
@@ -440,33 +460,33 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         return 0
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell
         if indexPath.row == 0 {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier(HandshapeAnyCellIdentifier, forIndexPath: indexPath)
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: HandshapeAnyCellIdentifier, for: indexPath)
             var label: UILabel! = cell.contentView.viewWithTag(1) as! UILabel!
             if label == nil {
-                label = UILabel(frame: CGRectInset(cell.contentView.bounds, 3, 3))
+                label = UILabel(frame: cell.contentView.bounds.insetBy(dx: 3, dy: 3))
                 label.tag = 1
                 label.text = "(any)"
-                label.textAlignment = .Center
-                label.backgroundColor = UIColor.whiteColor()
+                label.textAlignment = .center
+                label.backgroundColor = UIColor.white
                 cell.contentView.addSubview(label)
                 cell.selectedBackgroundView = UIView(frame: cell.contentView.frame)
-                cell.selectedBackgroundView!.backgroundColor = UIColor.blueColor()
+                cell.selectedBackgroundView!.backgroundColor = UIColor.blue
             }
         }
         else {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier(HandshapeIconCellIdentifier, forIndexPath: indexPath)
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: HandshapeIconCellIdentifier, for: indexPath)
             
             var img: UIImageView! = cell.contentView.viewWithTag(1) as! UIImageView!
             if img == nil {
-                img = UIImageView(frame: CGRectInset(cell.contentView.bounds, 3, 3))
+                img = UIImageView(frame: cell.contentView.bounds.insetBy(dx: 3, dy: 3))
                 img.tag = 1
-                img.contentMode = .ScaleAspectFit
+                img.contentMode = .scaleAspectFit
                 cell.contentView.addSubview(img)
                 cell.selectedBackgroundView = UIView(frame: cell.contentView.frame)
-                cell.selectedBackgroundView!.backgroundColor = UIColor.blueColor()
+                cell.selectedBackgroundView!.backgroundColor = UIColor.blue
             }
             if collectionView == handshapeSelector {
                 img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")
@@ -475,14 +495,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 img.image = UIImage(named: Locations[indexPath.row][1])
             }
             
-            img.backgroundColor = UIColor.whiteColor()
+            img.backgroundColor = UIColor.white
         }
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath _indexPath: NSIndexPath) {
-        guard let handshapeIndexPath: [NSIndexPath] = handshapeSelector.indexPathsForSelectedItems() else { return }
-        guard let locationIndexPath: [NSIndexPath] = locationSelector.indexPathsForSelectedItems() else { return }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt _indexPath: IndexPath) {
+        guard let handshapeIndexPath: [IndexPath] = handshapeSelector.indexPathsForSelectedItems else { return }
+        guard let locationIndexPath: [IndexPath] = locationSelector.indexPathsForSelectedItems else { return }
 
         // empty arrays => no selected items
         if handshapeIndexPath.isEmpty || locationIndexPath.isEmpty { return }
@@ -501,9 +521,72 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
 
         // searchHandshape(targetHandshape: String?, location: String?) -> [AnyObject]
-        searchResults = dict.searchHandshape(targetHandshape, location: location)
+        searchResults = dict.searchHandshape(targetHandshape, location: location)! as [AnyObject]
         searchTable.reloadData()
     }
+    
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        var frame = webView.frame
+        frame.size.height = 5.0
+        webView.frame = frame
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        let mWebViewTextSize = webView.sizeThatFits(CGSize(width: 1.0, height: 1.0))
+        // Pass about any size
+        var mWebViewFrame = webView.frame
+        mWebViewFrame.size.height = mWebViewTextSize.height
+        webView.frame = mWebViewFrame
+        //Disable bouncing in webview
+        webView.scrollView.bounces = false
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if request.url!.isFileURL {
+            return true
+        }
+        
+        if request.url!.scheme == "follow" {
+            openTwitterClientForUserName("NZSLDict")
+            return false
+        }
+        
+        UIApplication.shared.openURL(request.url!)
+        return false
+    }
+    
+    // https://gist.github.com/vhbit/958738
+    func openTwitterClientForUserName(_ userName: String) {
+        let urls = [
+            "twitter:@{username}", // Twitter
+            "tweetbot:///user_profile/{username}", // TweetBot
+            "echofon:///user_timeline?{username}", // Echofon
+            "twit:///user?screen_name={username}", // Twittelator Pro
+            "x-seesmic://twitter_profile?twitter_screen_name={username}", // Seesmic
+            "x-birdfeed://user?screen_name={username}", // Birdfeed
+            "tweetings:///user?screen_name={username}", // Tweetings
+            "simplytweet:?link=http://twitter.com/{username}", // SimplyTweet
+            "icebird://user?screen_name={username}", // IceBird
+            "fluttr://user/{username}", // Fluttr
+            /** uncomment if you don't have a special handling for no registered twitter clients */
+            "http://twitter.com/{username}", // Web fallback,
+        ]
+        
+        let application: UIApplication = UIApplication.shared
+        
+        for candidate in urls {
+            let urlString = candidate.replacingOccurrences(of: "{username}", with:userName)
+            if let url = URL(string: urlString) {
+                print("testing \(url)")
+                if application.canOpenURL(url) {
+                    print("we can open \(url)")
+                    application.openURL(url)
+                }
+            }
+        }
+    }
+
 }
 
 

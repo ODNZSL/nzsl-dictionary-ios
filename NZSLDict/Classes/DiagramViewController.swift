@@ -3,13 +3,12 @@ import UIKit
 class DiagramViewController: UIViewController, UISearchBarDelegate {
     var delegate: ViewControllerDelegate!
     var currentEntry: DictEntry!
-    var searchBar: UISearchBar!
     var diagramView: DiagramView!
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem = UITabBarItem(title: "Diagram", image: UIImage(named: "hands"), tag: 0)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showEntry:", name: EntrySelectedName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DiagramViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -17,34 +16,34 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func loadView() {
-        let view: UIView = UIView(frame: UIScreen.mainScreen().bounds)
-        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        let top_offset: CGFloat = 20
-        searchBar = UISearchBar(frame: CGRectMake(0, top_offset, view.bounds.size.width, 44))
-        searchBar.autoresizingMask = .FlexibleWidth
-        searchBar.delegate = self
-        view.addSubview(searchBar)
-        diagramView = DiagramView(frame: CGRectMake(0, top_offset + 44, view.bounds.size.width, view.bounds.size.height - (top_offset + 44)))
+        let view: UIView = UIView(frame: UIScreen.main.bounds)
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        diagramView = DiagramView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
         view.addSubview(diagramView)
         self.view = view
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.respondsToSelector("edgesForExtendedLayout") {
-            self.edgesForExtendedLayout = .None
+        if self.responds(to: #selector(getter: UIViewController.edgesForExtendedLayout)) {
+            self.edgesForExtendedLayout = UIRectEdge()
         }
     }
+    
+    func selectSearchMode(_ sender: UISegmentedControl) {
+            self.tabBarController?.selectedIndex = 0
+    }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         self.showCurrentEntry()
     }
 
-    func showEntry(notification: NSNotification) {
+    func showEntry(_ notification: Notification) {
         currentEntry = notification.userInfo!["entry"] as! DictEntry
         if diagramView == nil {
             return
@@ -53,16 +52,6 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
     }
 
     func showCurrentEntry() {
-        searchBar.text = currentEntry.gloss
         diagramView.showEntry(currentEntry)
-    }
-
-    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
-        return .TopAttached
-    }
-
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
-        self.delegate.returnToSearchView()
-        return false
     }
 }

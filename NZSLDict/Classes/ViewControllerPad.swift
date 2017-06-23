@@ -10,7 +10,7 @@ class ViewControllerPad: UISplitViewController {
     // var diagramController: UIViewController!
     // var videoController: UIViewController!
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
         searchController = SearchViewController()
@@ -28,7 +28,7 @@ class ViewControllerPad: UISplitViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 }

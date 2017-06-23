@@ -1,4 +1,4 @@
-//
+	//
 //  Dictionary.m
 //  NZSL Dict
 //
@@ -146,27 +146,64 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
 - (NSArray *)searchFor:(NSString *)target
 {
     NSMutableArray *sr = [NSMutableArray array];
-    NSString *t = normalise(target);
-    sqlite3_stmt *st;
-    if (sqlite3_prepare_v2(db, "select * from words where target like ?", -1, &st, NULL) != SQLITE_OK) {
-        return nil;
+    NSString *exactTerm = normalise(target);
+    NSString *containsTerm = [NSString stringWithFormat:@"%%%@%%", exactTerm];
+    
+    sqlite3_stmt *exactPrimaryMatchStmt;
+    sqlite3_stmt *containsPrimaryMatchStmt;
+    sqlite3_stmt *exactSecondaryMatchStmt;
+    sqlite3_stmt *containsSecondaryMatchStmt;
+    
+    bool statementPreparedOk = true;
+    statementPreparedOk = sqlite3_prepare_v2(db, "SELECT * FROM words WHERE gloss = ? OR maori = ?", -1, &exactPrimaryMatchStmt, NULL) == SQLITE_OK &&\
+                          sqlite3_prepare_v2(db, "SELECT * FROM words WHERE gloss LIKE ? OR maori LIKE ?", -1, &containsPrimaryMatchStmt, NULL) == SQLITE_OK &&\
+                          sqlite3_prepare_v2(db, "SELECT * FROM words WHERE minor = ?", -1, &exactSecondaryMatchStmt, NULL) == SQLITE_OK &&\
+                          sqlite3_prepare_v2(db, "SELECT * FROM words WHERE minor LIKE ?", -1, &containsSecondaryMatchStmt, NULL) == SQLITE_OK;
+    
+    if (!statementPreparedOk) return nil;
+    
+
+
+    sqlite3_bind_text(exactPrimaryMatchStmt, 1, [exactTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(exactPrimaryMatchStmt, 2, [exactTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(containsPrimaryMatchStmt, 1, [containsTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(containsPrimaryMatchStmt, 2, [containsTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(exactSecondaryMatchStmt, 1, [exactTerm UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(containsSecondaryMatchStmt, 1, [containsTerm UTF8String], -1, SQLITE_TRANSIENT);
+
+    
+    while (sqlite3_step(exactPrimaryMatchStmt) == SQLITE_ROW) {
+        [sr addObject:entry_from_row(exactPrimaryMatchStmt)];
     }
-    sqlite3_bind_text(st, 1, [[NSString stringWithFormat:@"%%%@%%", t] UTF8String], -1, SQLITE_TRANSIENT);
-    while (sqlite3_step(st) == SQLITE_ROW) {
-        [sr addObject:entry_from_row(st)];
+    
+    sqlite3_finalize(exactPrimaryMatchStmt);
+    
+    while (sqlite3_step(containsPrimaryMatchStmt) == SQLITE_ROW) {
+        [sr addObject:entry_from_row(containsPrimaryMatchStmt)];
     }
-    sqlite3_finalize(st);
-    sort_results(sr);
-    NSUInteger j = 0;
-    for (NSUInteger i = 0; i < sr.count; i++) {
-        DictEntry *e = [sr objectAtIndex:i];
-        if ([target isEqualToString:e.gloss]) {
-            [sr removeObjectAtIndex:i];
-            [sr insertObject:e atIndex:j];
-            j++;
-        }
+    
+    sqlite3_finalize(containsPrimaryMatchStmt);
+    
+    
+    while (sqlite3_step(exactSecondaryMatchStmt) == SQLITE_ROW) {
+        [sr addObject:entry_from_row(exactSecondaryMatchStmt)];
     }
-    return sr;
+    
+    sqlite3_finalize(exactSecondaryMatchStmt);
+    
+    
+    while (sqlite3_step(containsSecondaryMatchStmt) == SQLITE_ROW) {
+        [sr addObject:entry_from_row(containsSecondaryMatchStmt)];
+    }
+    
+    sqlite3_finalize(containsSecondaryMatchStmt);
+    
+    NSMutableArray* uniqueResults = [[NSMutableArray alloc] init];
+    for (id e in sr) {
+        if ( ! [uniqueResults containsObject:e] ) [uniqueResults addObject:e];
+    }
+
+    return uniqueResults;
 }
 
 - (NSArray *)searchHandshape:(NSString *)targetHandshape location:(NSString *)targetLocation
@@ -283,7 +320,7 @@ DictEntry *entry_from_row(sqlite3_stmt *st)
     char buf[20];
     snprintf(buf, sizeof(buf), "%04d-%02d-%02d", 1900+tm->tm_year, 1+tm->tm_mon, tm->tm_mday);
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
-    CC_SHA1(buf, strlen(buf), digest);
+    CC_SHA1(buf, (CC_LONG)strlen(buf), digest);
     int i = ((digest[0] << 8) | (digest[1])) % count;
     
     BOOL (^reject)(DictEntry *e) = ^(DictEntry *e) {
