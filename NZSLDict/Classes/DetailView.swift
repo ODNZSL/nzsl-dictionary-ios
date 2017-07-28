@@ -59,6 +59,8 @@ class DetailView: UIView {
         minorView.text = entry.minor
         maoriView.text = entry.maori
         handshapeView.image = UIImage(named: entry.handshapeImage())
-        locationView.image = UIImage(named: entry.locationImage())
+        if let locationImageName = entry.locationImage() {
+            locationView.image = UIImage(named: locationImageName)
+        }
     }
 }
