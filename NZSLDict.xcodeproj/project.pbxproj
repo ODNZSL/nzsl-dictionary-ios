@@ -452,6 +452,7 @@
 				TargetAttributes = {
 					03B1C88B1EE75B0E008A875C = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0830;
 						TestTargetID = 37B3F2881512F946005F45FA;
 					};
 					37B3F2881512F946005F45FA = {
@@ -632,6 +633,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nz.co.rabid.NZSLDictTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NZSLDict.app/NZSLDict";
 			};
 			name = Debug;
@@ -657,6 +659,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = nz.co.rabid.NZSLDictTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NZSLDict.app/NZSLDict";
 			};
 			name = Release;
@@ -682,6 +685,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = nz.co.rabid.NZSLDictTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NZSLDict.app/NZSLDict";
 			};
 			name = Distribution;
