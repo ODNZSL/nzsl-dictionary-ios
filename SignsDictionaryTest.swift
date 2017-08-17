@@ -61,12 +61,12 @@ class SignsDictionaryTest: XCTestCase {
     }
     
     func test_duplicateResultsAreRemoved() {
-        // There are 3 unique results for Auckland. This search term is used
+        // There are 5 unique results for Auckland. This search term is used
         // because it was known to break and show duplicates, but also includes 
         // more than 1 unique result for the term
         let results = signsDictionary.search(for: "Auckland");
         let resultsMatchingAuckland = results?.filter { ($0 as AnyObject).gloss == "Auckland" }
-        assert(resultsMatchingAuckland?.count == 3)
+        assert(resultsMatchingAuckland?.count == 5)
     }
     
     func test_searchForStartsWithMainGloss() {
