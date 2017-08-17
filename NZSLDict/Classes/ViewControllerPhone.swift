@@ -6,7 +6,7 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
     var videoController: VideoViewController!
     var historyController: HistoryViewController!
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -16,7 +16,7 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.backgroundColor = UIColor.whiteColor()
+        self.tabBar.backgroundColor = UIColor.white
 
         searchController = SearchViewController()
         diagramController = DiagramViewController()
@@ -36,11 +36,11 @@ class ViewControllerPhone: UITabBarController, ViewControllerDelegate, SearchVie
         historyController.delegate = self
     }
 
-       override func shouldAutorotate() -> Bool {
+       override var shouldAutorotate : Bool {
         return true
     }
 
-    func didSelectEntry(entry: DictEntry) {
+    func didSelectEntry(_ entry: DictEntry) {
         self.selectedViewController = diagramController
     }
 

@@ -7,17 +7,17 @@ class DiagramView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        self.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
 
-        detailView = DetailView(frame: CGRectMake(0, 0, self.bounds.size.width, DetailView.height))
-        detailView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+        detailView = DetailView(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: DetailView.height))
+        detailView.autoresizingMask = UIViewAutoresizing.flexibleWidth
 
         self.addSubview(detailView)
 
-        imageView = UIImageView(frame: CGRectMake(0, DetailView.height, self.bounds.size.width, self.bounds.size.height-DetailView.height))
-        imageView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-        imageView.backgroundColor = UIColor.whiteColor()
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView = UIImageView(frame: CGRect(x: 0, y: DetailView.height, width: self.bounds.size.width, height: self.bounds.size.height-DetailView.height))
+        imageView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        imageView.backgroundColor = UIColor.white
+        imageView.contentMode = UIViewContentMode.scaleAspectFit
 
         self.addSubview(imageView)
     }
@@ -26,7 +26,7 @@ class DiagramView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func showEntry(entry: DictEntry) {
+    func showEntry(_ entry: DictEntry) {
         detailView.showEntry(entry)
         imageView.image = UIImage(named: entry.image)
     }

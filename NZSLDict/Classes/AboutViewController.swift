@@ -3,7 +3,7 @@ import UIKit
 class AboutViewController: UIViewController, UIWebViewDelegate {
     var webView: UIWebView!
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
         self.tabBarItem = UITabBarItem(title: "About", image: UIImage(named: "info"), tag: 0)
@@ -14,10 +14,10 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     }
 
     override func loadView() {
-        webView = UIWebView(frame: UIScreen.mainScreen().bounds)
-        webView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        webView = UIWebView(frame: UIScreen.main.bounds)
+        webView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
 
-        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone {
+        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
             webView.scrollView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         }
 
@@ -28,36 +28,36 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let aboutPath = NSBundle.mainBundle().pathForResource("about.html", ofType: nil) else {
+        guard let aboutPath = Bundle.main.path(forResource: "about.html", ofType: nil) else {
             print("Failed to find about.html")
             return
         }
 
-        let aboutUrl = NSURL(fileURLWithPath: aboutPath)
-        let request = NSURLRequest(URL: aboutUrl)
+        let aboutUrl = URL(fileURLWithPath: aboutPath)
+        let request = URLRequest(url: aboutUrl)
         webView.loadRequest(request)
     }
 
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if request.URL!.fileURL {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if request.url!.isFileURL {
             return true
         }
 
-        if request.URL!.scheme == "follow" {
+        if request.url!.scheme == "follow" {
             openTwitterClientForUserName("NZSLDict")
             return false
         }
 
-        UIApplication.sharedApplication().openURL(request.URL!)
+        UIApplication.shared.openURL(request.url!)
         return false
     }
 
     // https://gist.github.com/vhbit/958738
-    func openTwitterClientForUserName(userName: String) -> Bool {
+    func openTwitterClientForUserName(_ userName: String) -> Bool {
         let urls = [
             "twitter:@{username}", // Twitter
             "tweetbot:///user_profile/{username}", // TweetBot
@@ -73,11 +73,11 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
             "http://twitter.com/{username}", // Web fallback,
         ]
 
-        let application: UIApplication = UIApplication.sharedApplication()
+        let application: UIApplication = UIApplication.shared
 
         for candidate in urls {
-            let urlString = candidate.stringByReplacingOccurrencesOfString("{username}", withString:userName)
-            if let url = NSURL(string: urlString) {
+            let urlString = candidate.replacingOccurrences(of: "{username}", with:userName)
+            if let url = URL(string: urlString) {
                 print("testing \(url)")
                 if application.canOpenURL(url) {
                     print("we can open \(url)")
