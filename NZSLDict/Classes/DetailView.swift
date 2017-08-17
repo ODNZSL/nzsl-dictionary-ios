@@ -22,39 +22,39 @@ class DetailView: UIView {
 
     // the convenience initializer provides a default frame
     convenience init() {
-        self.init(frame: CGRectZero) // calls the designated initializer in this file!
+        self.init(frame: CGRect.zero) // calls the designated initializer in this file!
     }
 
     func setupView() {
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
 
-        glossView = UILabel(frame: CGRectMake(DetailView.inset, DetailView.inset, self.bounds.size.width - DetailView.inset * 2 - 120, 20))
-        glossView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-        glossView.font = UIFont.boldSystemFontOfSize(18)
+        glossView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset, width: self.bounds.size.width - DetailView.inset * 2 - 120, height: 20))
+        glossView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        glossView.font = UIFont.boldSystemFont(ofSize: 18)
         self.addSubview(glossView)
 
-        minorView = UILabel(frame: CGRectMake(DetailView.inset, DetailView.inset+20, self.bounds.size.width-DetailView.inset*2-120, 20))
-        minorView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-        minorView.font = UIFont.systemFontOfSize(15)
+        minorView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset+20, width: self.bounds.size.width-DetailView.inset*2-120, height: 20))
+        minorView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        minorView.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(minorView)
 
-        maoriView = UILabel(frame: CGRectMake(DetailView.inset, DetailView.inset+40, self.bounds.size.width-DetailView.inset*2-120, 20))
-        maoriView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-        maoriView.font = UIFont.italicSystemFontOfSize(15)
+        maoriView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset+40, width: self.bounds.size.width-DetailView.inset*2-120, height: 20))
+        maoriView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        maoriView.font = UIFont.italicSystemFont(ofSize: 15)
         self.addSubview(maoriView)
 
-        handshapeView = UIImageView(frame: CGRectMake(self.bounds.size.width-DetailView.inset-120, DetailView.inset, 60, 60))
-        handshapeView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin
-        handshapeView.contentMode = UIViewContentMode.ScaleAspectFit
+        handshapeView = UIImageView(frame: CGRect(x: self.bounds.size.width-DetailView.inset-120, y: DetailView.inset, width: 60, height: 60))
+        handshapeView.autoresizingMask = UIViewAutoresizing.flexibleLeftMargin
+        handshapeView.contentMode = UIViewContentMode.scaleAspectFit
         self.addSubview(handshapeView)
 
-        locationView = UIImageView(frame: CGRectMake(self.bounds.size.width-DetailView.inset-60, DetailView.inset, 60, 60))
-        locationView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin
-        locationView.contentMode = UIViewContentMode.ScaleAspectFit
+        locationView = UIImageView(frame: CGRect(x: self.bounds.size.width-DetailView.inset-60, y: DetailView.inset, width: 60, height: 60))
+        locationView.autoresizingMask = UIViewAutoresizing.flexibleLeftMargin
+        locationView.contentMode = UIViewContentMode.scaleAspectFit
         self.addSubview(locationView)
     }
 
-    func showEntry(entry: DictEntry) {
+    func showEntry(_ entry: DictEntry) {
         glossView.text = entry.gloss
         minorView.text = entry.minor
         maoriView.text = entry.maori
