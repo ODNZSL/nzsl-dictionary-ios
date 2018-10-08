@@ -4,7 +4,7 @@
 
 This repository holds the code necessary to develop the NZSL Dictionary App for iOS. This codebase can be imported into XCode and you are invited to fork it to add features and bug fixes.
 
-The original code was developed by [Greg Hewgill](http://hewgill.com/) and generously gifted to the [Deaf Studies Research Unit](http://www.victoria.ac.nz/lals/centres-and-institutes/dsru) of [Victoria University of Wellington](http://www.victoria.ac.nz/). It is maintained by [Ackama](http://www.ackama.com/). 
+The original code was developed by [Greg Hewgill](http://hewgill.com/) and generously gifted to the [Deaf Studies Research Unit](http://www.victoria.ac.nz/lals/centres-and-institutes/dsru) of [Victoria University of Wellington](http://www.victoria.ac.nz/). It is maintained by [Ackama](https://www.ackama.com/). 
 
 # Missing images?
 
@@ -28,7 +28,7 @@ Two approvals are required before a PR can be merged.
 # Deployment
 
 To deploy to production: merge a feature branch into ODNZSL master.
-A repositiory adminstrator will perform the necessary actions when a release is planned.
+A repository administrator will perform the necessary actions when a release is planned.
 
 # License
 
