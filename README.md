@@ -1,6 +1,6 @@
 # Official NZSL Dictionary App for iOS devices
 
-[![Build Status](https://travis-ci.org/ackama/nzsl-dictionary-ios.svg?branch=master)](https://travis-ci.org/ackama/nzsl-dictionary-ios)
+[![Build Status](https://travis-ci.org/ODNZSL/nzsl-dictionary-ios.svg?branch=master)](https://travis-ci.org/ODNZSL/nzsl-dictionary-ios)
 
 This repository holds the code necessary to develop the NZSL Dictionary App for iOS. This codebase can be imported into XCode and you are invited to fork it to add features and bug fixes.
 
@@ -8,7 +8,7 @@ The original code was developed by [Greg Hewgill](http://hewgill.com/) and gener
 
 # Missing images?
 
-This repository does not include images for the database of signs. We have created [an importer script](https://github.com/ackama/nzsl-dictionary-scripts) that will fetch the latest images from the VUW servers and place them in the correct folder. You should run this once when you start development. Signs are updated every few months.
+This repository does not include images for the database of signs. We have created [an importer script](https://github.com/ODNZSL/nzsl-dictionary-scripts) that will fetch the latest images from the VUW servers and place them in the correct folder. You should run this once when you start development. Signs are updated every few months.
 
 # Android and iOS features
 
