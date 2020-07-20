@@ -77,6 +77,11 @@ static NSString *Locations[][2] = {
     return nil;
 }
 
+- (NSString *)videoUrl
+{
+    return [self.video stringByReplacingOccurrencesOfString:@"http://freelex.nzsl.vuw.ac.nz" withString:@"https://nzsl-assets.vuw.ac.nz"];
+}
+
 @end
 
 

@@ -128,7 +128,7 @@
 
 - (IBAction)startPlayer:(id)sender
 {
-    player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:currentEntry.video]];
+    player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[currentEntry videoUrl]]];
     [player prepareToPlay];
     [player.view setFrame:videoView.bounds];
     [videoView addSubview:player.view];
