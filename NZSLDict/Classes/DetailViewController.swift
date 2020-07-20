@@ -127,7 +127,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     @IBAction func startPlayer(_ sender: AnyObject) {
-        player = MPMoviePlayerController(contentURL: URL(string: currentEntry.videoUrl())!)
+        player = MPMoviePlayerController(contentURL: URL(string: currentEntry.video)!)
         player.prepareToPlay()
         player.view!.frame = videoView.bounds
         videoView.addSubview(player.view!)

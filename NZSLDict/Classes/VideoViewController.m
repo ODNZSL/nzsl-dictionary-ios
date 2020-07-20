@@ -102,7 +102,7 @@
 
 - (void)startVideo
 {
-    player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:[currentEntry videoUrl]];
+    player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:currentEntry.video]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackStateDidChange:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:player];
     [player prepareToPlay];
