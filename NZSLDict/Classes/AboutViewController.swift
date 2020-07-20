@@ -15,10 +15,10 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
 
     override func loadView() {
         webView = UIWebView(frame: UIScreen.main.bounds)
-        webView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        webView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
 
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
-            webView.scrollView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
+            webView.scrollView.contentInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
         }
 
         webView.delegate = self
@@ -42,7 +42,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         return true
     }
 
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         if request.url!.isFileURL {
             return true
         }

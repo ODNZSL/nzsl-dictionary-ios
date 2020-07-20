@@ -29,28 +29,28 @@ class DetailView: UIView {
         self.backgroundColor = UIColor.white
 
         glossView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset, width: self.bounds.size.width - DetailView.inset * 2 - 120, height: 20))
-        glossView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        glossView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         glossView.font = UIFont.boldSystemFont(ofSize: 18)
         self.addSubview(glossView)
 
         minorView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset+20, width: self.bounds.size.width-DetailView.inset*2-120, height: 20))
-        minorView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        minorView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         minorView.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(minorView)
 
         maoriView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset+40, width: self.bounds.size.width-DetailView.inset*2-120, height: 20))
-        maoriView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        maoriView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         maoriView.font = UIFont.italicSystemFont(ofSize: 15)
         self.addSubview(maoriView)
 
         handshapeView = UIImageView(frame: CGRect(x: self.bounds.size.width-DetailView.inset-120, y: DetailView.inset, width: 60, height: 60))
-        handshapeView.autoresizingMask = UIViewAutoresizing.flexibleLeftMargin
-        handshapeView.contentMode = UIViewContentMode.scaleAspectFit
+        handshapeView.autoresizingMask = UIView.AutoresizingMask.flexibleLeftMargin
+        handshapeView.contentMode = UIView.ContentMode.scaleAspectFit
         self.addSubview(handshapeView)
 
         locationView = UIImageView(frame: CGRect(x: self.bounds.size.width-DetailView.inset-60, y: DetailView.inset, width: 60, height: 60))
-        locationView.autoresizingMask = UIViewAutoresizing.flexibleLeftMargin
-        locationView.contentMode = UIViewContentMode.scaleAspectFit
+        locationView.autoresizingMask = UIView.AutoresizingMask.flexibleLeftMargin
+        locationView.contentMode = UIView.ContentMode.scaleAspectFit
         self.addSubview(locationView)
     }
 

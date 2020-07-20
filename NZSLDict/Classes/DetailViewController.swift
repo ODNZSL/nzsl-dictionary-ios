@@ -41,7 +41,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationBar.barTintColor = AppThemePrimaryColor
         navigationBar.isOpaque = false
         navigationBar.autoresizingMask = .flexibleWidth
-        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationBar.delegate = self
         view.addSubview(navigationBar)
         
@@ -61,7 +61,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.frame = CGRect(x: 0, y: (videoView.bounds.size.height - 40) / 2, width: videoView.bounds.width, height: 40)
         playButton.titleLabel?.textAlignment = .center
         playButton.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        playButton.setTitle("Play Video", for: UIControlState())
+        playButton.setTitle("Play Video", for: UIControl.State())
         playButton.setTitle("Playing videos requires access to the Internet.", for: .disabled)
         playButton.setTitleColor(UIColor.white, for: .disabled)
         
@@ -133,7 +133,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         videoView.addSubview(player.view!)
         player.play()
 
-        activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activity = UIActivityIndicatorView(style: .whiteLarge)
         videoView.addSubview(activity)
         activity.frame = activity.frame.offsetBy(dx: (videoView.bounds.width - activity.bounds.width) / 2, dy: (videoView.bounds.height - activity.bounds.height) / 2)
         activity.startAnimating()

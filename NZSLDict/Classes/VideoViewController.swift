@@ -127,7 +127,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         player.play()
 
 
-        activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activity = UIActivityIndicatorView(style: .whiteLarge)
         videoBack.addSubview(activity)
         activity.frame = activity.frame.offsetBy(dx: (videoBack.bounds.size.width - activity.bounds.size.width) / 2, dy: (videoBack.bounds.size.height - activity.bounds.size.height) / 2)
         activity.startAnimating()

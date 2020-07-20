@@ -7,17 +7,17 @@ class DiagramView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        self.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
 
         detailView = DetailView(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: DetailView.height))
-        detailView.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        detailView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
 
         self.addSubview(detailView)
 
         imageView = UIImageView(frame: CGRect(x: 0, y: DetailView.height, width: self.bounds.size.width, height: self.bounds.size.height-DetailView.height))
-        imageView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        imageView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
         imageView.backgroundColor = UIColor.white
-        imageView.contentMode = UIViewContentMode.scaleAspectFit
+        imageView.contentMode = UIView.ContentMode.scaleAspectFit
 
         self.addSubview(imageView)
     }

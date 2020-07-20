@@ -321,8 +321,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         if navbarTitleFirstSegment.responds(to: #selector(setter: UITextField.attributedText)) {
             
-            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSAttributedStringKey.font: UIFont.init(name: "Montserrat-Bold", size: 22)!])
-            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSAttributedStringKey.font: UIFont.init(name: "Montserrat-Italic", size: 22)!])
+            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSAttributedString.Key.font: UIFont.init(name: "Montserrat-Bold", size: 22)!])
+            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSAttributedString.Key.font: UIFont.init(name: "Montserrat-Italic", size: 22)!])
         
             navbarTitleFirstSegment.attributedText = navbarTitleFirstSegmentText
             navbarTitleSecondSegment.attributedText = navbarTitleSecondSegmentText
@@ -408,7 +408,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.characters.count == 0 {
+        if searchText.count == 0 {
             scrollView.isHidden = false
             return
         }
@@ -484,7 +484,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         var cell: UICollectionViewCell
         if indexPath.row == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: HandshapeAnyCellIdentifier, for: indexPath)
-            var label: UILabel! = cell.contentView.viewWithTag(1) as! UILabel!
+            var label: UILabel! = cell.contentView.viewWithTag(1) as! UILabel?
             if label == nil {
                 label = UILabel(frame: cell.contentView.bounds.insetBy(dx: 3, dy: 3))
                 label.tag = 1
@@ -499,7 +499,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: HandshapeIconCellIdentifier, for: indexPath)
             
-            var img: UIImageView! = cell.contentView.viewWithTag(1) as! UIImageView!
+            var img: UIImageView! = cell.contentView.viewWithTag(1) as! UIImageView?
             if img == nil {
                 img = UIImageView(frame: cell.contentView.bounds.insetBy(dx: 3, dy: 3))
                 img.tag = 1
@@ -562,7 +562,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         webView.scrollView.bounces = false
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         if request.url!.isFileURL {
             return true
         }

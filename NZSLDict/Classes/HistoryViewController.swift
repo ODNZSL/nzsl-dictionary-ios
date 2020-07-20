@@ -12,15 +12,15 @@ class HistoryViewController: UITableViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
-        self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.mostRecent, tag: 0)
+        self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.mostRecent, tag: 0)
             
         NotificationCenter.default.addObserver(self, selector: #selector(HistoryViewController.addEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
     }
 
     convenience init() {
-        self.init(style: UITableViewStyle.plain)
+        self.init(style: UITableView.Style.plain)
     }
 
     deinit {
@@ -30,7 +30,7 @@ class HistoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.clearsSelectionOnViewWillAppear = false
-        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
+        self.tableView.contentInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
     }
 
     @objc func addEntry(_ notification: Notification) {
@@ -46,7 +46,7 @@ class HistoryViewController: UITableViewController {
         }
 
         // if the current entry is in the history array then remove it
-        if let i = history.index(of: entry) {
+        if let i = history.firstIndex(of: entry) {
             history.remove(at: i)
         }
 
@@ -82,9 +82,9 @@ class HistoryViewController: UITableViewController {
         var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
 
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: cellIdentifier)
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: cellIdentifier)
             let iv: UIImageView = UIImageView(frame: CGRect(x: 0, y: 2, width: tableView.rowHeight*2, height: tableView.rowHeight-4))
-            iv.contentMode = UIViewContentMode.scaleAspectFit
+            iv.contentMode = UIView.ContentMode.scaleAspectFit
             cell!.accessoryView = iv
         }
 
