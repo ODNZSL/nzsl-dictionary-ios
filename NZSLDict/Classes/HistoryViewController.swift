@@ -33,7 +33,7 @@ class HistoryViewController: UITableViewController {
         self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
     }
 
-    func addEntry(_ notification: Notification) {
+    @objc func addEntry(_ notification: Notification) {
 
         guard let userInfo = notification.userInfo else {
             fatalError("Got not userInfo dictionary")

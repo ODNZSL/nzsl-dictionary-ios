@@ -321,8 +321,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         if navbarTitleFirstSegment.responds(to: #selector(setter: UITextField.attributedText)) {
             
-            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSFontAttributeName: UIFont.init(name: "Montserrat-Bold", size: 22)!])
-            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSFontAttributeName: UIFont.init(name: "Montserrat-Italic", size: 22)!])
+            let navbarTitleFirstSegmentText = NSMutableAttributedString(string: "NZSL", attributes: [NSAttributedStringKey.font: UIFont.init(name: "Montserrat-Bold", size: 22)!])
+            let navbarTitleSecondSegmentText = NSMutableAttributedString(string: "dictionary", attributes: [NSAttributedStringKey.font: UIFont.init(name: "Montserrat-Italic", size: 22)!])
         
             navbarTitleFirstSegment.attributedText = navbarTitleFirstSegmentText
             navbarTitleSecondSegment.attributedText = navbarTitleSecondSegmentText
@@ -366,7 +366,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     // MARK: Callback functions
-    func selectWotd(_ sender: UITapGestureRecognizer) {
+    @objc func selectWotd(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             self.selectEntry(wordOfTheDay)
             searchBar.resignFirstResponder()
@@ -374,7 +374,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
     }
 
-    func selectSearchMode(_ sender: UISegmentedControl) {
+    @objc func selectSearchMode(_ sender: UISegmentedControl) {
         self.tabBarController?.selectedIndex = 0
         switch sender.selectedSegmentIndex {
         case 0:
@@ -425,7 +425,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         return true
     }
 
-    func hideKeyboard() {
+    @objc func hideKeyboard() {
         searchBar.resignFirstResponder()
     }
 

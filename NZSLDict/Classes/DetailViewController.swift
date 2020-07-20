@@ -41,7 +41,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationBar.barTintColor = AppThemePrimaryColor
         navigationBar.isOpaque = false
         navigationBar.autoresizingMask = .flexibleWidth
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         navigationBar.delegate = self
         view.addSubview(navigationBar)
         
@@ -90,7 +90,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         return .topAttached
     }
 
-    func showEntry(_ notification: Notification) {
+    @objc func showEntry(_ notification: Notification) {
         currentEntry = notification.userInfo?["entry"] as? DictEntry
         navigationTitle?.title = currentEntry.gloss
         diagramView?.showEntry(currentEntry)
@@ -139,13 +139,13 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         activity.startAnimating()
     }
 
-    func playerPlaybackStateDidChange(_ notification: Notification) {
+    @objc func playerPlaybackStateDidChange(_ notification: Notification) {
         activity?.stopAnimating()
         activity?.removeFromSuperview()
         activity = nil
     }
 
-    func playerPlaybackDidFinish(_ notification: Notification) {
+    @objc	 func playerPlaybackDidFinish(_ notification: Notification) {
         let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? MPMovieFinishReason
 
         if reason == .playbackError {

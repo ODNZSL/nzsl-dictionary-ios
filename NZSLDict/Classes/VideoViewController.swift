@@ -106,7 +106,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     }
 
 
-    func showEntry(_ notification: Notification) {
+    @objc func showEntry(_ notification: Notification) {
         currentEntry = notification.userInfo!["entry"] as! DictEntry
         player = nil
     }
@@ -116,7 +116,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         self.perform(#selector(VideoViewController.startVideo), with: nil, afterDelay: 0)
     }
 
-    func startVideo() {
+    @objc func startVideo() {
         player = MPMoviePlayerController(contentURL: URL(string: currentEntry.video)!)
         NotificationCenter.default.addObserver(self, selector: #selector(VideoViewController.playerPlaybackStateDidChange(_:)), name: NSNotification.Name.MPMoviePlayerPlaybackStateDidChange, object: player)
         NotificationCenter.default.addObserver(self, selector: #selector(VideoViewController.playerPlaybackDidFinish(_:)), name: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: player)
@@ -134,7 +134,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     }
     
 
-    func playerPlaybackStateDidChange(_ notification: Notification) {
+    @objc func playerPlaybackStateDidChange(_ notification: Notification) {
         if activity == nil { return }
 
         activity.stopAnimating()
@@ -142,7 +142,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         activity = nil
     }
 
-    func playerPlaybackDidFinish(_ notification: Notification) {
+    @objc func playerPlaybackDidFinish(_ notification: Notification) {
         guard let userInfo: NSDictionary = notification.userInfo as! NSDictionary else { return }
         guard let rawReason = userInfo[MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? Int else { return }
         guard let reason: MPMovieFinishReason = MPMovieFinishReason(rawValue: rawReason) else { return }
