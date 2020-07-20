@@ -43,7 +43,7 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
         self.showCurrentEntry()
     }
 
-    func showEntry(_ notification: Notification) {
+    @objc func showEntry(_ notification: Notification) {
         currentEntry = notification.userInfo!["entry"] as! DictEntry
         if diagramView == nil {
             return
