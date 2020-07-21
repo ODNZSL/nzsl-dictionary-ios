@@ -1,5 +1,6 @@
 import Foundation
-import MediaPlayer
+import AVKit
+import AVFoundation
 
 class VideoViewController: UIViewController, UISearchBarDelegate {
     var currentEntry: DictEntry!
@@ -7,9 +8,11 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     var videoBack: UIView!
     var networkErrorMessage: UIView!
     var activity: UIActivityIndicatorView!
-    var player: MPMoviePlayerController!
     var delegate: ViewControllerDelegate!
     var reachability: Reachability?
+    let requiredAssetKeys = ["playable"]
+    var player: AVPlayer?
+    private var playerItemContext = 0
 
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -48,6 +51,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         let networkErrorMessageText = UITextView.init(frame: CGRect(x: 0, y: 24 + networkErrorMessageImage.frame.height, width: networkErrorMessage.frame.width, height: 100))
         networkErrorMessageText.textAlignment = .center
         networkErrorMessageText.text = "Playing videos requires access to the Internet."
+        networkErrorMessageText.isEditable = false
         
         networkErrorMessage.addSubview(networkErrorMessageImage)
         networkErrorMessage.addSubview(networkErrorMessageText)
@@ -86,6 +90,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
             DispatchQueue.main.async {
                 self.networkErrorMessage.isHidden = true
                 self.videoBack.isHidden = false
+                self.startPlayer(self);
                 
             }
         }
@@ -104,54 +109,77 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         }
         
     }
+    
+    @objc func startPlayer(_ sender: AnyObject) {
+        player = AVPlayer(url: URL(string: currentEntry.video)!);
+        player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
+        let playerView = AVPlayerViewController()
+        playerView.player = player
+        playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerView.videoGravity = .resizeAspect
+        playerView.view.frame = self.videoBack.bounds
+        self.videoBack.addSubview(playerView.view)
+        self.addChild(playerView)
+
+        activity = UIActivityIndicatorView(style: .whiteLarge)
+        self.videoBack.addSubview(activity)
+        activity.frame = activity.frame.offsetBy(dx: (self.videoBack.bounds.width - activity.bounds.width) / 2, dy: (self.videoBack.bounds.height - activity.bounds.height) / 2)
+        activity.startAnimating()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+
+        // Only handle observations for the playerItemContext
+        guard context == &playerItemContext else {
+            super.observeValue(forKeyPath: keyPath,
+                               of: object,
+                               change: change,
+                               context: context)
+            return
+        }
+
+        if keyPath == #keyPath(AVPlayerItem.status) {
+            let status: AVPlayerItem.Status
+            if let statusNumber = change?[.newKey] as? NSNumber {
+                status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
+            } else {
+                status = .unknown
+            }
+
+            // Switch over status value
+            switch status {
+            case .readyToPlay:
+                activity?.stopAnimating()
+                activity?.removeFromSuperview()
+                activity = nil
+                DispatchQueue.main.async {
+                    
+                    self.player!.play()
+                }
+                break
+            case .failed:
+                let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
+                alert.show()
+                break
+            case .unknown:
+                break
+                // No-op
+            @unknown default:
+                break
+            }
+        }
+    }
 
 
     @objc func showEntry(_ notification: Notification) {
         currentEntry = notification.userInfo!["entry"] as! DictEntry
-        player = nil
     }
 
     func showCurrentEntry() {
         detailView.showEntry(currentEntry)
-        self.perform(#selector(VideoViewController.startVideo), with: nil, afterDelay: 0)
-    }
-
-    @objc func startVideo() {
-        player = MPMoviePlayerController(contentURL: URL(string: currentEntry.video)!)
-        NotificationCenter.default.addObserver(self, selector: #selector(VideoViewController.playerPlaybackStateDidChange(_:)), name: NSNotification.Name.MPMoviePlayerPlaybackStateDidChange, object: player)
-        NotificationCenter.default.addObserver(self, selector: #selector(VideoViewController.playerPlaybackDidFinish(_:)), name: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: player)
-        player.prepareToPlay()
-        player.view!.frame = videoBack.bounds
-        player.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        videoBack.addSubview(player.view!)
-        player.play()
-
-
-        activity = UIActivityIndicatorView(style: .whiteLarge)
-        videoBack.addSubview(activity)
-        activity.frame = activity.frame.offsetBy(dx: (videoBack.bounds.size.width - activity.bounds.size.width) / 2, dy: (videoBack.bounds.size.height - activity.bounds.size.height) / 2)
-        activity.startAnimating()
-    }
-    
-
-    @objc func playerPlaybackStateDidChange(_ notification: Notification) {
-        if activity == nil { return }
-
-        activity.stopAnimating()
-        activity.removeFromSuperview()
-        activity = nil
-    }
-
-    @objc func playerPlaybackDidFinish(_ notification: Notification) {
-        guard let userInfo: NSDictionary = notification.userInfo as! NSDictionary else { return }
-        guard let rawReason = userInfo[MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? Int else { return }
-        guard let reason: MPMovieFinishReason = MPMovieFinishReason(rawValue: rawReason) else { return }
-
-        switch reason {
-        case .playbackError:
-            networkErrorMessage.isHidden = false
-            videoBack.isHidden = true
-        default: break
-        }
+        self.perform(#selector(VideoViewController.startPlayer), with: nil, afterDelay: 0)
     }
 }

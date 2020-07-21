@@ -24,7 +24,7 @@
     DetailView *detailView;
     UIView *videoBack;
     UIActivityIndicatorView *activity;
-    MPMoviePlayerController *player;
+    AVPlayerViewController *player;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -102,7 +102,7 @@
 
 - (void)startVideo
 {
-    player = [[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:currentEntry.video]];
+    player = [[AVPlayerViewController alloc] initWithContentURL:[NSURL URLWithString:currentEntry.video]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackStateDidChange:) name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:player];
     [player prepareToPlay];
