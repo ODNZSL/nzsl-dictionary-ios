@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03017C2324C6677300608050 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03017C2224C6677300608050 /* AVKit.framework */; };
 		0313E6D01EFB330800FEDC67 /* Default-1104h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CE1EFB330700FEDC67 /* Default-1104h.png */; };
 		0313E6D11EFB330800FEDC67 /* Default-1104h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */; };
 		0313E6D41EFB358F00FEDC67 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D21EFB358F00FEDC67 /* Default-667h.png */; };
@@ -93,6 +94,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03017C2224C6677300608050 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		0313E6CE1EFB330700FEDC67 /* Default-1104h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h.png"; sourceTree = "<group>"; };
 		0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@2x.png"; sourceTree = "<group>"; };
 		0313E6D21EFB358F00FEDC67 /* Default-667h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h.png"; sourceTree = "<group>"; };
@@ -176,8 +178,6 @@
 		4960AD6D1C28E2A5001037C4 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4960AD6E1C28E2A5001037C4 /* DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailView.h; sourceTree = "<group>"; };
 		4960AD6F1C28E2A5001037C4 /* DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailView.m; sourceTree = "<group>"; };
-		4960AD701C28E2A5001037C4 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		4960AD711C28E2A5001037C4 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		4960AD721C28E2A5001037C4 /* DiagramView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagramView.h; sourceTree = "<group>"; };
 		4960AD731C28E2A5001037C4 /* DiagramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiagramView.m; sourceTree = "<group>"; };
 		4960AD741C28E2A5001037C4 /* DiagramViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiagramViewController.h; sourceTree = "<group>"; };
@@ -217,6 +217,7 @@
 			files = (
 				49608D001C279005001037C4 /* libsqlite3.tbd in Frameworks */,
 				374E59E0173260B9004C7D44 /* QuartzCore.framework in Frameworks */,
+				03017C2324C6677300608050 /* AVKit.framework in Frameworks */,
 				37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */,
 				37B3F28E1512F946005F45FA /* UIKit.framework in Frameworks */,
 				37B3F2901512F946005F45FA /* Foundation.framework in Frameworks */,
@@ -266,6 +267,7 @@
 		37B3F28C1512F946005F45FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03017C2224C6677300608050 /* AVKit.framework */,
 				03C248B21EF1E12000569CE0 /* Reachability */,
 				03884A2C1EEFC20300EF5412 /* SystemConfiguration.framework */,
 				49608CFF1C279005001037C4 /* libsqlite3.tbd */,
@@ -406,8 +408,6 @@
 				4960AD791C28E2A5001037C4 /* HistoryViewController.m */,
 				4960AD721C28E2A5001037C4 /* DiagramView.h */,
 				4960AD731C28E2A5001037C4 /* DiagramView.m */,
-				4960AD701C28E2A5001037C4 /* DetailViewController.h */,
-				4960AD711C28E2A5001037C4 /* DetailViewController.m */,
 				4960AD741C28E2A5001037C4 /* DiagramViewController.h */,
 				4960AD751C28E2A5001037C4 /* DiagramViewController.m */,
 			);
@@ -759,6 +759,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.5.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 6G3Y9JE4M4;
 				ENABLE_BITCODE = NO;
@@ -767,6 +768,7 @@
 				INFOPLIST_FILE = "NZSLDict/NZSLDict-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = NZSLDict;
 				PROVISIONING_PROFILE = "";
@@ -877,6 +879,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.5.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 6G3Y9JE4M4;
 				ENABLE_BITCODE = NO;
@@ -885,6 +888,7 @@
 				INFOPLIST_FILE = "NZSLDict/NZSLDict-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = NZSLDict;
 				PROVISIONING_PROFILE = "";
@@ -902,6 +906,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 2.5.4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 6G3Y9JE4M4;
 				ENABLE_BITCODE = NO;
@@ -910,6 +915,7 @@
 				INFOPLIST_FILE = "NZSLDict/NZSLDict-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hewgill.NZSLDictionary;
 				PRODUCT_NAME = NZSLDict;
 				PROVISIONING_PROFILE = "";
