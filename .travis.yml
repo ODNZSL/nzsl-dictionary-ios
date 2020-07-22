@@ -4,5 +4,5 @@ env:
   - CODE_SIGNING_REQUIRED=NO
 script:
   - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPhone 8'
-  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPad Air'
+  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPad (7th generation)'
 
