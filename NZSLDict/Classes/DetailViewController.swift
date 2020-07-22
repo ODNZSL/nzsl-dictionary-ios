@@ -1,4 +1,5 @@
 import UIKit
+import AVFoundation
 import AVKit
 
 class DetailViewController: UIViewController, UISplitViewControllerDelegate, UINavigationBarDelegate {
