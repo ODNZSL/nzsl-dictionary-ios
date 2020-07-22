@@ -68,6 +68,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.addTarget(self, action: #selector(DetailViewController.startPlayer(_:)), for: .touchUpInside)
         videoView.addSubview(playButton)
         
+        if #available(iOS 10.0, *) {
+            playerView.updatesNowPlayingInfoCenter = false
+        }
+   
         setupNetworkStatusMonitoring()
         
         self.view = view
