@@ -8,9 +8,9 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     var videoBack: UIView!
     var networkErrorMessage: UIView!
     var activity: UIActivityIndicatorView!
+    let playerView = AVPlayerViewController()
     var delegate: ViewControllerDelegate!
     var reachability: Reachability?
-    let requiredAssetKeys = ["playable"]
     var player: AVPlayer?
     private var playerItemContext = 0
 
@@ -90,8 +90,6 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
             DispatchQueue.main.async {
                 self.networkErrorMessage.isHidden = true
                 self.videoBack.isHidden = false
-                self.startPlayer(self);
-                
             }
         }
         
@@ -107,13 +105,11 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         if reachability?.currentReachabilityStatus() != .NotReachable {
             reachability?.reachableBlock(reachability)
         }
-        
     }
     
     @objc func startPlayer(_ sender: AnyObject) {
         player = AVPlayer(url: URL(string: currentEntry.video)!);
         player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
-        let playerView = AVPlayerViewController()
         playerView.player = player
         playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         playerView.videoGravity = .resizeAspect
@@ -161,7 +157,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
                 }
                 break
             case .failed:
-                let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
+                let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "OK")
                 alert.show()
                 break
             case .unknown:
