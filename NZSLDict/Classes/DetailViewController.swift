@@ -76,11 +76,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         return true
     }
 
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        if player == nil { return }
-        playerView.view!.frame = videoView.bounds
-    }
-
     func splitViewController(_ svc: UISplitViewController, shouldHide vc: UIViewController, in orientation: UIInterfaceOrientation) -> Bool {
         return false
     }
