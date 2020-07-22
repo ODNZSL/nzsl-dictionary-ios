@@ -184,8 +184,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), for: .valueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44, width: view.frame.size.width, height: view.frame.size.height - (0 + 44)))
-        searchTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44, width: view.frame.size.width, height: view.frame.size.height))
+        searchTable.autoresizingMask = [.flexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
         searchTable.delegate = self
@@ -232,8 +232,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addSubview(wotdImageView)
         
         
-        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: 500))
-        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: self.view.frame.height - wotdView.frame.height))
+        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
