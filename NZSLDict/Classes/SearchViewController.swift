@@ -233,8 +233,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchViewController.selectWotd(_:))))
         wotdView.addSubview(wotdImageView)
         
-        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: self.view.frame.height - (tabBarHeight)))
-        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
+        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: 400))
+        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
