@@ -52,8 +52,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         diagramView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
         view.addSubview(diagramView)
 
-        videoView = UIView(frame: CGRect(x: 0, y: diagramView.frame.maxY, width: view.bounds.size.width, height: view.bounds.size.height / 2))
-        videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
+        videoView = UIView(frame: CGRect(x: 0, y: top_offset + 44 + view.bounds.size.height / 2, width: view.bounds.size.width, height: view.bounds.size.height - (top_offset + 44 + view.bounds.size.height / 2)))
+        videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin]
         videoView.backgroundColor = UIColor.black
         view.addSubview(videoView)
 
