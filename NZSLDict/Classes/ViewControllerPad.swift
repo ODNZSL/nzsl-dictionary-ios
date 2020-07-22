@@ -24,30 +24,30 @@ class ViewControllerPad: UISplitViewController {
         self.preferredDisplayMode = .allVisible
         self.delegate = detailController
     }
-    
-    override func viewDidLayoutSubviews() {
-        let kMasterViewWidth: CGFloat = 320.0
-
-        let masterViewController = viewControllers[0]
-        let detailViewController = viewControllers[1]
-
-        if detailViewController.view.frame.origin.x > 0.0 {
-            // Adjust the width of the master view
-            var masterViewFrame = masterViewController.view.frame
-            let deltaX = masterViewFrame.size.width - kMasterViewWidth
-            masterViewFrame.size.width -= deltaX
-            masterViewController.view.frame = masterViewFrame
-
-            // Adjust the width of the detail view
-            var detailViewFrame = detailViewController.view.frame
-            detailViewFrame.origin.x -= deltaX
-            detailViewFrame.size.width += deltaX
-            detailViewController.view.frame = detailViewFrame
-
-            masterViewController.view.setNeedsLayout()
-            detailViewController.view.setNeedsLayout()
-        }
-    }
+//    
+//    override func viewDidLayoutSubviews() {
+//        let kMasterViewWidth: CGFloat = 320.0
+//
+//        let masterViewController = viewControllers[0]
+//        let detailViewController = viewControllers[1]
+//
+//        if detailViewController.view.frame.origin.x > 0.0 {
+//            // Adjust the width of the master view
+//            var masterViewFrame = masterViewController.view.frame
+//            let deltaX = masterViewFrame.size.width - kMasterViewWidth
+//            masterViewFrame.size.width -= deltaX
+//            masterViewController.view.frame = masterViewFrame
+//
+//            // Adjust the width of the detail view
+//            var detailViewFrame = detailViewController.view.frame
+//            detailViewFrame.origin.x -= deltaX
+//            detailViewFrame.size.width += deltaX
+//            detailViewController.view.frame = detailViewFrame
+//
+//            masterViewController.view.setNeedsLayout()
+//            detailViewController.view.setNeedsLayout()
+//        }
+//    }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

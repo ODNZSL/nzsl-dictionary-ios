@@ -161,6 +161,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         } else {
             self.view = UIView.init(frame: UIScreen.main.applicationFrame)
         }
+        
+        var tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
 
         view.backgroundColor = AppThemePrimaryLightColor
         
@@ -197,8 +199,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchTable.addGestureRecognizer(swipeRecognizer)
         
         scrollView = UIScrollView.init(frame: searchTable.frame);
-        scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.contentSize = CGSize.init(width: self.view.frame.width, height: 600)
+        scrollView.autoresizingMask = [.flexibleHeight]
         scrollView.backgroundColor = UIColor.white
         
         
@@ -231,8 +233,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchViewController.selectWotd(_:))))
         wotdView.addSubview(wotdImageView)
         
-        
-        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: self.view.frame.height - wotdView.frame.height))
+        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: self.view.frame.height - (tabBarHeight)))
         aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
         aboutContentWebView.delegate = self
         
