@@ -18,6 +18,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -64,7 +65,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.setTitle("Playing videos requires access to the Internet.", for: .disabled)
         playButton.setTitleColor(UIColor.white, for: .disabled)
         
-        playButton.addTarget(self, action: #selector(DetailViewController.startPlayer), for: .touchUpInside)
+        playButton.addTarget(self, action: #selector(DetailViewController.startPlayer(_:)), for: .touchUpInside)
         videoView.addSubview(playButton)
         
         setupNetworkStatusMonitoring()
