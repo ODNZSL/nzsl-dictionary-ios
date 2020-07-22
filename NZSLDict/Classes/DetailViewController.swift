@@ -120,81 +120,67 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         self.reachability!.startNotifier()
     }
 
-    @IBAction func startPlayer(_ sender: AnyObject) {
-        let playerItem = AVPlayerItem(url: URL(string: currentEntry.video)!);
-        playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
+    
+       @objc func startPlayer(_ sender: AnyObject) {
+           player = AVPlayer(url: URL(string: currentEntry.video)!);
+           player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
+           player!.isMuted = true
+           playerView.player = player
+           playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+           playerView.videoGravity = .resizeAspect
+           playerView.view.frame = self.videoView.bounds
+           self.videoView.addSubview(playerView.view)
+           self.addChild(playerView)
 
-        player = AVPlayer(playerItem: playerItem);
-        playerView.player = player
-        playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        playerView.videoGravity = .resizeAspect
-        playerView.view.bounds = videoView.bounds
-        videoView.addSubview(playerView.view)
-        player.play();
+           activity = UIActivityIndicatorView(style: .whiteLarge)
+           self.videoView.addSubview(activity)
+           activity.frame = activity.frame.offsetBy(dx: (self.videoView.bounds.width - activity.bounds.width) / 2, dy: (self.videoView.bounds.height - activity.bounds.height) / 2)
+           activity.startAnimating()
+       }
+       
+       override func observeValue(forKeyPath keyPath: String?,
+                                  of object: Any?,
+                                  change: [NSKeyValueChangeKey : Any]?,
+                                  context: UnsafeMutableRawPointer?) {
 
-        activity = UIActivityIndicatorView(style: .whiteLarge)
-        videoView.addSubview(activity)
-        activity.frame = activity.frame.offsetBy(dx: (videoView.bounds.width - activity.bounds.width) / 2, dy: (videoView.bounds.height - activity.bounds.height) / 2)
-        activity.startAnimating()
-    }
+           // Only handle observations for the playerItemContext
+           guard context == &playerItemContext else {
+               super.observeValue(forKeyPath: keyPath,
+                                  of: object,
+                                  change: change,
+                                  context: context)
+               return
+           }
 
-//    @objc func startPlayer(_ sender: AnyObject) {
-//        let playerItem = AVPlayerItem(url: URL(string: currentEntry.video)!)
-//        playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
-//
-//
-//        let player = AVPlayer(playerItem: playerItem)
-//        let playerLayer = AVPlayerLayer(player: player)
-//        playerLayer.frame = self.videoView.bounds;
-//        playerLayer.videoGravity = .resizeAspect
-//        self.videoView.layer.addSublayer(playerLayer)
-//        playerLayer.player!.play()
-//
-//        activity = UIActivityIndicatorView(style: .whiteLarge)
-//        self.videoView.addSubview(activity)
-//        activity.frame = activity.frame.offsetBy(dx: (view.bounds.width - activity.bounds.width) / 2, dy: (view.bounds.height - activity.bounds.height) / 2)
-//        activity.startAnimating()
-//    }
-//
-    override func observeValue(forKeyPath keyPath: String?,
-                               of object: Any?,
-                               change: [NSKeyValueChangeKey : Any]?,
-                               context: UnsafeMutableRawPointer?) {
+           if keyPath == #keyPath(AVPlayerItem.status) {
+               let status: AVPlayerItem.Status
+               if let statusNumber = change?[.newKey] as? NSNumber {
+                   status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
+               } else {
+                   status = .unknown
+               }
 
-        // Only handle observations for the playerItemContext
-        guard context == &playerItemContext else {
-            super.observeValue(forKeyPath: keyPath,
-                               of: object,
-                               change: change,
-                               context: context)
-            return
-        }
-
-        if keyPath == #keyPath(AVPlayerItem.status) {
-            let status: AVPlayerItem.Status
-            if let statusNumber = change?[.newKey] as? NSNumber {
-                status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
-            } else {
-                status = .unknown
-            }
-
-            // Switch over status value
-            switch status {
-            case .readyToPlay:
-                activity?.stopAnimating()
-                activity?.removeFromSuperview()
-                activity = nil
-                break
-            case .failed:
-                let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
-                alert.show()
-                break
-            case .unknown:
-                break
-                // No-op
-            @unknown default:
-                break
-            }
-        }
-    }
+               // Switch over status value
+               switch status {
+               case .readyToPlay:
+                   activity?.stopAnimating()
+                   activity?.removeFromSuperview()
+                   activity = nil
+                   DispatchQueue.main.async {
+                       
+                       self.player!.play()
+                   }
+                   break
+               case .failed:
+                   let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "OK")
+                   alert.show()
+                   break
+               case .unknown:
+                   break
+                   // No-op
+               @unknown default:
+                   break
+               }
+           }
+       }
 }
