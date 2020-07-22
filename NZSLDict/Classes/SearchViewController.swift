@@ -201,7 +201,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         scrollView = UIScrollView.init(frame: searchTable.frame);
         scrollView.contentSize = CGSize.init(width: self.view.frame.width, height: 600)
         scrollView.autoresizingMask = [.flexibleHeight]
-        scrollView.backgroundColor = UIColor.white
+        scrollView.backgroundColor = AppThemePrimaryLightColor
         
         
         
