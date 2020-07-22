@@ -6,8 +6,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     var diagramView: DiagramView!
     var videoView: UIView!
     var navigationTitle: UINavigationItem!
-    var player: AVPlayer!
-    var playerView = AVPlayerViewController()
+    var player: AVPlayer?
+    let playerView = AVPlayerViewController()
     var activity: UIActivityIndicatorView!
     var playButton: UIButton!
     var reachability: Reachability?
