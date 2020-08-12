@@ -161,6 +161,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         } else {
             self.view = UIView.init(frame: UIScreen.main.applicationFrame)
         }
+        
+        var tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
 
         view.backgroundColor = AppThemePrimaryLightColor
         
@@ -184,8 +186,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), for: .valueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44, width: view.frame.size.width, height: view.frame.size.height - (0 + 44)))
-        searchTable.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44, width: view.frame.size.width, height: view.frame.size.height))
+        searchTable.autoresizingMask = [.flexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
         searchTable.delegate = self
@@ -197,9 +199,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchTable.addGestureRecognizer(swipeRecognizer)
         
         scrollView = UIScrollView.init(frame: searchTable.frame);
-        scrollView.contentSize = CGSize.init(width: self.view.bounds.width, height: 600)
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scrollView.backgroundColor = UIColor.white
+        scrollView.contentSize = CGSize.init(width: self.view.frame.width, height: 600)
+        scrollView.autoresizingMask = [.flexibleHeight]
+        scrollView.backgroundColor = AppThemePrimaryLightColor
         
         
         
@@ -231,9 +233,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchViewController.selectWotd(_:))))
         wotdView.addSubview(wotdImageView)
         
-        
-        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: 500))
-        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: 400))
+        aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         aboutContentWebView.delegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)

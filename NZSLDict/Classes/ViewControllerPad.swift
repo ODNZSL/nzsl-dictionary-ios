@@ -21,6 +21,7 @@ class ViewControllerPad: UISplitViewController {
         tabbar.viewControllers = [searchController, historyController]
 
         self.viewControllers = [tabbar, detailController]
+        self.preferredDisplayMode = .allVisible
         self.delegate = detailController
     }
 

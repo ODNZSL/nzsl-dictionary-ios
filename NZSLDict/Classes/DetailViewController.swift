@@ -1,24 +1,25 @@
 import UIKit
-import MediaPlayer
+import AVFoundation
+import AVKit
 
 class DetailViewController: UIViewController, UISplitViewControllerDelegate, UINavigationBarDelegate {
     var navigationBar: UINavigationBar!
     var diagramView: DiagramView!
     var videoView: UIView!
     var navigationTitle: UINavigationItem!
-    var player: MPMoviePlayerController!
+    var player: AVPlayer?
+    let playerView = AVPlayerViewController()
     var activity: UIActivityIndicatorView!
     var playButton: UIButton!
     var reachability: Reachability?
     var networkErrorMessage: UIView!
+    private var playerItemContext = 0
 
     var currentEntry: DictEntry!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.playerPlaybackStateDidChange(_:)), name: NSNotification.Name.MPMoviePlayerPlaybackStateDidChange, object: player)
-        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.playerPlaybackDidFinish(_:)), name: NSNotification.Name.MPMoviePlayerPlaybackDidFinish, object: player)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -68,6 +69,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         playButton.addTarget(self, action: #selector(DetailViewController.startPlayer(_:)), for: .touchUpInside)
         videoView.addSubview(playButton)
         
+        if #available(iOS 10.0, *) {
+            playerView.updatesNowPlayingInfoCenter = false
+        }
+   
         setupNetworkStatusMonitoring()
         
         self.view = view
@@ -75,11 +80,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
      override var shouldAutorotate : Bool {
         return true
-    }
-
-    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-        if player == nil { return }
-        player.view!.frame = videoView.frame
     }
 
     func splitViewController(_ svc: UISplitViewController, shouldHide vc: UIViewController, in orientation: UIInterfaceOrientation) -> Bool {
@@ -94,7 +94,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         currentEntry = notification.userInfo?["entry"] as? DictEntry
         navigationTitle?.title = currentEntry.gloss
         diagramView?.showEntry(currentEntry)
-        player?.view!.removeFromSuperview()
+        playerView.view.removeFromSuperview()
         player = nil
     }
     
@@ -126,32 +126,67 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         self.reachability!.startNotifier()
     }
 
-    @IBAction func startPlayer(_ sender: AnyObject) {
-        player = MPMoviePlayerController(contentURL: URL(string: currentEntry.video)!)
-        player.prepareToPlay()
-        player.view!.frame = videoView.bounds
-        videoView.addSubview(player.view!)
-        player.play()
+    
+       @objc func startPlayer(_ sender: AnyObject) {
+           player = AVPlayer(url: URL(string: currentEntry.video)!);
+           player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
+           player!.isMuted = true
+           playerView.player = player
+           playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+           playerView.videoGravity = .resizeAspect
+           playerView.view.frame = self.videoView.bounds
+           self.videoView.addSubview(playerView.view)
+           self.addChild(playerView)
 
-        activity = UIActivityIndicatorView(style: .whiteLarge)
-        videoView.addSubview(activity)
-        activity.frame = activity.frame.offsetBy(dx: (videoView.bounds.width - activity.bounds.width) / 2, dy: (videoView.bounds.height - activity.bounds.height) / 2)
-        activity.startAnimating()
-    }
+           activity = UIActivityIndicatorView(style: .whiteLarge)
+           self.videoView.addSubview(activity)
+           activity.frame = activity.frame.offsetBy(dx: (self.videoView.bounds.width - activity.bounds.width) / 2, dy: (self.videoView.bounds.height - activity.bounds.height) / 2)
+           activity.startAnimating()
+       }
+       
+       override func observeValue(forKeyPath keyPath: String?,
+                                  of object: Any?,
+                                  change: [NSKeyValueChangeKey : Any]?,
+                                  context: UnsafeMutableRawPointer?) {
 
-    @objc func playerPlaybackStateDidChange(_ notification: Notification) {
-        activity?.stopAnimating()
-        activity?.removeFromSuperview()
-        activity = nil
-    }
+           // Only handle observations for the playerItemContext
+           guard context == &playerItemContext else {
+               super.observeValue(forKeyPath: keyPath,
+                                  of: object,
+                                  change: change,
+                                  context: context)
+               return
+           }
 
-    @objc	 func playerPlaybackDidFinish(_ notification: Notification) {
-        let reason = notification.userInfo![MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] as? MPMovieFinishReason
+           if keyPath == #keyPath(AVPlayerItem.status) {
+               let status: AVPlayerItem.Status
+               if let statusNumber = change?[.newKey] as? NSNumber {
+                   status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
+               } else {
+                   status = .unknown
+               }
 
-        if reason == .playbackError {
-            let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "Cancel", otherButtonTitles: "")
-            alert.show()
-        }
-    }
-
+               // Switch over status value
+               switch status {
+               case .readyToPlay:
+                   activity?.stopAnimating()
+                   activity?.removeFromSuperview()
+                   activity = nil
+                   DispatchQueue.main.async {
+                       
+                       self.player!.play()
+                   }
+                   break
+               case .failed:
+                   let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "OK")
+                   alert.show()
+                   break
+               case .unknown:
+                   break
+                   // No-op
+               @unknown default:
+                   break
+               }
+           }
+       }
 }
