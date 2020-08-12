@@ -8,37 +8,6 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIcons</key>
-	<dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>app-icon-128.png</string>
-				<string>app-icon.png</string>
-				<string>app-icon-114.png</string>
-				<string>app-icon-72.png</string>
-				<string>app-icon-144.png</string>
-			</array>
-		</dict>
-	</dict>
-	<key>CFBundleIcons~ipad</key>
-	<dict>
-		<key>CFBundlePrimaryIcon</key>
-		<dict>
-			<key>CFBundleIconFiles</key>
-			<array>
-				<string>app-icon-120.png</string>
-				<string>app-icon-152.png</string>
-				<string>app-icon-76.png</string>
-				<string>app-icon-128.png</string>
-				<string>app-icon-196.png</string>
-				<string>app-icon-114.png</string>
-				<string>app-icon-72.png</string>
-				<string>app-icon-144.png</string>
-			</array>
-		</dict>
-	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
