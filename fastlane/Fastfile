@@ -1,0 +1,31 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+update_fastlane
+setup_travis
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Release to the app store"
+  lane :release do
+    build_app(scheme: "NZSLDict", project: "NZSLDict.xcodeproj")
+    upload_to_app_store
+  end
+
+  desc "Run tests"
+  lane :test do
+    run_tests(project: "NZSLDict.xcodeproj",
+              devices: ["iPhone 8", "iPad (7th Generation)"],
+              scheme: "NZSLDictTests")
+  end
+end

@@ -41,3 +41,6 @@ Data/picture/*
 # http://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
 #
 #Pods/
+fastlane/report.xml
+fastlane/test_output
+fastlane/*.html
