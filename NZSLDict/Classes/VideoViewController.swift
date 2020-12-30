@@ -157,8 +157,10 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
                 }
                 break
             case .failed:
-                let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "OK")
-                alert.show()
+                let alert = UIAlertController.init(title: "Network access required", message: "Playing videos requires access to the Internet.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+
+            self.present(alert, animated: true, completion: nil)
                 break
             case .unknown:
                 break
