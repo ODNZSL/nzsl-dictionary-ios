@@ -73,16 +73,19 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
             "http://twitter.com/{username}", // Web fallback,
         ]
 
-        let application: UIApplication = UIApplication.shared
 
         for candidate in urls {
             let urlString = candidate.replacingOccurrences(of: "{username}", with:userName)
             if let url = URL(string: urlString) {
-                print("testing \(url)")
-                if application.canOpenURL(url) {
-                    print("we can open \(url)")
-                    application.openURL(url)
-                    return true
+                if #available(iOS 10, *) {
+                   UIApplication.shared.open(url, options: [:],
+                   completionHandler: {
+                      (success) in
+                      print("Open \(url): \(success)")
+                    })
+                 } else {
+                      let success = UIApplication.shared.openURL(url)
+                      print("Open \(url): \(success)")
                 }
             }
         }
