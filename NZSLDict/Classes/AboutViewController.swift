@@ -1,7 +1,8 @@
 import UIKit
+import WebKit
 
-class AboutViewController: UIViewController, UIWebViewDelegate {
-    var webView: UIWebView!
+class AboutViewController: UIViewController, WKNavigationDelegate {
+    var webView: WKWebView!
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -14,14 +15,14 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
     }
 
     override func loadView() {
-        webView = UIWebView(frame: UIScreen.main.bounds)
+        webView = WKWebView(frame: UIScreen.main.bounds)
         webView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
-
+        webView.navigationDelegate = self
+        
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
             webView.scrollView.contentInset = UIEdgeInsets.init(top: 20, left: 0, bottom: 0, right: 0)
         }
 
-        webView.delegate = self
         self.view = webView
     }
 
@@ -35,25 +36,40 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
 
         let aboutUrl = URL(fileURLWithPath: aboutPath)
         let request = URLRequest(url: aboutUrl)
-        webView.loadRequest(request)
+        webView.load(request)
     }
 
     override var shouldAutorotate : Bool {
         return true
     }
 
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        if request.url!.isFileURL {
-            return true
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        var action: WKNavigationActionPolicy?
+
+        defer {
+            decisionHandler(action ?? .allow)
         }
 
-        if request.url!.scheme == "follow" {
+        guard let url = navigationAction.request.url else { return }
+        print("decidePolicyFor - url: \(url)")
+        
+        if url.isFileURL { return }
+        if url.scheme == "follow" {
+            action = .cancel
             openTwitterClientForUserName("NZSLDict")
-            return false
+            return
         }
-
-        UIApplication.shared.openURL(request.url!)
-        return false
+        
+        if #available(iOS 10, *) {
+           UIApplication.shared.open(url, options: [:],
+           completionHandler: {
+              (success) in
+              print("Open \(url): \(success)")
+            })
+         } else {
+              let success = UIApplication.shared.openURL(url)
+              print("Open \(url): \(success)")
+         }
     }
 
     // https://gist.github.com/vhbit/958738
@@ -86,8 +102,8 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
                  } else {
                       let success = UIApplication.shared.openURL(url)
                       print("Open \(url): \(success)")
-                }
-            }
+             }
+        }
         }
 
         return false
