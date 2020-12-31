@@ -48,7 +48,7 @@ class AboutViewController: UIViewController, UIWebViewDelegate {
         }
 
         if request.url!.scheme == "follow" {
-            openTwitterClientForUserName("NZSLDict")
+            _ = openTwitterClientForUserName("NZSLDict")
             return false
         }
 
