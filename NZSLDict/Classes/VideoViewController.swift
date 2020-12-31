@@ -173,7 +173,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
 
 
     @objc func showEntry(_ notification: Notification) {
-        currentEntry = notification.userInfo!["entry"] as! DictEntry
+        currentEntry = notification.userInfo!["entry"] as? DictEntry
     }
 
     func showCurrentEntry() {
