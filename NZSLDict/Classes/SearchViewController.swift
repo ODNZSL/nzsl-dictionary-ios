@@ -204,26 +204,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         
         wotdView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 125))
-        wotdView.autoresizingMask = .flexibleWidth
         wotdView.backgroundColor = UIColor.white
+        wotdView.autoresizingMask = .flexibleWidth
         
         wotdLabel = UILabel(frame: CGRect(x: 16, y: 16, width: wotdView.bounds.size.width * 0.7, height: 20))
         wotdLabel.autoresizingMask = .flexibleHeight
         wotdLabel.text = "Word of the day"
-        wotdLabel.font = UIFont.systemFont(ofSize: 14)
+        wotdLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         wotdLabel.textColor = AppSecondaryTextColour
         wotdView.addSubview(wotdLabel)
         
         wotdGlossLabel = UILabel(frame: CGRect(x: 16, y: 40, width: wotdView.bounds.size.width * 0.6, height: 24))
         wotdGlossLabel.autoresizingMask = .flexibleHeight
         wotdGlossLabel.numberOfLines = 0
-        wotdGlossLabel.font = UIFont.systemFont(ofSize: 20)
-        wotdGlossLabel.textColor = UIColor.black;
+        wotdGlossLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         wotdView.addSubview(wotdGlossLabel)
 
 
 
-        wotdImageView = UIImageView(frame: CGRect(x: wotdView.bounds.width * 0.7, y: 0, width: wotdView.bounds.width * 0.3 - 16, height: 125))
+        wotdImageView = UIImageView(frame: CGRect(x: wotdView.bounds.width * 0.7, y: wotdView.bounds.minY + 16.0, width: wotdView.bounds.width * 0.3 - 16, height: wotdView.bounds.height - 32.0))
         wotdImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         wotdImageView.backgroundColor = UIColor.white
         wotdImageView.contentMode = .scaleAspectFit
@@ -567,7 +566,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
         
         if request.url!.scheme == "follow" {
-            openTwitterClientForUserName("NZSLDict")
+            _ = openTwitterClientForUserName("NZSLDict")
             return false
         }
         
