@@ -18,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
+
+        
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
         navigationController.navigationBar.barStyle = UIBarStyle.black;
         navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]

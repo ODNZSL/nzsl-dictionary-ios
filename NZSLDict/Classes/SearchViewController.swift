@@ -166,13 +166,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         view.backgroundColor = AppThemePrimaryLightColor
         
-        searchBar = PaddedUISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : 0, width: view.bounds.size.width, height: onPad() ? 96 : 44))
-        searchBar.backgroundImage = UIImage()
+        let searchBarPadding = CGFloat(8.0)
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : searchBarPadding, width: view.bounds.size.width, height: onPad() ? 96 : 44 + (searchBarPadding * 2)))
         searchBar.autoresizingMask = [.flexibleWidth]
-        searchBar.tintColor = AppThemePrimaryColor
         searchBar.tintAdjustmentMode = .normal
         searchBar.barTintColor = AppThemePrimaryColor
-        searchBar.isOpaque = true
         
         searchBar.delegate = self
         self.view.addSubview(searchBar)
@@ -186,7 +184,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), for: .valueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44, width: view.frame.size.width, height: view.frame.size.height))
+        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44 + (searchBarPadding * 2), width: view.frame.size.width, height: view.frame.size.height))
         searchTable.autoresizingMask = [.flexibleHeight]
         searchTable.rowHeight = 50
         searchTable.dataSource = self
