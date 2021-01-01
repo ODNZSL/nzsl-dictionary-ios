@@ -16,7 +16,7 @@ class DiagramView: UIView {
 
         imageView = UIImageView(frame: CGRect(x: 0, y: DetailView.height, width: self.bounds.size.width, height: self.bounds.size.height-DetailView.height))
         imageView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
-        imageView.backgroundColor = UIColor.white
+        imageView.backgroundColor = UIColor(named: "app-background")
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
 
         self.addSubview(imageView)

@@ -162,9 +162,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             self.view = UIView.init(frame: UIScreen.main.applicationFrame)
         }
         
-        var tabBarHeight = self.tabBarController?.tabBar.frame.height ?? 0
-
-        view.backgroundColor = AppThemePrimaryLightColor
+        view.backgroundColor = UIColor(named: "app-background")
         
         let searchBarPadding = CGFloat(8.0)
         searchBar = UISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : searchBarPadding, width: view.bounds.size.width, height: onPad() ? 96 : 44 + (searchBarPadding * 2)))
@@ -204,7 +202,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         
         wotdView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 125))
-        wotdView.backgroundColor = UIColor.white
+        wotdView.backgroundColor = UIColor(named: "app-background")
         wotdView.autoresizingMask = .flexibleWidth
         
         wotdLabel = UILabel(frame: CGRect(x: 16, y: 16, width: wotdView.bounds.size.width * 0.7, height: 20))

@@ -26,7 +26,7 @@ class DetailView: UIView {
     }
 
     func setupView() {
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor(named: "app-background")
 
         glossView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset, width: self.bounds.size.width - DetailView.inset * 2 - 120, height: 20))
         glossView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
