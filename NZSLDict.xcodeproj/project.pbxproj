@@ -12,6 +12,7 @@
 		0313E6D11EFB330800FEDC67 /* Default-1104h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */; };
 		0313E6D41EFB358F00FEDC67 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D21EFB358F00FEDC67 /* Default-667h.png */; };
 		0313E6D51EFB358F00FEDC67 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */; };
+		0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */; };
 		033E0D52259C79BD00F8A01D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033E0D51259C79BD00F8A01D /* WebKit.framework */; };
 		033E0D54259C7A6700F8A01D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 033E0D53259C7A6700F8A01D /* Launch Screen.storyboard */; };
 		0387B0FF24C84DEB0033E26B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0387B0FE24C84DEA0033E26B /* Assets.xcassets */; };
@@ -101,6 +102,7 @@
 		0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@2x.png"; sourceTree = "<group>"; };
 		0313E6D21EFB358F00FEDC67 /* Default-667h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h.png"; sourceTree = "<group>"; };
 		0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewAligned.swift; sourceTree = "<group>"; };
 		033E0D51259C79BD00F8A01D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		033E0D53259C7A6700F8A01D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0387B0FE24C84DEA0033E26B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
 				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
 				499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */,
+				0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 				039081CB1EEA4A2E0050C180 /* AboutViewController.swift in Sources */,
 				49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */,
 				49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */,
+				0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */,
 				4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */,
 				4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */,
 				49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */,

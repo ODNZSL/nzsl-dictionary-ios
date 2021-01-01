@@ -184,7 +184,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         self.view.addSubview(modeSwitch)
         searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44 + (searchBarPadding * 2), width: view.frame.size.width, height: view.frame.size.height))
         searchTable.autoresizingMask = [.flexibleHeight]
-        searchTable.rowHeight = 50
+        searchTable.rowHeight = 64
         searchTable.dataSource = self
         searchTable.delegate = self
         
@@ -442,8 +442,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-            let iv: UIImageView = UIImageView(frame: CGRect(x: 0, y: 2, width: tableView.rowHeight * 2, height: tableView.rowHeight - 4))
+            let iv: UIImageViewAligned = UIImageViewAligned(frame: CGRect(x: 0, y: 8, width: tableView.rowHeight, height: tableView.rowHeight - 16))
+            iv.alignment = .right
             iv.contentMode = .scaleAspectFit
+            
             cell!.accessoryView = iv
         }
 
