@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor.black
+
 
         
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
