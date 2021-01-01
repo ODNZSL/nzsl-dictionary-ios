@@ -409,7 +409,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             return
         }
         scrollView.isHidden = true
-        searchResults = dict.search(for: searchText) as! [AnyObject]
+        searchResults = dict.search(for: searchText)! as [AnyObject]
         searchTable.reloadData()
     }
 
