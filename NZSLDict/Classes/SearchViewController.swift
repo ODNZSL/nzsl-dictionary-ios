@@ -466,7 +466,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         } else {
             iv.image = UIImage(named: "50.\(e.image!)")
         }
-        
+
         iv.highlightedImage = transparent_image(iv.image)
         return cell!
     }
