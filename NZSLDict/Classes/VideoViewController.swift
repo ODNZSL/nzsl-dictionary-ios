@@ -34,11 +34,12 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     override func loadView() {
         let view: UIView = UIView(frame: UIScreen.main.bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.backgroundColor = UIColor(named: "app-background")
 
-        detailView = DetailView(frame: CGRect(x: padding, y: padding, width: view.bounds.size.width - (padding * 2), height: DetailView.height))
+        detailView = DetailView(frame: CGRect(x: padding, y: padding, width: view.bounds.size.width - (padding * 2), height: DetailView.height + padding))
         detailView.autoresizingMask = [.flexibleWidth]
         view.addSubview(detailView)
-        videoBack = UIView(frame: CGRect(x: 0, y: DetailView.height, width: view.bounds.size.width, height: view.bounds.size.height - DetailView.height))
+        videoBack = UIView(frame: CGRect(x: 0, y: detailView.frame.maxY , width: view.bounds.size.width, height: view.bounds.size.height - DetailView.height))
         videoBack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(videoBack)
         
