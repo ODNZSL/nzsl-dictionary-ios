@@ -7,8 +7,7 @@ class DetailView: UIView {
     var handshapeView: UIImageView!
     var locationView: UIImageView!
 
-    static let inset: CGFloat = 2
-    static let height: CGFloat = 60 + inset * 2
+    static let height: CGFloat = 60
 
     // the designated initializer for a UIView requires a frame
     override init(frame: CGRect) {
@@ -28,27 +27,27 @@ class DetailView: UIView {
     func setupView() {
         self.backgroundColor = UIColor(named: "app-background")
 
-        glossView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset, width: self.bounds.size.width - DetailView.inset * 2 - 120, height: 20))
+        glossView = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width - 120, height: 20))
         glossView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         glossView.font = UIFont.boldSystemFont(ofSize: 18)
         self.addSubview(glossView)
 
-        minorView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset+20, width: self.bounds.size.width-DetailView.inset*2-120, height: 20))
+        minorView = UILabel(frame: CGRect(x: 0, y: 20, width: self.bounds.size.width-120, height: 20))
         minorView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         minorView.font = UIFont.systemFont(ofSize: 15)
         self.addSubview(minorView)
 
-        maoriView = UILabel(frame: CGRect(x: DetailView.inset, y: DetailView.inset+40, width: self.bounds.size.width-DetailView.inset*2-120, height: 20))
+        maoriView = UILabel(frame: CGRect(x: 0, y: 40, width: self.bounds.size.width-120, height: 20))
         maoriView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         maoriView.font = UIFont.italicSystemFont(ofSize: 15)
         self.addSubview(maoriView)
 
-        handshapeView = UIImageView(frame: CGRect(x: self.bounds.size.width-DetailView.inset-120, y: DetailView.inset, width: 60, height: 60))
+        handshapeView = UIImageView(frame: CGRect(x: self.frame.size.width-120, y: 0, width: 60, height: 60))
         handshapeView.autoresizingMask = UIView.AutoresizingMask.flexibleLeftMargin
         handshapeView.contentMode = UIView.ContentMode.scaleAspectFit
         self.addSubview(handshapeView)
 
-        locationView = UIImageView(frame: CGRect(x: self.bounds.size.width-DetailView.inset-60, y: DetailView.inset, width: 60, height: 60))
+        locationView = UIImageView(frame: CGRect(x: self.frame.size.width-60, y: 0, width: 60, height: 60))
         locationView.autoresizingMask = UIView.AutoresizingMask.flexibleLeftMargin
         locationView.contentMode = UIView.ContentMode.scaleAspectFit
         self.addSubview(locationView)
