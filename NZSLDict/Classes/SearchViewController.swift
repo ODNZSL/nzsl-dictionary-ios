@@ -169,6 +169,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar.autoresizingMask = [.flexibleWidth]
         searchBar.tintAdjustmentMode = .normal
         searchBar.barTintColor = AppThemePrimaryColor
+        if #available(iOS 13.0, *) {
+            searchBar.searchTextField.leftView?.tintColor = .black
+        } else {
+            // < iOS13 we don't really need to worry about dark mode
+        }
+        
         
         searchBar.delegate = self
         self.view.addSubview(searchBar)
