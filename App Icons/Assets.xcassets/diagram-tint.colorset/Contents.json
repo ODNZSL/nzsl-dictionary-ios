@@ -2,13 +2,8 @@
   "colors" : [
     {
       "color" : {
-        "color-space" : "srgb",
-        "components" : {
-          "alpha" : "1.000",
-          "blue" : "0.350",
-          "green" : "0.470",
-          "red" : "0.960"
-        }
+        "platform" : "ios",
+        "reference" : "darkTextColor"
       },
       "idiom" : "universal"
     },
@@ -19,6 +14,10 @@
           "value" : "dark"
         }
       ],
+      "color" : {
+        "platform" : "ios",
+        "reference" : "lightTextColor"
+      },
       "idiom" : "universal"
     }
   ],
