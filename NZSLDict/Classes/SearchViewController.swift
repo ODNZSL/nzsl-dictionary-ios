@@ -287,7 +287,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         locationSelector.autoresizingMask = .flexibleWidth
         locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
         locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        locationSelector.backgroundColor = UIColor(named: "app-background")
+        locationSelector.backgroundColor = UIColor.white
         locationSelector.scrollsToTop = false
         locationSelector.dataSource = self
         locationSelector.delegate = self
@@ -568,7 +568,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
 
         // searchHandshape(targetHandshape: String?, location: String?) -> [AnyObject]
-        searchResults = dict.searchHandshape(targetHandshape, location: location) as! [AnyObject]
+        searchResults = dict.searchHandshape(targetHandshape, location: location)! as [AnyObject]
         searchTable.reloadData()
     }
     
