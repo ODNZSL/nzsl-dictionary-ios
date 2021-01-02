@@ -228,7 +228,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         wotdImageView = UIImageView(frame: CGRect(x: wotdView.bounds.width * 0.7, y: wotdView.bounds.minY + 16.0, width: wotdView.bounds.width * 0.3 - 16, height: wotdView.bounds.height - 32.0))
         wotdImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        wotdImageView.backgroundColor = UIColor.white
+        wotdImageView.backgroundColor = UIColor(named: "app-background")
         wotdImageView.contentMode = .scaleAspectFit
         wotdImageView.isUserInteractionEnabled = true
         wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchViewController.selectWotd(_:))))
@@ -264,7 +264,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         handshapeSelector.autoresizingMask = .flexibleWidth
         handshapeSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
         handshapeSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        handshapeSelector.backgroundColor = UIColor.white
+        handshapeSelector.backgroundColor = UIColor(named: "app-background")
         handshapeSelector.scrollsToTop = false
         handshapeSelector.dataSource = self
         handshapeSelector.delegate = self
@@ -507,10 +507,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 label.tag = 1
                 label.text = "(any)"
                 label.textAlignment = .center
-                label.backgroundColor = UIColor.white
+                label.backgroundColor = UIColor(named: "app-background")
                 cell.contentView.addSubview(label)
                 cell.selectedBackgroundView = UIView(frame: cell.contentView.frame)
-                cell.selectedBackgroundView!.backgroundColor = UIColor.blue
+                cell.selectedBackgroundView!.backgroundColor = UIColor(named: "brand-accent")
             }
         }
         else {
@@ -523,7 +523,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 img.contentMode = .scaleAspectFit
                 cell.contentView.addSubview(img)
                 cell.selectedBackgroundView = UIView(frame: cell.contentView.frame)
-                cell.selectedBackgroundView!.backgroundColor = UIColor.blue
+                cell.selectedBackgroundView!.backgroundColor = UIColor(named: "brand-accent")
             }
             if collectionView == handshapeSelector {
                 if #available(iOS 13.0, *) {
