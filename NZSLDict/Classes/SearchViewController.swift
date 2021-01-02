@@ -562,7 +562,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
 
         // searchHandshape(targetHandshape: String?, location: String?) -> [AnyObject]
-        searchResults = dict.searchHandshape(targetHandshape, location: location) as! [AnyObject]
+        searchResults = dict.searchHandshape(targetHandshape, location: location)! as [AnyObject]
         searchTable.reloadData()
     }
     
