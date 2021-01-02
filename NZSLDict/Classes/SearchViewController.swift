@@ -287,7 +287,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         locationSelector.autoresizingMask = .flexibleWidth
         locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
         locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        locationSelector.backgroundColor = UIColor.white
+        locationSelector.backgroundColor = UIColor(named: "app-background")
         locationSelector.scrollsToTop = false
         locationSelector.dataSource = self
         locationSelector.delegate = self
