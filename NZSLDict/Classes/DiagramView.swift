@@ -28,6 +28,12 @@ class DiagramView: UIView {
 
     func showEntry(_ entry: DictEntry) {
         detailView.showEntry(entry)
-        imageView.image = UIImage(named: entry.image)
+        
+        if #available(iOS 13.0, *) {
+            imageView.tintColor = UIColor(named: "diagram-tint")
+            imageView.image = UIImage(named: entry.image)?.withRenderingMode(.alwaysTemplate)
+        } else {
+            imageView.image = UIImage(named: entry.image)
+        }
     }
 }

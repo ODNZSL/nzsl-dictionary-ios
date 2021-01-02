@@ -342,8 +342,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         wotdGlossLabel.text = wordOfTheDay.gloss
         wotdGlossLabel.sizeToFit()
+        
         wotdImageView.image = UIImage(named: wordOfTheDay.image)
-
+        if #available(iOS 13.0, *) {
+            wotdImageView.tintColor = UIColor(named: "diagram-tint")
+            wotdImageView.image = UIImage(named: wordOfTheDay.image)?.withRenderingMode(.alwaysTemplate)
+        } else {
+            wotdImageView.image = UIImage(named: wordOfTheDay.image)
+        }
         self.selectEntry(wordOfTheDay)
 
         handshapeSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
@@ -453,7 +459,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         cell!.textLabel!.text = e.gloss
         cell!.detailTextLabel!.text = e.minor
         let iv: UIImageView = cell!.accessoryView as! UIImageView
-        iv.image = UIImage(named: "50.\(e.image)")
+        
+        if #available(iOS 13.0, *) {
+            iv.tintColor = UIColor(named: "diagram-tint")
+            iv.image = UIImage(named: "50.\(e.image!)")?.withRenderingMode(.alwaysTemplate)
+        } else {
+            iv.image = UIImage(named: "50.\(e.image!)")
+        }
+        
         iv.highlightedImage = transparent_image(iv.image)
         return cell!
     }
@@ -507,13 +520,23 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 cell.selectedBackgroundView!.backgroundColor = UIColor.blue
             }
             if collectionView == handshapeSelector {
+                if #available(iOS 13.0, *) {
+                    img.tintColor = UIColor(named: "diagram-tint")
+                    img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")?.withRenderingMode(.alwaysTemplate)
+                } else {
                 img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")
             }
+            }
             else if collectionView == locationSelector {
+                if #available(iOS 13.0, *) {
+                    img.tintColor = UIColor(named: "diagram-tint")
+                    img.image = UIImage(named: Locations[indexPath.row][1])?.withRenderingMode(.alwaysTemplate)
+                } else {
                 img.image = UIImage(named: Locations[indexPath.row][1])
             }
+            }
             
-            img.backgroundColor = UIColor.white
+            img.backgroundColor = UIColor(named: "app-background")
         }
         return cell
     }

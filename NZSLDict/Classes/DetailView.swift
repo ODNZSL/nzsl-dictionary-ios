@@ -58,9 +58,21 @@ class DetailView: UIView {
         glossView.text = entry.gloss
         minorView.text = entry.minor
         maoriView.text = entry.maori
-        handshapeView.image = UIImage(named: entry.handshapeImage())
+        
+        if #available(iOS 13.0, *) {
+            handshapeView.tintColor = UIColor(named: "diagram-tint")
+            handshapeView.image = UIImage(named: entry.handshapeImage())?.withRenderingMode(.alwaysTemplate)
+        } else {
+            handshapeView.image = UIImage(named: entry.handshapeImage())
+        }
+
         if let locationImageName = entry.locationImage() {
-            locationView.image = UIImage(named: locationImageName)
+            if #available(iOS 13.0, *) {
+                locationView.tintColor = UIColor(named: "diagram-tint")
+                locationView.image = UIImage(named: locationImageName)?.withTintColor(.green, renderingMode: .alwaysTemplate)
+            } else {
+                locationView.image = UIImage(named: locationImageName)
+            }
         }
     }
 }
