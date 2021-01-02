@@ -12,6 +12,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     var delegate: ViewControllerDelegate!
     var reachability: Reachability?
     var player: AVPlayer?
+    var padding = CGFloat(16.0)
     private var playerItemContext = 0
 
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
@@ -34,7 +35,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         let view: UIView = UIView(frame: UIScreen.main.bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        detailView = DetailView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: DetailView.height))
+        detailView = DetailView(frame: CGRect(x: padding, y: padding, width: view.bounds.size.width - (padding * 2), height: DetailView.height))
         detailView.autoresizingMask = [.flexibleWidth]
         view.addSubview(detailView)
         videoBack = UIView(frame: CGRect(x: 0, y: DetailView.height, width: view.bounds.size.width, height: view.bounds.size.height - DetailView.height))
