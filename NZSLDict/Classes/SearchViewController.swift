@@ -157,7 +157,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             // Create search frame set to fit within the master frame of the
             // detail view controller;
             // @see DetailViewController
-            self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: UIScreen.main.applicationFrame.height))
+            self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: UIScreen.main.bounds.height))
         } else {
             self.view = UIView.init(frame: UIScreen.main.applicationFrame)
         }
