@@ -234,6 +234,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdView.addSubview(wotdImageView)
         
         aboutContentWebView = UIWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: 400))
+        if onPad() {
+            aboutContentWebView.frame = aboutContentWebView.frame.insetBy(dx: 16.0, dy: 16.0)
+        }
         aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         aboutContentWebView.delegate = self
         
