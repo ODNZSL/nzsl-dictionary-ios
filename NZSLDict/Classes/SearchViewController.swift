@@ -168,6 +168,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar = UISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : searchBarPadding, width: view.bounds.size.width, height: onPad() ? 96 : 44 + (searchBarPadding * 2)))
         searchBar.autoresizingMask = [.flexibleWidth]
         searchBar.tintAdjustmentMode = .normal
+        searchBar.isTranslucent = false
         searchBar.barTintColor = AppThemePrimaryColor
         if #available(iOS 13.0, *) {
             searchBar.searchTextField.leftView?.tintColor = .black
