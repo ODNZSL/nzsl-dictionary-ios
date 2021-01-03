@@ -147,7 +147,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
     
     func onPad()-> Bool {
-        return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+        return UIDevice.current.userInterfaceIdiom == .pad
     }
 
     // MARK View lifecycle
