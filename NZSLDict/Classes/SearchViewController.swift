@@ -170,10 +170,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar.tintAdjustmentMode = .normal
         searchBar.isTranslucent = false
         searchBar.barTintColor = AppThemePrimaryColor
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *) { // Dark mode adjustments
             searchBar.searchTextField.leftView?.tintColor = .black
-        } else {
-            // < iOS13 we don't really need to worry about dark mode
         }
         
         
