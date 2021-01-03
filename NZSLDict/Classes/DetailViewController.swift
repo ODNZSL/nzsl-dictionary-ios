@@ -35,12 +35,13 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     override func loadView() {
         let view: UIView = UIView(frame: UIScreen.main.bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-        let top_offset: CGFloat = 20
-
-        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: top_offset, width: view.bounds.size.width, height: 96 - top_offset))
+        view.backgroundColor = UIColor(named: "app-background")
+     
+        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 96))
         navigationBar.barTintColor = AppThemePrimaryColor
         navigationBar.isOpaque = false
+        navigationBar.isTranslucent = false
+        navigationBar.backgroundColor = UIColor(named: "brand-primary")
         navigationBar.autoresizingMask = .flexibleWidth
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationBar.delegate = self
@@ -49,14 +50,15 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationTitle = UINavigationItem(title: "NZSL Dictionary")
         navigationBar.setItems([navigationTitle], animated: false)
 
-        diagramView = DiagramView(frame: CGRect(x: 0, y: navigationBar.frame.maxY, width: view.bounds.size.width, height: view.bounds.size.height / 2))
-        diagramView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
+        let diagramFrame = CGRect(x: 0, y: navigationBar.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2)
+        diagramView = DiagramView(frame: diagramFrame.insetBy(dx: 16.0, dy: 16.0))
+        diagramView.autoresizingMask = [.flexibleWidth]
         view.addSubview(diagramView)
 
-        videoView = UIView(frame: CGRect(x: 0, y: top_offset + 44 + view.bounds.size.height / 2, width: view.bounds.size.width, height: view.bounds.size.height - (top_offset + 44 + view.bounds.size.height / 2)))
+        videoView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.height + diagramView.frame.height + 32, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2))
         videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin]
         videoView.backgroundColor = UIColor.black
-        view.addSubview(videoView)
+        view.insertSubview(videoView, belowSubview: diagramView)
 
         playButton = UIButton(type: .roundedRect)
         playButton.frame = CGRect(x: 0, y: (videoView.bounds.size.height - 40) / 2, width: videoView.bounds.width, height: 40)
