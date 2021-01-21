@@ -24,38 +24,38 @@ class SignsDictionaryTest: XCTestCase {
     }
     
     func test_searchForExactMainGlossMatch() {
-        var results = signsDictionary.search(for: "Book");
+        let results = signsDictionary.search(for: "Book");
         let firstResult: DictEntry = results![0] as! DictEntry;
         assert(firstResult.gloss == "book");
     }
     
     func test_searchForExactMaoriGlossMatch() {
-        var results = signsDictionary.search(for: "ora");
+        let results = signsDictionary.search(for: "ora");
         let firstResult: DictEntry = results![0] as! DictEntry;
         assert(firstResult.gloss == "alive, live, survive");
     }
     
     func test_searchForContainsMainGloss() {
-        var results = signsDictionary.search(for: "classif");
+        let results = signsDictionary.search(for: "classif");
         let firstResult: DictEntry = results![0] as! DictEntry;
         assert(firstResult.gloss == "classifier");
     }
     
     func test_searchForContainsMaoriGloss() {
-        var results = signsDictionary.search(for: "akorang");
+        let results = signsDictionary.search(for: "akorang");
         let firstResult: DictEntry = results![0] as! DictEntry;
         assert(firstResult.gloss == "course");
     }
     
     func test_searchForExactSecondaryGloss() {
-        var results = signsDictionary.search(for: "nought");
+        let results = signsDictionary.search(for: "nought");
         let firstResult: DictEntry = results![0] as! DictEntry;
         assert(firstResult.gloss == "zero");
     }
     
     
     func test_searchForContainsSecondaryGloss() {
-        var results = signsDictionary.search(for: "not get involved, nothing to do with");
+        let results = signsDictionary.search(for: "not get involved, nothing to do with");
         let firstResult: DictEntry = results![0] as! DictEntry;
         assert(firstResult.gloss == "neutral");
     }

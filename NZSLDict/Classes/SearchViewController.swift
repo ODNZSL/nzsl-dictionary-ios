@@ -1,10 +1,11 @@
 import UIKit
+import WebKit
 
 // TODO these were static in theold obj C - TODO move them
 let HandshapeAnyCellIdentifier: String = "CellAny"
 let HandshapeIconCellIdentifier: String = "CellIcon"
 
-class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate , UIWebViewDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate , WKNavigationDelegate {
 
     var delegate: SearchViewControllerDelegate! // this was auto converted as 'weak var' TODO figure this out
     var dict: SignsDictionary!
@@ -23,7 +24,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     var swipeRecognizer: UISwipeGestureRecognizer!
     var subsequent_keyboard: Bool!
     var scrollView: UIScrollView!
-    var aboutContentWebView: UIWebView!
+    var aboutContentWebView: WKWebView!
     
     // This is a fixed default in iOS
     var detailViewMasterWidth = CGFloat(320)
@@ -151,6 +152,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     // MARK View lifecycle
+    
 
     override func loadView() {
         if (onPad()) {
@@ -159,11 +161,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             // @see DetailViewController
             self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: UIScreen.main.bounds.height))
         } else {
-            self.view = UIView.init(frame: UIScreen.main.applicationFrame)
+            self.view = UIView.init(frame: UIScreen.main.bounds)
         }
         
         view.backgroundColor = UIColor(named: "app-background")
-        
+        view.autoresizingMask = .flexibleHeight
+                
         let searchBarPadding = CGFloat(8.0)
         searchBar = UISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : searchBarPadding, width: view.bounds.size.width, height: onPad() ? 96 : 44 + (searchBarPadding * 2)))
         searchBar.autoresizingMask = [.flexibleWidth]
@@ -238,7 +241,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             aboutContentWebView.frame = aboutContentWebView.frame.insetBy(dx: 16.0, dy: 16.0)
         }
         aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
-        aboutContentWebView.delegate = self
+        aboutContentWebView.navigationDelegate = self
         
         scrollView.insertSubview(aboutContentWebView, belowSubview: wotdView)
         scrollView.addSubview(wotdView)
@@ -310,7 +313,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         let aboutUrl = URL(fileURLWithPath: aboutPath)
         let request = URLRequest(url: aboutUrl)
-        aboutContentWebView.loadRequest(request)
+        aboutContentWebView.load(request)
 
 
         dict = SignsDictionary(file: "nzsl.dat")
@@ -363,17 +366,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         handshapeSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
         locationSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
         self.selectSearchMode(modeSwitch)
+        searchBar.resignFirstResponder()
     }
     
-    override func viewDidLayoutSubviews() {
-        // Autosize the scrollview
-        var contentRect = CGRect.zero
-        for view: UIView in self.scrollView.subviews {
-            contentRect = contentRect.union(view.frame)
-        }
-        self.scrollView.contentSize = contentRect.size
-        self.scrollView.contentSize.height = contentRect.size.height + 150
-    }
+//    override func viewDidLayoutSubviews() {
+//        // Autosize the scrollview
+//        var contentRect = CGRect.zero
+//        for view: UIView in self.scrollView.subviews {
+//            contentRect = contentRect.union(view.frame)
+//        }
+//        self.scrollView.contentSize = contentRect.size
+//        self.scrollView.contentSize.height = contentRect.size.height + 150
+//    }
 
     // MARK: Callback functions
     @objc func selectWotd(_ sender: UITapGestureRecognizer) {
@@ -575,13 +579,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
     
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         var frame = webView.frame
         frame.size.height = 5.0
         webView.frame = frame
     }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+  
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         let mWebViewTextSize = webView.sizeThatFits(CGSize(width: 1.0, height: 1.0))
         // Pass about any size
         var mWebViewFrame = webView.frame
@@ -591,19 +595,35 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         webView.scrollView.bounces = false
     }
     
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        if request.url!.isFileURL {
-            return true
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        var action: WKNavigationActionPolicy?
+
+        defer {
+            decisionHandler(action ?? .allow)
         }
+
+        guard let url = navigationAction.request.url else { return }
+        print("decidePolicyFor - url: \(url)")
         
-        if request.url!.scheme == "follow" {
+        if url.isFileURL { return }
+        if url.scheme == "follow" {
+            action = .cancel
             _ = openTwitterClientForUserName("NZSLDict")
-            return false
+            return
         }
         
-        UIApplication.shared.openURL(request.url!)
-        return false
+        if #available(iOS 10, *) {
+           UIApplication.shared.open(url, options: [:],
+           completionHandler: {
+              (success) in
+              print("Open \(url): \(success)")
+            })
+         } else {
+              let success = UIApplication.shared.openURL(url)
+              print("Open \(url): \(success)")
+         }
     }
+    
     
     // https://gist.github.com/vhbit/958738
     func openTwitterClientForUserName(_ userName: String) -> Bool {
@@ -621,18 +641,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             /** uncomment if you don't have a special handling for no registered twitter clients */
             "http://twitter.com/{username}", // Web fallback,
         ]
-        
-        let application: UIApplication = UIApplication.shared
-        
+                
         for candidate in urls {
             let urlString = candidate.replacingOccurrences(of: "{username}", with:userName)
             if let url = URL(string: urlString) {
-                print("testing \(url)")
-                if application.canOpenURL(url) {
-                    print("we can open \(url)")
-                    application.openURL(url)
-                    return true
-                }
+                    if #available(iOS 10, *) {
+                       UIApplication.shared.open(url, options: [:],
+                       completionHandler: {
+                          (success) in
+                          print("Open \(url): \(success)")
+                        })
+                     } else {
+                          let success = UIApplication.shared.openURL(url)
+                          print("Open \(url): \(success)")
+                 }
             }
         }
         

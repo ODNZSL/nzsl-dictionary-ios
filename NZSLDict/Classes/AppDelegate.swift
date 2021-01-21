@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
             rootViewController = ViewControllerPhone()
         } else {
-            rootViewController = ViewControllerPad()
+            rootViewController = ViewControllerPad(nibName: nil, bundle: nil)
             self.window!.rootViewController = rootViewController
             self.window!.makeKeyAndVisible();
             return true
