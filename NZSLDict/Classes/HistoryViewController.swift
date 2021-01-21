@@ -94,7 +94,7 @@ class HistoryViewController: UITableViewController {
 
         let iv: UIImageView = cell!.accessoryView as! UIImageView
 
-        iv.image = UIImage(named: "50.\(entry.image)")
+        iv.image = UIImage(named: "50.\(entry.image!)")
 
         iv.highlightedImage = transparent_image(iv.image) // TODO do I need this?
 
