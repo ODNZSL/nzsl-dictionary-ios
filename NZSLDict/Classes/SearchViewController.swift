@@ -152,16 +152,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     // MARK View lifecycle
+    
 
     override func loadView() {
         if (onPad()) {
             // Create search frame set to fit within the master frame of the
             // detail view controller;
             // @see DetailViewController
-            self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: UIApplication.shared.keyWindow!.frame.height))
+            self.view = UIView.init()
+            self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: statusBarHeight))
         } else {
             self.view = UIView.init(frame: UIScreen.main.bounds)
         }
+        
+        view.autoresizingMask = .flexibleHeight
         
         view.backgroundColor = AppThemePrimaryLightColor
         
@@ -353,17 +357,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         handshapeSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
         locationSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
         self.selectSearchMode(modeSwitch)
+        searchBar.resignFirstResponder()
     }
     
-    override func viewDidLayoutSubviews() {
-        // Autosize the scrollview
-        var contentRect = CGRect.zero
-        for view: UIView in self.scrollView.subviews {
-            contentRect = contentRect.union(view.frame)
-        }
-        self.scrollView.contentSize = contentRect.size
-        self.scrollView.contentSize.height = contentRect.size.height + 150
-    }
+//    override func viewDidLayoutSubviews() {
+//        // Autosize the scrollview
+//        var contentRect = CGRect.zero
+//        for view: UIView in self.scrollView.subviews {
+//            contentRect = contentRect.union(view.frame)
+//        }
+//        self.scrollView.contentSize = contentRect.size
+//        self.scrollView.contentSize.height = contentRect.size.height + 150
+//    }
 
     // MARK: Callback functions
     @objc func selectWotd(_ sender: UITapGestureRecognizer) {
