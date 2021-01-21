@@ -3,6 +3,6 @@ osx_image: xcode11.3
 env:
   - CODE_SIGNING_REQUIRED=NO
 script:
-  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPhone 8'
-  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPad (7th generation)'
+  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPhone'
+  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination 'platform=iOS Simulator,name=iPad'
 
