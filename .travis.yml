@@ -1,8 +1,7 @@
 language: objective-c
 osx_image: xcode12
 env:
-  - CODE_SIGNING_REQUIRED=NO
   - DESTINATION='platform=iOS Simulator,name=iPhone'
   - DESTINATION='platform=iOS Simulator,name=iPad'
 script:
-  - xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination $DESTINATION
+  - CODE_SIGNING_REQUIRED=NO xcodebuild clean test -sdk iphonesimulator -project NZSLDict.xcodeproj -scheme NZSLDictTests  -destination $DESTINATION
