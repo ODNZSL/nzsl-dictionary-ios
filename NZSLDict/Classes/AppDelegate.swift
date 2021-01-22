@@ -8,6 +8,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var rootViewController: UIViewController!
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).textColor = UIColor.black
+
 
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone {
             rootViewController = ViewControllerPhone()
@@ -17,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.makeKeyAndVisible();
             return true
         }
+        
+ 
+
         
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
         navigationController.navigationBar.barStyle = UIBarStyle.black;

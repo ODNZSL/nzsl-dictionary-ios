@@ -22,8 +22,9 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
     override func loadView() {
         let view: UIView = UIView(frame: UIScreen.main.bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.backgroundColor = UIColor(named: "app-background")
         
-        diagramView = DiagramView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
+        diagramView = DiagramView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height).insetBy(dx: 16.0, dy: 16.0))
         view.addSubview(diagramView)
         self.view = view
     }

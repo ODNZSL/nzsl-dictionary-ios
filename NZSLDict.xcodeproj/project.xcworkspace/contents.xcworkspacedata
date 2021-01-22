@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/eoinkelly/Code/nzsl-dictionary-ios/NZSLDict.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
