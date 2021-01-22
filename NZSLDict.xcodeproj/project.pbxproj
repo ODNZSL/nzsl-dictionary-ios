@@ -12,7 +12,8 @@
 		0313E6D11EFB330800FEDC67 /* Default-1104h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */; };
 		0313E6D41EFB358F00FEDC67 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D21EFB358F00FEDC67 /* Default-667h.png */; };
 		0313E6D51EFB358F00FEDC67 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */; };
-		03617D8B1EE8DA2400E26B34 /* PaddedUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */; };
+		0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */; };
+		033E0D52259C79BD00F8A01D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033E0D51259C79BD00F8A01D /* WebKit.framework */; };
 		0387B0FF24C84DEB0033E26B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0387B0FE24C84DEA0033E26B /* Assets.xcassets */; };
 		03884A301EF0947D00EF5412 /* ic_videocam_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 03884A2E1EF0947D00EF5412 /* ic_videocam_off.png */; };
 		03884A311EF0947D00EF5412 /* ic_videocam_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03884A2F1EF0947D00EF5412 /* ic_videocam_off@2x.png */; };
@@ -100,7 +101,8 @@
 		0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@2x.png"; sourceTree = "<group>"; };
 		0313E6D21EFB358F00FEDC67 /* Default-667h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h.png"; sourceTree = "<group>"; };
 		0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
-		03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedUISearchBar.swift; sourceTree = "<group>"; };
+		0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewAligned.swift; sourceTree = "<group>"; };
+		033E0D51259C79BD00F8A01D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0387B0FE24C84DEA0033E26B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03884A2C1EEFC20300EF5412 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		03884A2E1EF0947D00EF5412 /* ic_videocam_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_videocam_off.png; path = "App Icons/ic_videocam_off.png"; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				03017C2324C6677300608050 /* AVKit.framework in Frameworks */,
 				37B3111515133261005F45FA /* MediaPlayer.framework in Frameworks */,
 				37B3F28E1512F946005F45FA /* UIKit.framework in Frameworks */,
+				033E0D52259C79BD00F8A01D /* WebKit.framework in Frameworks */,
 				37B3F2901512F946005F45FA /* Foundation.framework in Frameworks */,
 				03C248B61EF1E37800569CE0 /* SystemConfiguration.framework in Frameworks */,
 				37B3F2921512F946005F45FA /* CoreGraphics.framework in Frameworks */,
@@ -248,6 +251,7 @@
 		37B3F28C1512F946005F45FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				033E0D51259C79BD00F8A01D /* WebKit.framework */,
 				03017C2224C6677300608050 /* AVKit.framework */,
 				03C248B21EF1E12000569CE0 /* Reachability */,
 				03884A2C1EEFC20300EF5412 /* SystemConfiguration.framework */,
@@ -362,7 +366,7 @@
 				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
 				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
 				499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */,
-				03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */,
+				0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -545,7 +549,6 @@
 				4911054B1C4642F600A742BE /* ViewControllerDelegate.swift in Sources */,
 				49342F9E1C484B5800C355B2 /* Constants.swift in Sources */,
 				49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */,
-				03617D8B1EE8DA2400E26B34 /* PaddedUISearchBar.swift in Sources */,
 				49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */,
 				49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */,
 				4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */,
@@ -554,6 +557,7 @@
 				039081CB1EEA4A2E0050C180 /* AboutViewController.swift in Sources */,
 				49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */,
 				49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */,
+				0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */,
 				4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */,
 				4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */,
 				49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */,

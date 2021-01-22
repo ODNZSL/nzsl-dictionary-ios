@@ -12,6 +12,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     var delegate: ViewControllerDelegate!
     var reachability: Reachability?
     var player: AVPlayer?
+    var padding = CGFloat(16.0)
     private var playerItemContext = 0
 
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
@@ -33,23 +34,26 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     override func loadView() {
         let view: UIView = UIView(frame: UIScreen.main.bounds)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.backgroundColor = UIColor(named: "app-background")
 
-        detailView = DetailView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: DetailView.height))
+        detailView = DetailView(frame: CGRect(x: padding, y: padding, width: view.bounds.size.width - (padding * 2), height: DetailView.height + padding))
         detailView.autoresizingMask = [.flexibleWidth]
         view.addSubview(detailView)
-        videoBack = UIView(frame: CGRect(x: 0, y: DetailView.height, width: view.bounds.size.width, height: view.bounds.size.height - DetailView.height))
+        videoBack = UIView(frame: CGRect(x: 0, y: detailView.frame.maxY , width: view.bounds.size.width, height: view.bounds.size.height - DetailView.height))
         videoBack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(videoBack)
         
         networkErrorMessage = UIView.init(frame: videoBack.frame)
         networkErrorMessage.autoresizingMask = detailView.autoresizingMask
-        networkErrorMessage.backgroundColor = UIColor.white
+        networkErrorMessage.backgroundColor = UIColor(named: "app-background")
         let networkErrorMessageImage = UIImageView.init(frame: CGRect(x: 0, y: 24, width: networkErrorMessage.frame.width, height: 72))
-        networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")
+        networkErrorMessageImage.image = UIImage.init(named: "ic_videocam_off")?.withRenderingMode(.alwaysTemplate)
+        networkErrorMessageImage.tintColor = UIColor(named: "diagram-tint")
         networkErrorMessageImage.contentMode = .center
         
         let networkErrorMessageText = UITextView.init(frame: CGRect(x: 0, y: 24 + networkErrorMessageImage.frame.height, width: networkErrorMessage.frame.width, height: 100))
         networkErrorMessageText.textAlignment = .center
+        networkErrorMessageText.backgroundColor = UIColor(named: "app-background")
         networkErrorMessageText.text = "Playing videos requires access to the Internet."
         networkErrorMessageText.isEditable = false
         

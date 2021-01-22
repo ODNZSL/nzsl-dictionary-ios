@@ -148,7 +148,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
     
     func onPad()-> Bool {
-        return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
+        return UIDevice.current.userInterfaceIdiom == .pad
     }
 
     // MARK View lifecycle
@@ -159,23 +159,24 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             // Create search frame set to fit within the master frame of the
             // detail view controller;
             // @see DetailViewController
-            self.view = UIView.init()
-            self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: statusBarHeight))
+            self.view = UIView.init(frame: CGRect(x: 0, y: statusBarHeight, width: detailViewMasterWidth, height: UIScreen.main.bounds.height))
         } else {
             self.view = UIView.init(frame: UIScreen.main.bounds)
         }
         
+        view.backgroundColor = UIColor(named: "app-background")
         view.autoresizingMask = .flexibleHeight
-        
-        view.backgroundColor = AppThemePrimaryLightColor
-        
-        searchBar = PaddedUISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : 0, width: view.bounds.size.width, height: onPad() ? 96 : 44))
-        searchBar.backgroundImage = UIImage()
+                
+        let searchBarPadding = CGFloat(8.0)
+        searchBar = UISearchBar(frame: CGRect(x: 0, y: onPad() ? statusBarHeight : searchBarPadding, width: view.bounds.size.width, height: onPad() ? 96 : 44 + (searchBarPadding * 2)))
         searchBar.autoresizingMask = [.flexibleWidth]
-        searchBar.tintColor = AppThemePrimaryColor
         searchBar.tintAdjustmentMode = .normal
+        searchBar.isTranslucent = false
         searchBar.barTintColor = AppThemePrimaryColor
-        searchBar.isOpaque = true
+        if #available(iOS 13.0, *) { // Dark mode adjustments
+            searchBar.searchTextField.leftView?.tintColor = .black
+        }
+        
         
         searchBar.delegate = self
         self.view.addSubview(searchBar)
@@ -189,9 +190,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), for: .valueChanged)
       
         self.view.addSubview(modeSwitch)
-        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44, width: view.frame.size.width, height: view.frame.size.height))
+        searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44 + (searchBarPadding * 2), width: view.frame.size.width, height: view.frame.size.height))
         searchTable.autoresizingMask = [.flexibleHeight]
-        searchTable.rowHeight = 50
+        searchTable.rowHeight = 64
         searchTable.dataSource = self
         searchTable.delegate = self
         
@@ -209,34 +210,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         
         wotdView = UIView.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 125))
+        wotdView.backgroundColor = UIColor(named: "app-background")
         wotdView.autoresizingMask = .flexibleWidth
-        wotdView.backgroundColor = UIColor.white
         
         wotdLabel = UILabel(frame: CGRect(x: 16, y: 16, width: wotdView.bounds.size.width * 0.7, height: 20))
         wotdLabel.autoresizingMask = .flexibleHeight
         wotdLabel.text = "Word of the day"
-        wotdLabel.font = UIFont.systemFont(ofSize: 14)
+        wotdLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         wotdLabel.textColor = AppSecondaryTextColour
         wotdView.addSubview(wotdLabel)
         
         wotdGlossLabel = UILabel(frame: CGRect(x: 16, y: 40, width: wotdView.bounds.size.width * 0.6, height: 24))
         wotdGlossLabel.autoresizingMask = .flexibleHeight
         wotdGlossLabel.numberOfLines = 0
-        wotdGlossLabel.font = UIFont.systemFont(ofSize: 20)
-        wotdGlossLabel.textColor = UIColor.black;
+        wotdGlossLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         wotdView.addSubview(wotdGlossLabel)
 
 
 
-        wotdImageView = UIImageView(frame: CGRect(x: wotdView.bounds.width * 0.7, y: 0, width: wotdView.bounds.width * 0.3 - 16, height: 125))
+        wotdImageView = UIImageView(frame: CGRect(x: wotdView.bounds.width * 0.7, y: wotdView.bounds.minY + 16.0, width: wotdView.bounds.width * 0.3 - 16, height: wotdView.bounds.height - 32.0))
         wotdImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        wotdImageView.backgroundColor = UIColor.white
+        wotdImageView.backgroundColor = UIColor(named: "app-background")
         wotdImageView.contentMode = .scaleAspectFit
         wotdImageView.isUserInteractionEnabled = true
         wotdView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchViewController.selectWotd(_:))))
         wotdView.addSubview(wotdImageView)
         
         aboutContentWebView = WKWebView.init(frame: CGRect(x: 0, y: wotdView.frame.maxY + 44, width: wotdView.frame.width, height: 400))
+        if onPad() {
+            aboutContentWebView.frame = aboutContentWebView.frame.insetBy(dx: 16.0, dy: 16.0)
+        }
         aboutContentWebView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         aboutContentWebView.navigationDelegate = self
         
@@ -266,7 +269,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         handshapeSelector.autoresizingMask = .flexibleWidth
         handshapeSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
         handshapeSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        handshapeSelector.backgroundColor = UIColor.white
+        handshapeSelector.backgroundColor = UIColor(named: "app-background")
         handshapeSelector.scrollsToTop = false
         handshapeSelector.dataSource = self
         handshapeSelector.delegate = self
@@ -289,7 +292,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         locationSelector.autoresizingMask = .flexibleWidth
         locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeAnyCellIdentifier)
         locationSelector.register(UICollectionViewCell.self, forCellWithReuseIdentifier: HandshapeIconCellIdentifier)
-        locationSelector.backgroundColor = UIColor.white
+        locationSelector.backgroundColor = UIColor(named: "app-background")
         locationSelector.scrollsToTop = false
         locationSelector.dataSource = self
         locationSelector.delegate = self
@@ -350,8 +353,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         
         wotdGlossLabel.text = wordOfTheDay.gloss
         wotdGlossLabel.sizeToFit()
+        
         wotdImageView.image = UIImage(named: wordOfTheDay.image)
-
+        if #available(iOS 13.0, *) {
+            wotdImageView.tintColor = UIColor(named: "diagram-tint")
+            wotdImageView.image = UIImage(named: wordOfTheDay.image)?.withRenderingMode(.alwaysTemplate)
+        } else {
+            wotdImageView.image = UIImage(named: wordOfTheDay.image)
+        }
         self.selectEntry(wordOfTheDay)
 
         handshapeSelector.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
@@ -418,7 +427,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             return
         }
         scrollView.isHidden = true
-        searchResults = dict.search(for: searchText) as! [AnyObject]
+        searchResults = dict.search(for: searchText)! as [AnyObject]
         searchTable.reloadData()
     }
 
@@ -451,8 +460,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-            let iv: UIImageView = UIImageView(frame: CGRect(x: 0, y: 2, width: tableView.rowHeight * 2, height: tableView.rowHeight - 4))
+            let iv: UIImageViewAligned = UIImageViewAligned(frame: CGRect(x: 0, y: 8, width: tableView.rowHeight, height: tableView.rowHeight - 16))
+            iv.alignment = .right
             iv.contentMode = .scaleAspectFit
+            
             cell!.accessoryView = iv
         }
 
@@ -460,7 +471,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         cell!.textLabel!.text = e.gloss
         cell!.detailTextLabel!.text = e.minor
         let iv: UIImageView = cell!.accessoryView as! UIImageView
-        iv.image = UIImage(named: "50.\(e.image!)")
+        
+        if #available(iOS 13.0, *) {
+            iv.tintColor = UIColor(named: "diagram-tint")
+            iv.image = UIImage(named: "50.\(e.image!)")?.withRenderingMode(.alwaysTemplate)
+        } else {
+            iv.image = UIImage(named: "50.\(e.image!)")
+        }
+
         iv.highlightedImage = transparent_image(iv.image)
         return cell!
     }
@@ -495,10 +513,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 label.tag = 1
                 label.text = "(any)"
                 label.textAlignment = .center
-                label.backgroundColor = UIColor.white
+                label.backgroundColor = UIColor(named: "app-background")
                 cell.contentView.addSubview(label)
                 cell.selectedBackgroundView = UIView(frame: cell.contentView.frame)
-                cell.selectedBackgroundView!.backgroundColor = UIColor.blue
+                cell.selectedBackgroundView!.backgroundColor = UIColor(named: "brand-accent")
             }
         }
         else {
@@ -511,16 +529,26 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 img.contentMode = .scaleAspectFit
                 cell.contentView.addSubview(img)
                 cell.selectedBackgroundView = UIView(frame: cell.contentView.frame)
-                cell.selectedBackgroundView!.backgroundColor = UIColor.blue
+                cell.selectedBackgroundView!.backgroundColor = UIColor(named: "brand-accent")
             }
             if collectionView == handshapeSelector {
+                if #available(iOS 13.0, *) {
+                    img.tintColor = UIColor(named: "diagram-tint")
+                    img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")?.withRenderingMode(.alwaysTemplate)
+                } else {
                 img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")
             }
+            }
             else if collectionView == locationSelector {
+                if #available(iOS 13.0, *) {
+                    img.tintColor = UIColor(named: "diagram-tint")
+                    img.image = UIImage(named: Locations[indexPath.row][1])?.withRenderingMode(.alwaysTemplate)
+                } else {
                 img.image = UIImage(named: Locations[indexPath.row][1])
             }
+            }
             
-            img.backgroundColor = UIColor.white
+            img.backgroundColor = UIColor(named: "app-background")
         }
         return cell
     }
@@ -546,7 +574,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
 
         // searchHandshape(targetHandshape: String?, location: String?) -> [AnyObject]
-        searchResults = dict.searchHandshape(targetHandshape, location: location) as! [AnyObject]
+        searchResults = dict.searchHandshape(targetHandshape, location: location)! as [AnyObject]
         searchTable.reloadData()
     }
     
@@ -580,7 +608,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         if url.isFileURL { return }
         if url.scheme == "follow" {
             action = .cancel
-            openTwitterClientForUserName("NZSLDict")
+            _ = openTwitterClientForUserName("NZSLDict")
             return
         }
         

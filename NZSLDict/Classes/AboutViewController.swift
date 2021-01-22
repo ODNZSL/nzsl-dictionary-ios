@@ -56,7 +56,7 @@ class AboutViewController: UIViewController, WKNavigationDelegate {
         if url.isFileURL { return }
         if url.scheme == "follow" {
             action = .cancel
-            openTwitterClientForUserName("NZSLDict")
+            _ = openTwitterClientForUserName("NZSLDict")
             return
         }
         
