@@ -12,6 +12,8 @@
 		0313E6D11EFB330800FEDC67 /* Default-1104h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */; };
 		0313E6D41EFB358F00FEDC67 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D21EFB358F00FEDC67 /* Default-667h.png */; };
 		0313E6D51EFB358F00FEDC67 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */; };
+		03617D8B1EE8DA2400E26B34 /* PaddedUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */; };
+		0370B5B425BA374300C426EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0370B5B325BA374300C426EE /* Launch Screen.storyboard */; };
 		0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */; };
 		033E0D52259C79BD00F8A01D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033E0D51259C79BD00F8A01D /* WebKit.framework */; };
 		0387B0FF24C84DEB0033E26B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0387B0FE24C84DEA0033E26B /* Assets.xcassets */; };
@@ -101,6 +103,8 @@
 		0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@2x.png"; sourceTree = "<group>"; };
 		0313E6D21EFB358F00FEDC67 /* Default-667h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h.png"; sourceTree = "<group>"; };
 		0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
+		03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedUISearchBar.swift; sourceTree = "<group>"; };
+		0370B5B325BA374300C426EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewAligned.swift; sourceTree = "<group>"; };
 		033E0D51259C79BD00F8A01D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0387B0FE24C84DEA0033E26B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 		37B3F2931512F946005F45FA /* NZSLDict */ = {
 			isa = PBXGroup;
 			children = (
+				0370B5B325BA374300C426EE /* Launch Screen.storyboard */,
 				4960AD691C28E2A5001037C4 /* Classes */,
 				37B3F2941512F946005F45FA /* Supporting Files */,
 			);
@@ -489,6 +494,7 @@
 				4960AD531C28E22E001037C4 /* app-icon-72.png in Resources */,
 				4960AD581C28E22E001037C4 /* hands@2x.png in Resources */,
 				4960AD5E1C28E22E001037C4 /* screenshot-ipad-search.png in Resources */,
+				0370B5B425BA374300C426EE /* Launch Screen.storyboard in Resources */,
 				03D3EFA41F16CFEB00D8E5C5 /* app-icon-128.png in Resources */,
 				4960AD601C28E22E001037C4 /* screenshot-iphone-handshape.png in Resources */,
 				03CF410E1F2E92A4001442E3 /* app-icon-120.png in Resources */,
