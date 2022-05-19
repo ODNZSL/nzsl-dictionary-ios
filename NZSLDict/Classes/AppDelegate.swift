@@ -19,9 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
-        navigationController.navigationBar.barStyle = UIBarStyle.black;
+        navigationController.navigationBar.barStyle = UIBarStyle.default;
         navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController.navigationBar.barTintColor = AppThemePrimaryColor;
+        navigationController.navigationBar.backgroundColor = AppThemePrimaryColor;
+        navigationController.navigationBar.tintColor = AppThemePrimaryColor
         navigationController.navigationBar.isTranslucent = false
         
     
