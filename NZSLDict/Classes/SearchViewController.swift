@@ -174,6 +174,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar.barTintColor = AppThemePrimaryColor
         searchBar.isOpaque = true
         
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField,
+            let iconView = textField.leftView as? UIImageView {
+
+            iconView.image = iconView.image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+            iconView.tintColor = UIColor.white
+            
+            textField.textColor = .white
+        }
+        
         searchBar.delegate = self
         self.view.addSubview(searchBar)
 
