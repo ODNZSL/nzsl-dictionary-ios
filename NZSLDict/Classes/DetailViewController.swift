@@ -49,18 +49,20 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationBar.delegate = self
         view.addSubview(navigationBar)
+        view.backgroundColor = UIColor.init(named: "app-background")
 
         navigationTitle = UINavigationItem(title: "NZSL Dictionary")
         navigationBar.setItems([navigationTitle], animated: false)
 
-        diagramView = DiagramView(frame: CGRect(x: 0, y: navigationBar.frame.maxY, width: view.bounds.size.width, height: view.bounds.size.height / 2))
-        diagramView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleBottomMargin]
+        let diagramFrame = CGRect(x: 0, y: navigationBar.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2)
+        diagramView = DiagramView(frame: diagramFrame.insetBy(dx: 16.0, dy: 16.0))
+        diagramView.autoresizingMask = [.flexibleWidth]
         view.addSubview(diagramView)
 
-        videoView = UIView(frame: CGRect(x: 0, y: top_offset + 44 + view.bounds.size.height / 2, width: view.bounds.size.width, height: view.bounds.size.height - (top_offset + 44 + view.bounds.size.height / 2)))
+        videoView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.height + diagramView.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2))
         videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin]
         videoView.backgroundColor = UIColor.black
-        view.addSubview(videoView)
+        view.insertSubview(videoView, belowSubview: diagramView)
 
         playButton = UIButton(type: .roundedRect)
         playButton.frame = CGRect(x: 0, y: (videoView.bounds.size.height - 40) / 2, width: videoView.bounds.width, height: 40)
@@ -182,8 +184,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
                    }
                    break
                case .failed:
-                   let alert: UIAlertView = UIAlertView(title: "Network access required", message: "Playing videos requires access to the Internet.", delegate: nil, cancelButtonTitle: "OK")
-                   alert.show()
+                    let alert = UIAlertController.init(title: "Network access required", message: "Playing videos requires access to the Internet.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "OK", style: .default, handler: nil))
+
+                self.present(alert, animated: true, completion: nil)
                    break
                case .unknown:
                    break
