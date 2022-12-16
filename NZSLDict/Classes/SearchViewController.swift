@@ -355,9 +355,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdGlossLabel.sizeToFit()
         
         wotdImageView.image = UIImage(named: wordOfTheDay.image)
+        wotdImageView.backgroundColor = UIColor.white
+
         if #available(iOS 13.0, *) {
-            wotdImageView.tintColor = UIColor(named: "diagram-tint")
-            wotdImageView.image = UIImage(named: wordOfTheDay.image)?.withRenderingMode(.alwaysTemplate)
+            wotdImageView.image = UIImage(named: wordOfTheDay.image)?.withRenderingMode(.alwaysOriginal)
         } else {
             wotdImageView.image = UIImage(named: wordOfTheDay.image)
         }
@@ -473,8 +474,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         let iv: UIImageView = cell!.accessoryView as! UIImageView
         
         if #available(iOS 13.0, *) {
-            iv.tintColor = UIColor(named: "diagram-tint")
-            iv.image = UIImage(named: "50.\(e.image!)")?.withRenderingMode(.alwaysTemplate)
+            iv.image = UIImage(named: "50.\(e.image!)")?.withRenderingMode(.alwaysOriginal)
         } else {
             iv.image = UIImage(named: "50.\(e.image!)")
         }
