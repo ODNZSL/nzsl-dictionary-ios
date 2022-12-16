@@ -12,10 +12,9 @@
 		0313E6D11EFB330800FEDC67 /* Default-1104h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */; };
 		0313E6D41EFB358F00FEDC67 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D21EFB358F00FEDC67 /* Default-667h.png */; };
 		0313E6D51EFB358F00FEDC67 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */; };
-		03617D8B1EE8DA2400E26B34 /* PaddedUISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */; };
-		0370B5B425BA374300C426EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0370B5B325BA374300C426EE /* Launch Screen.storyboard */; };
 		0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */; };
 		033E0D52259C79BD00F8A01D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033E0D51259C79BD00F8A01D /* WebKit.framework */; };
+		0370B5B425BA374300C426EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0370B5B325BA374300C426EE /* Launch Screen.storyboard */; };
 		0387B0FF24C84DEB0033E26B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0387B0FE24C84DEA0033E26B /* Assets.xcassets */; };
 		03884A301EF0947D00EF5412 /* ic_videocam_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 03884A2E1EF0947D00EF5412 /* ic_videocam_off.png */; };
 		03884A311EF0947D00EF5412 /* ic_videocam_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 03884A2F1EF0947D00EF5412 /* ic_videocam_off@2x.png */; };
@@ -103,10 +102,9 @@
 		0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@2x.png"; sourceTree = "<group>"; };
 		0313E6D21EFB358F00FEDC67 /* Default-667h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h.png"; sourceTree = "<group>"; };
 		0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
-		03617D8A1EE8DA2400E26B34 /* PaddedUISearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddedUISearchBar.swift; sourceTree = "<group>"; };
-		0370B5B325BA374300C426EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewAligned.swift; sourceTree = "<group>"; };
 		033E0D51259C79BD00F8A01D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		0370B5B325BA374300C426EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0387B0FE24C84DEA0033E26B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03884A2C1EEFC20300EF5412 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		03884A2E1EF0947D00EF5412 /* ic_videocam_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ic_videocam_off.png; path = "App Icons/ic_videocam_off.png"; sourceTree = "<group>"; };
@@ -422,7 +420,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					03B1C88B1EE75B0E008A875C = {
 						CreatedOnToolsVersion = 7.3;
