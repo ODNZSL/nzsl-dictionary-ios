@@ -351,6 +351,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         let navigationBarRightButtonItem = UIBarButtonItem.init(customView: modeSwitch);
         self.tabBarController!.navigationItem.setRightBarButton(navigationBarRightButtonItem, animated: false)
         
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = AppThemePrimaryColor
+            self.tabBarController!.navigationItem.scrollEdgeAppearance = appearance
+            self.tabBarController!.navigationItem.standardAppearance = appearance
+        }
+        
         wotdGlossLabel.text = wordOfTheDay.gloss
         wotdGlossLabel.sizeToFit()
         
