@@ -482,12 +482,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         cell!.detailTextLabel!.text = e.minor
         let iv: UIImageView = cell!.accessoryView as! UIImageView
 
-        if #available(iOS 13.0, *) {
-            iv.image = UIImage(named: "50.\(e.image!)")?.withRenderingMode(.alwaysOriginal)
-        } else {
-            iv.image = UIImage(named: "50.\(e.image!)")
-        }
-
+        iv.image = UIImage(named: e.image)
         iv.highlightedImage = transparent_image(iv.image)
         return cell!
     }
