@@ -536,20 +536,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
                 cell.selectedBackgroundView!.backgroundColor = UIColor(named: "brand-accent")
             }
             if collectionView == handshapeSelector {
-                if #available(iOS 13.0, *) {
-                    img.tintColor = UIColor(named: "diagram-tint")
-                    img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")?.withRenderingMode(.alwaysTemplate)
-                } else {
                 img.image = UIImage(named: "handshape.\(handShapes[indexPath.row]).png")
             }
-            }
             else if collectionView == locationSelector {
-                if #available(iOS 13.0, *) {
-                    img.tintColor = UIColor(named: "diagram-tint")
-                    img.image = UIImage(named: Locations[indexPath.row][1])?.withRenderingMode(.alwaysTemplate)
-                } else {
                 img.image = UIImage(named: Locations[indexPath.row][1])
-            }
             }
 
             img.backgroundColor = UIColor(named: "app-background")
