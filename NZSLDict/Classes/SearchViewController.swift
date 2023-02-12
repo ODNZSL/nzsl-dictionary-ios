@@ -165,7 +165,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         }
 
         view.backgroundColor = UIColor(named: "app-background")
-        view.autoresizingMask = .flexibleHeight
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.autoresizesSubviews = true
 
         let searchBarPadding = CGFloat(8.0)
@@ -191,7 +191,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         self.view.addSubview(modeSwitch)
         searchTable = UITableView(frame: CGRect(x: 0, y: onPad() ? 96 : 44 + (searchBarPadding * 2), width: view.frame.size.width, height: view.frame.size.height))
-        searchTable.autoresizingMask = [.flexibleHeight]
+        searchTable.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         searchTable.estimatedRowHeight = 64
         searchTable.rowHeight = UITableView.automaticDimension
         searchTable.dataSource = self
@@ -205,7 +205,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
 
         scrollView = UIScrollView.init(frame: searchTable.frame);
         scrollView.contentSize = CGSize.init(width: self.view.frame.width, height: 600)
-        scrollView.autoresizingMask = [.flexibleHeight]
+        scrollView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         scrollView.backgroundColor = AppThemePrimaryLightColor
 
 
@@ -570,23 +570,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         // searchHandshape(targetHandshape: String?, location: String?) -> [AnyObject]
         searchResults = dict.searchHandshape(targetHandshape, location: location)! as [AnyObject]
         searchTable.reloadData()
-    }
-
-
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        var frame = webView.frame
-        frame.size.height = 5.0
-        webView.frame = frame
-    }
-
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        let mWebViewTextSize = webView.sizeThatFits(CGSize(width: 1.0, height: 1.0))
-        // Pass about any size
-        var mWebViewFrame = webView.frame
-        mWebViewFrame.size.height = mWebViewTextSize.height
-        webView.frame = mWebViewFrame
-        //Disable bouncing in webview
-        webView.scrollView.bounces = false
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
