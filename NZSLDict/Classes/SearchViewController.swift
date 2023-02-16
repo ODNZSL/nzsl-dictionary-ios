@@ -358,6 +358,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
             appearance.backgroundColor = AppThemePrimaryColor
             self.tabBarController!.navigationItem.scrollEdgeAppearance = appearance
             self.tabBarController!.navigationItem.standardAppearance = appearance
+            
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithOpaqueBackground()
+            tabBarAppearance.backgroundColor = UIColor(named: "app-background")
+            self.tabBarController!.tabBar.scrollEdgeAppearance = tabBarAppearance
+            self.tabBarController!.tabBar.standardAppearance = tabBarAppearance
         }
 
         wotdGlossLabel.text = wordOfTheDay.gloss
