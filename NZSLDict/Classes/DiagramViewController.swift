@@ -34,6 +34,10 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
         if self.responds(to: #selector(getter: UIViewController.edgesForExtendedLayout)) {
             self.edgesForExtendedLayout = UIRectEdge()
         }
+        
+        if #available(iOS 15.0, *) {
+            self.tabBarController?.tabBar.scrollEdgeAppearance = self.tabBarController?.tabBar.standardAppearance
+        }
     }
     
     func selectSearchMode(_ sender: UISegmentedControl) {

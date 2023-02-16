@@ -31,7 +31,7 @@ class DiagramView: UIView {
         
         if #available(iOS 13.0, *) {
             imageView.tintColor = UIColor(named: "diagram-tint")
-            imageView.image = UIImage(named: entry.image)?.withRenderingMode(.alwaysTemplate)
+            imageView.image = UIImage(named: entry.image)?.withRenderingMode(.alwaysOriginal)
         } else {
             imageView.image = UIImage(named: entry.image)
         }
