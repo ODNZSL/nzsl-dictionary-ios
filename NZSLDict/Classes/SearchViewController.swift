@@ -101,30 +101,30 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     ]
 
     let Locations: [[String]] = [
-    //[nil, nil,
-    ["in front of body", "location.1.1.in_front_of_body.png"],
-    ["in front of face", "location.2.2.in_front_of_face.png"],
-    ["head", "location.3.3.head.png"],
-    ["top of head", "location.3.4.top_of_head.png"],
-    ["eyes", "location.3.5.eyes.png"],
-    ["nose", "location.3.6.nose.png"],
-    ["ear", "location.3.7.ear.png"],
-    ["cheek", "location.3.8.cheek.png"],
-    ["lower head", "location.3.9.lower_head.png"],
-    ["neck/throat", "location.4.10.neck_throat.png"],
-    ["shoulders", "location.4.11.shoulders.png"],
-    ["chest", "location.4.12.chest.png"],
-    ["abdomen", "location.4.13.abdomen.png"],
-    ["hips/pelvis/groin", "location.4.14.hips_pelvis_groin.png"],
-    ["upper leg", "location.4.15.upper_leg.png"],
-    ["upper arm", "location.5.16.upper_arm.png"],
-    ["elbow", "location.5.17.elbow.png"],
-    ["lower arm", "location.5.18.lower_arm.png"],
-    ["wrist", "location.6.19.wrist.png"],
-    ["fingers/thumb", "location.6.20.fingers_thumb.png"],
-    ["back of hand", "location.6.22.back_of_hand.png"],
-    //"palm",
-    //"blades",
+        //[nil, nil,
+        ["in front of body", "location.1.1.in_front_of_body.png"],
+        ["in front of face", "location.2.2.in_front_of_face.png"],
+        ["head", "location.3.3.head.png"],
+        ["top of head", "location.3.4.top_of_head.png"],
+        ["eyes", "location.3.5.eyes.png"],
+        ["nose", "location.3.6.nose.png"],
+        ["ear", "location.3.7.ear.png"],
+        ["cheek", "location.3.8.cheek.png"],
+        ["lower head", "location.3.9.lower_head.png"],
+        ["neck/throat", "location.4.10.neck_throat.png"],
+        ["shoulders", "location.4.11.shoulders.png"],
+        ["chest", "location.4.12.chest.png"],
+        ["abdomen", "location.4.13.abdomen.png"],
+        ["hips/pelvis/groin", "location.4.14.hips_pelvis_groin.png"],
+        ["upper leg", "location.4.15.upper_leg.png"],
+        ["upper arm", "location.5.16.upper_arm.png"],
+        ["elbow", "location.5.17.elbow.png"],
+        ["lower arm", "location.5.18.lower_arm.png"],
+        ["wrist", "location.6.19.wrist.png"],
+        ["fingers/thumb", "location.6.20.fingers_thumb.png"],
+        ["back of hand", "location.6.22.back_of_hand.png"],
+        //"palm",
+        //"blades",
     ]
 
     // MARK: Initializers
@@ -173,7 +173,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar.autoresizingMask = [.flexibleWidth]
         searchBar.tintAdjustmentMode = .normal
         searchBar.isTranslucent = false
-        searchBar.barTintColor = AppThemePrimaryColor
+        searchBar.barTintColor = .appThemePrimaryColor
         if #available(iOS 13.0, *) { // Dark mode adjustments
             searchBar.searchTextField.leftView?.tintColor = .black
         }
@@ -184,7 +184,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         modeSwitch = UISegmentedControl(items: ["Abc", UIImage(named: "hands")!])
         modeSwitch.autoresizingMask = .flexibleLeftMargin
         modeSwitch.frame = CGRect(x: view.bounds.size.width -
-            modeSwitch.bounds.size.width - 8, y: 0 + 16, width: modeSwitch.bounds.size.width, height: 32)
+                                  modeSwitch.bounds.size.width - 8, y: 0 + 16, width: modeSwitch.bounds.size.width, height: 32)
         modeSwitch.selectedSegmentIndex = 0
         modeSwitch.tintColor = UIColor.white;
         modeSwitch.addTarget(self, action: #selector(SearchViewController.selectSearchMode(_:)), for: .valueChanged)
@@ -206,7 +206,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         scrollView = UIScrollView.init(frame: searchTable.frame);
         scrollView.contentSize = CGSize.init(width: self.view.frame.width, height: 600)
         scrollView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        scrollView.backgroundColor = AppThemePrimaryLightColor
+        scrollView.backgroundColor = .appThemePrimaryLightColor
 
 
 
@@ -218,7 +218,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         wotdLabel.autoresizingMask = .flexibleHeight
         wotdLabel.text = "Word of the day"
         wotdLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        wotdLabel.textColor = AppSecondaryTextColour
+        wotdLabel.textColor = .appSecondaryTextColour
         wotdView.addSubview(wotdLabel)
 
         wotdGlossLabel = UILabel(frame: CGRect(x: 16, y: wotdLabel.frame.maxY, width: wotdView.bounds.size.width * 0.6, height: 24))
@@ -355,7 +355,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = AppThemePrimaryColor
+            appearance.backgroundColor = .appThemePrimaryColor
             self.tabBarController!.navigationItem.scrollEdgeAppearance = appearance
             self.tabBarController!.navigationItem.standardAppearance = appearance
             
@@ -385,15 +385,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
         searchBar.resignFirstResponder()
     }
 
-//    override func viewDidLayoutSubviews() {
-//        // Autosize the scrollview
-//        var contentRect = CGRect.zero
-//        for view: UIView in self.scrollView.subviews {
-//            contentRect = contentRect.union(view.frame)
-//        }
-//        self.scrollView.contentSize = contentRect.size
-//        self.scrollView.contentSize.height = contentRect.size.height + 150
-//    }
+    //    override func viewDidLayoutSubviews() {
+    //        // Autosize the scrollview
+    //        var contentRect = CGRect.zero
+    //        for view: UIView in self.scrollView.subviews {
+    //            contentRect = contentRect.union(view.frame)
+    //        }
+    //        self.scrollView.contentSize = contentRect.size
+    //        self.scrollView.contentSize.height = contentRect.size.height + 150
+    //    }
 
     // MARK: Callback functions
     @objc func selectWotd(_ sender: UITapGestureRecognizer) {
@@ -448,7 +448,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     }
 
     func selectEntry(_ entry: DictEntry) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: EntrySelectedName), object: nil, userInfo: ["entry": entry])
+        NotificationCenter.default.post(name: .entrySelectedName, object: nil, userInfo: ["entry": entry])
     }
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -472,25 +472,30 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellId = "Cell"
 
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellId)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellId)
 
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
-            let iv: UIImageViewAligned = UIImageViewAligned(frame: CGRect(x: 0, y: 8, width: tableView.rowHeight, height: tableView.rowHeight - 16))
-            iv.alignment = .right
-            iv.contentMode = .scaleAspectFit
-
-            cell!.accessoryView = iv
+            let cellImageView = UIImageView(frame: CGRect(x: 0,y: 0,width: 40, height: 40))
+            cellImageView.contentMode = .scaleAspectFit
+            cell?.accessoryView = cellImageView
         }
 
         let e: DictEntry = searchResults[indexPath.row] as! DictEntry
-        cell!.textLabel!.text = e.gloss
-        cell!.detailTextLabel!.text = e.minor
-        let iv: UIImageView = cell!.accessoryView as! UIImageView
+        cell?.textLabel?.text = e.gloss
+        cell?.detailTextLabel?.text = e.minor
 
-        iv.image = UIImage(named: e.image)
-        iv.highlightedImage = transparent_image(iv.image)
+        if let iv = cell?.accessoryView as? UIImageView {
+            let image = UIImage(named: e.image)
+            iv.image = image
+            iv.highlightedImage = image?.transparentImage()
+        }
+
         return cell!
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

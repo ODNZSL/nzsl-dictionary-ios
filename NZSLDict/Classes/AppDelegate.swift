@@ -22,14 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         
- 
-
-        
         let navigationController: UINavigationController = UINavigationController.init(rootViewController: rootViewController)
         navigationController.navigationBar.barStyle = UIBarStyle.default;
         navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController.navigationBar.backgroundColor = AppThemePrimaryColor;
-        navigationController.navigationBar.tintColor = AppThemePrimaryColor
+        navigationController.navigationBar.backgroundColor = .appThemePrimaryColor
+        navigationController.navigationBar.tintColor = .appThemePrimaryColor
         navigationController.navigationBar.isTranslucent = false
         
     

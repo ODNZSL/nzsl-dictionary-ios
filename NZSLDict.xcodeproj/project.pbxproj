@@ -12,7 +12,6 @@
 		0313E6D11EFB330800FEDC67 /* Default-1104h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */; };
 		0313E6D41EFB358F00FEDC67 /* Default-667h.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D21EFB358F00FEDC67 /* Default-667h.png */; };
 		0313E6D51EFB358F00FEDC67 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */; };
-		0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */; };
 		033E0D52259C79BD00F8A01D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033E0D51259C79BD00F8A01D /* WebKit.framework */; };
 		0370B5B425BA374300C426EE /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0370B5B325BA374300C426EE /* Launch Screen.storyboard */; };
 		0387B0FF24C84DEB0033E26B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0387B0FE24C84DEA0033E26B /* Assets.xcassets */; };
@@ -40,7 +39,6 @@
 		49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F971C481EB500C355B2 /* ViewControllerPad.swift */; };
 		49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F991C4821A800C355B2 /* AppDelegate.swift */; };
 		49342F9C1C483D4F00C355B2 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */; };
-		49342F9E1C484B5800C355B2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342F9D1C484B5800C355B2 /* Constants.swift */; };
 		49342FA41C48746900C355B2 /* DiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA31C48746900C355B2 /* DiagramView.swift */; };
 		49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA51C48821200C355B2 /* DetailViewController.swift */; };
 		49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49342FA71C488C7100C355B2 /* DiagramViewController.swift */; };
@@ -79,10 +77,12 @@
 		4960AD671C28E22E001037C4 /* screenshot-iphone5-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD4D1C28E22E001037C4 /* screenshot-iphone5-search.png */; };
 		4960AD681C28E22E001037C4 /* screenshot-iphone5-video.png in Resources */ = {isa = PBXBuildFile; fileRef = 4960AD4E1C28E22E001037C4 /* screenshot-iphone5-video.png */; };
 		4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD771C28E2A5001037C4 /* SignsDictionary.m */; };
-		4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4960AD7B1C28E2A5001037C4 /* imageutil.m */; };
 		4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969EAF61C462A69002032B7 /* ViewControllerPhone.swift */; };
 		499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499DFD911C3F4FE100F45D0E /* DetailView.swift */; };
 		49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49BD49ED1C6FC42000124A16 /* VideoViewController.swift */; };
+		D82A30C02A172AF2009E6FEB /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A30BF2A172AF2009E6FEB /* UIImage+Utils.swift */; };
+		D82A30C22A172F2C009E6FEB /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A30C12A172F2C009E6FEB /* UIColor+AppColors.swift */; };
+		D82A30C42A173102009E6FEB /* NSNotification+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82A30C32A173102009E6FEB /* NSNotification+Custom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +101,6 @@
 		0313E6CF1EFB330800FEDC67 /* Default-1104h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1104h@2x.png"; sourceTree = "<group>"; };
 		0313E6D21EFB358F00FEDC67 /* Default-667h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h.png"; sourceTree = "<group>"; };
 		0313E6D31EFB358F00FEDC67 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
-		0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewAligned.swift; sourceTree = "<group>"; };
 		033E0D51259C79BD00F8A01D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		0370B5B325BA374300C426EE /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0387B0FE24C84DEA0033E26B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,7 +134,6 @@
 		49342F971C481EB500C355B2 /* ViewControllerPad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPad.swift; sourceTree = "<group>"; };
 		49342F991C4821A800C355B2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		49342F9D1C484B5800C355B2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		49342FA31C48746900C355B2 /* DiagramView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramView.swift; sourceTree = "<group>"; };
 		49342FA51C48821200C355B2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		49342FA71C488C7100C355B2 /* DiagramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiagramViewController.swift; sourceTree = "<group>"; };
@@ -176,13 +174,14 @@
 		4960AD4E1C28E22E001037C4 /* screenshot-iphone5-video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-iphone5-video.png"; sourceTree = "<group>"; };
 		4960AD761C28E2A5001037C4 /* SignsDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignsDictionary.h; sourceTree = "<group>"; };
 		4960AD771C28E2A5001037C4 /* SignsDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignsDictionary.m; sourceTree = "<group>"; };
-		4960AD7A1C28E2A5001037C4 /* imageutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageutil.h; sourceTree = "<group>"; };
-		4960AD7B1C28E2A5001037C4 /* imageutil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageutil.m; sourceTree = "<group>"; };
 		4969EAF61C462A69002032B7 /* ViewControllerPhone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerPhone.swift; sourceTree = "<group>"; };
 		499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NZSLDict-Bridging-Header.h"; sourceTree = "<group>"; };
 		499DFD911C3F4FE100F45D0E /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		49AFE04F1C28ED0D00462381 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		49BD49ED1C6FC42000124A16 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		D82A30BF2A172AF2009E6FEB /* UIImage+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Utils.swift"; sourceTree = "<group>"; };
+		D82A30C12A172F2C009E6FEB /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
+		D82A30C32A173102009E6FEB /* NSNotification+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Custom.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +344,7 @@
 		4960AD691C28E2A5001037C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D82A30BE2A172ADC009E6FEB /* Extensions */,
 				039081CA1EEA4A2E0050C180 /* AboutViewController.swift */,
 				499DFD911C3F4FE100F45D0E /* DetailView.swift */,
 				4969EAF61C462A69002032B7 /* ViewControllerPhone.swift */,
@@ -352,7 +352,6 @@
 				49342F971C481EB500C355B2 /* ViewControllerPad.swift */,
 				49342F991C4821A800C355B2 /* AppDelegate.swift */,
 				49342F9B1C483D4F00C355B2 /* HistoryViewController.swift */,
-				49342F9D1C484B5800C355B2 /* Constants.swift */,
 				49342FA31C48746900C355B2 /* DiagramView.swift */,
 				49342FA51C48821200C355B2 /* DetailViewController.swift */,
 				49342FA71C488C7100C355B2 /* DiagramViewController.swift */,
@@ -361,12 +360,19 @@
 				49BD49ED1C6FC42000124A16 /* VideoViewController.swift */,
 				4960AD761C28E2A5001037C4 /* SignsDictionary.h */,
 				4960AD771C28E2A5001037C4 /* SignsDictionary.m */,
-				4960AD7A1C28E2A5001037C4 /* imageutil.h */,
-				4960AD7B1C28E2A5001037C4 /* imageutil.m */,
 				499DFD8C1C3F483A00F45D0E /* NZSLDict-Bridging-Header.h */,
-				0330CCE9259E6B5900431634 /* UIImageViewAligned.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		D82A30BE2A172ADC009E6FEB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D82A30BF2A172AF2009E6FEB /* UIImage+Utils.swift */,
+				D82A30C12A172F2C009E6FEB /* UIColor+AppColors.swift */,
+				D82A30C32A173102009E6FEB /* NSNotification+Custom.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -546,20 +552,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				4911054B1C4642F600A742BE /* ViewControllerDelegate.swift in Sources */,
-				49342F9E1C484B5800C355B2 /* Constants.swift in Sources */,
 				49342F981C481EB500C355B2 /* ViewControllerPad.swift in Sources */,
 				49342FAA1C4890CF00C355B2 /* SearchViewController.swift in Sources */,
 				49342F9A1C4821A800C355B2 /* AppDelegate.swift in Sources */,
-				4960AD8C1C28E2A5001037C4 /* imageutil.m in Sources */,
+				D82A30C22A172F2C009E6FEB /* UIColor+AppColors.swift in Sources */,
 				49342FAC1C489B9800C355B2 /* SearchViewControllerDelegate.swift in Sources */,
 				49342F9C1C483D4F00C355B2 /* HistoryViewController.swift in Sources */,
 				039081CB1EEA4A2E0050C180 /* AboutViewController.swift in Sources */,
 				49342FA81C488C7100C355B2 /* DiagramViewController.swift in Sources */,
 				49342FA61C48821200C355B2 /* DetailViewController.swift in Sources */,
-				0330CCEA259E6B5900431634 /* UIImageViewAligned.swift in Sources */,
+				D82A30C02A172AF2009E6FEB /* UIImage+Utils.swift in Sources */,
 				4960AD8A1C28E2A5001037C4 /* SignsDictionary.m in Sources */,
 				4969EAF71C462A69002032B7 /* ViewControllerPhone.swift in Sources */,
 				49BD49EE1C6FC42000124A16 /* VideoViewController.swift in Sources */,
+				D82A30C42A173102009E6FEB /* NSNotification+Custom.swift in Sources */,
 				49342FA41C48746900C355B2 /* DiagramView.swift in Sources */,
 				499DFD921C3F4FE100F45D0E /* DetailView.swift in Sources */,
 			);

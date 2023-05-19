@@ -8,7 +8,7 @@ class DiagramViewController: UIViewController, UISearchBarDelegate {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem = UITabBarItem(title: "Diagram", image: UIImage(named: "hands"), tag: 0)
-        NotificationCenter.default.addObserver(self, selector: #selector(DiagramViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DiagramViewController.showEntry(_:)), name: .entrySelectedName, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {

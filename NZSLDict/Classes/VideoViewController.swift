@@ -23,7 +23,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.tabBarItem = UITabBarItem(title: "Video", image: UIImage(named: "movie"), tag: 0)
-        NotificationCenter.default.addObserver(self, selector: #selector(VideoViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(VideoViewController.showEntry(_:)), name: .entrySelectedName, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

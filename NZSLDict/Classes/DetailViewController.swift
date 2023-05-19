@@ -20,7 +20,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: .entrySelectedName, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,8 +40,8 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
         let top_offset: CGFloat = 20
 
         navigationBar = UINavigationBar(frame: CGRect(x: 0, y: top_offset, width: view.bounds.size.width, height: 96 - top_offset))
-        navigationBar.backgroundColor = AppThemePrimaryColor
-        navigationBar.barTintColor = AppThemePrimaryColor
+        navigationBar.backgroundColor = .appThemePrimaryColor
+        navigationBar.barTintColor = .appThemePrimaryColor
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
         navigationBar.isOpaque = false
