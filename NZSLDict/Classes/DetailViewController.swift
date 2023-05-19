@@ -1,6 +1,7 @@
 import UIKit
 import AVFoundation
 import AVKit
+import Network
 
 class DetailViewController: UIViewController, UISplitViewControllerDelegate, UINavigationBarDelegate {
     var navigationBar: UINavigationBar!
@@ -11,7 +12,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     let playerView = AVPlayerViewController()
     var activity: UIActivityIndicatorView!
     var playButton: UIButton!
-    var reachability: Reachability?
+    var networkMonitor: NWPathMonitor?
     var networkErrorMessage: UIView!
     private var playerItemContext = 0
 
@@ -27,9 +28,9 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     deinit {
-       NotificationCenter.default.removeObserver(self)
-        reachability?.stopNotifier()
-        reachability = nil
+        NotificationCenter.default.removeObserver(self)
+        networkMonitor?.cancel()
+        networkMonitor = nil
     }
 
     override func loadView() {
@@ -79,12 +80,10 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
             playerView.updatesNowPlayingInfoCenter = false
         }
 
-        setupNetworkStatusMonitoring()
-
         self.view = view
     }
 
-     override var shouldAutorotate : Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
@@ -105,35 +104,29 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func setupNetworkStatusMonitoring() {
-        reachability = Reachability.forInternetConnection()
+        networkMonitor = NWPathMonitor()
 
-        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
+        networkMonitor?.pathUpdateHandler = { [weak self] path in
+            guard let self else { return }
+
             DispatchQueue.main.async {
-                self.playButton.isEnabled = true
+                self.playButton.isEnabled = path.status == .satisfied
             }
         }
 
-        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            DispatchQueue.main.async {
-                self.playButton.isEnabled = false
-            }
-        }
+        let queue = DispatchQueue.global(qos: .background)
+        networkMonitor?.start(queue: queue)
 
-        self.playButton.isEnabled = reachability?.currentReachabilityStatus() != .NotReachable
-
+        self.playButton.isEnabled = networkMonitor?.currentPath.status == .satisfied
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.reachability!.startNotifier()
+        setupNetworkStatusMonitoring()
     }
 
 
-       @objc func startPlayer(_ sender: AnyObject) {
+    @objc func startPlayer(_ sender: AnyObject) {
            player = AVPlayer(url: URL(string: currentEntry.video)!);
            player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
            player!.isMuted = true

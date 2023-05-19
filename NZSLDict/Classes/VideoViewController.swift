@@ -1,6 +1,7 @@
 import Foundation
 import AVKit
 import AVFoundation
+import Network
 
 class VideoViewController: UIViewController, UISearchBarDelegate {
     var currentEntry: DictEntry!
@@ -11,9 +12,11 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     let playerView = AVPlayerViewController()
     let playerPromptLabel = UILabel()
     var delegate: ViewControllerDelegate!
-    var reachability: Reachability?
+
     var player: AVPlayer?
     var padding = CGFloat(16.0)
+
+    var networkMonitor: NWPathMonitor?
     private var playerItemContext = 0
     private var slowPlaybackRate = Float(0.25)
     
@@ -29,8 +32,8 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        reachability?.stopNotifier()
-        reachability = nil
+        networkMonitor?.cancel();
+        networkMonitor = nil
     }
     
     override func loadView() {
@@ -64,9 +67,7 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
         networkErrorMessage.autoresizesSubviews = true
         view.addSubview(networkErrorMessage)
         
-        
-        setupNetworkStatusMonitoring()
-        
+
         self.view = view
     }
     
@@ -76,41 +77,28 @@ class VideoViewController: UIViewController, UISearchBarDelegate {
             self.edgesForExtendedLayout = UIRectEdge()
         }
         
-        
-        reachability!.startNotifier()
+        setupNetworkStatusMonitoring()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.showCurrentEntry()
-        
     }
     
     func setupNetworkStatusMonitoring() {
-        reachability = Reachability.forInternetConnection()
-        
-        
-        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
+        networkMonitor = NWPathMonitor()
+
+        networkMonitor?.pathUpdateHandler = { [weak self] path in
+            guard let self else { return }
+
             DispatchQueue.main.async {
-                self.networkErrorMessage.isHidden = true
-                self.videoBack.isHidden = false
+                self.networkErrorMessage.isHidden = path.status == .satisfied
+                self.videoBack.isHidden = path.status != .satisfied
             }
         }
-        
-        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            DispatchQueue.main.async {
-                self.networkErrorMessage.isHidden = false
-                self.videoBack.isHidden = true
-            }
-        }
-        
-        if reachability?.currentReachabilityStatus() != .NotReachable {
-            reachability?.reachableBlock(reachability)
-        }
+
+        let queue = DispatchQueue.global(qos: .background)
+        networkMonitor?.start(queue: queue)
     }
     
     @objc func startPlayer(_ sender: AnyObject) {
