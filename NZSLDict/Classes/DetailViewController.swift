@@ -1,6 +1,7 @@
 import UIKit
 import AVFoundation
 import AVKit
+import Network
 
 class DetailViewController: UIViewController, UISplitViewControllerDelegate, UINavigationBarDelegate {
     var navigationBar: UINavigationBar!
@@ -11,7 +12,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     let playerView = AVPlayerViewController()
     var activity: UIActivityIndicatorView!
     var playButton: UIButton!
-    var reachability: Reachability?
+    var networkMonitor: NWPathMonitor?
     var networkErrorMessage: UIView!
     private var playerItemContext = 0
 
@@ -19,7 +20,7 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.showEntry(_:)), name: .entrySelectedName, object: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -27,64 +28,89 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     deinit {
-       NotificationCenter.default.removeObserver(self)
-        reachability?.stopNotifier()
-        reachability = nil
+        NotificationCenter.default.removeObserver(self)
+        networkMonitor?.cancel()
+        networkMonitor = nil
     }
 
     override func loadView() {
-        let view: UIView = UIView(frame: UIScreen.main.bounds)
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        super.loadView()
 
-        let top_offset: CGFloat = 20
+        view.backgroundColor = .appBackground
 
-        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: top_offset, width: view.bounds.size.width, height: 96 - top_offset))
-        navigationBar.backgroundColor = AppThemePrimaryColor
-        navigationBar.barTintColor = AppThemePrimaryColor
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isOpaque = false
-        navigationBar.isTranslucent = false
-        navigationBar.autoresizingMask = [.flexibleWidth]
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationBar = UINavigationBar()
         navigationBar.delegate = self
-        view.addSubview(navigationBar)
-        view.backgroundColor = UIColor.init(named: "app-background")
 
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationBar)
+
+        navigationBar.backgroundColor = .appThemePrimaryColor
+        navigationBar.barTintColor = .appThemePrimaryColor
+
+        let navTop = navigationBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 20)
+        let navLead = navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let navTrailing = navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let navHeight = navigationBar.heightAnchor.constraint(equalToConstant: 76)
+
+        NSLayoutConstraint.activate([
+            navTop, navLead, navTrailing, navHeight
+        ])
+
+        navigationBar.isTranslucent = false
+        navigationBar.shadowImage = UIImage()
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+
+        navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationTitle = UINavigationItem(title: "NZSL Dictionary")
         navigationBar.setItems([navigationTitle], animated: false)
 
-        let diagramFrame = CGRect(x: 0, y: navigationBar.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2)
-        diagramView = DiagramView(frame: diagramFrame.insetBy(dx: 16.0, dy: 16.0))
-        diagramView.autoresizingMask = [.flexibleWidth]
+
+        diagramView = DiagramView()
+        diagramView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(diagramView)
 
-        videoView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.height + diagramView.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2))
-        videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin]
-        videoView.backgroundColor = UIColor.black
-        view.insertSubview(videoView, belowSubview: diagramView)
+        let dvTop = diagramView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 16)
+        let dvLead = diagramView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        let dvTrailing = diagramView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+
+        videoView = UIView()
+        videoView.translatesAutoresizingMaskIntoConstraints = false
+        videoView.backgroundColor = .black
+        view.addSubview(videoView)
+
+        let vvTop = videoView.topAnchor.constraint(equalTo: diagramView.bottomAnchor, constant: 10)
+        let vvLead = videoView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let vvTrailing = videoView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let vvBottom = videoView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
+        let vvHeight = videoView.heightAnchor.constraint(equalTo: diagramView.heightAnchor, multiplier: 1)
+        let dvHeight = diagramView.heightAnchor.constraint(equalTo: videoView.heightAnchor, multiplier: 1)
+
+        NSLayoutConstraint.activate([
+            dvTop, dvLead, dvTrailing, vvTop, vvLead, vvTrailing, vvBottom, vvHeight, dvHeight
+        ])
 
         playButton = UIButton(type: .roundedRect)
-        playButton.frame = CGRect(x: 0, y: (videoView.bounds.size.height - 40) / 2, width: videoView.bounds.width, height: 40)
-        playButton.titleLabel?.textAlignment = .center
-        playButton.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        playButton.setTitle("Play Video", for: UIControl.State())
-        playButton.setTitle("Playing videos requires access to the Internet.", for: .disabled)
-        playButton.setTitleColor(UIColor.white, for: .disabled)
-
-        playButton.addTarget(self, action: #selector(DetailViewController.startPlayer(_:)), for: .touchUpInside)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
         videoView.addSubview(playButton)
 
-        if #available(iOS 10.0, *) {
-            playerView.updatesNowPlayingInfoCenter = false
-        }
+        playButton.setTitle("Play Video", for: .normal)
+        playButton.setTitle("Playing videos requires access to the Internet", for: .disabled)
 
-        setupNetworkStatusMonitoring()
+        playButton.setTitleColor(.white, for: .disabled)
+        playButton.addTarget(self, action: #selector(startPlayer), for: .touchUpInside)
 
-        self.view = view
+        let pbCenterX = playButton.centerXAnchor.constraint(equalTo: videoView.centerXAnchor)
+        let pbCenterY = playButton.centerYAnchor.constraint(equalTo: videoView.centerYAnchor)
+
+        NSLayoutConstraint.activate([
+            pbCenterX, pbCenterY
+        ])
+
+        playerView.updatesNowPlayingInfoCenter = false
     }
 
-     override var shouldAutorotate : Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
 
@@ -105,52 +131,46 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     func setupNetworkStatusMonitoring() {
-        reachability = Reachability.forInternetConnection()
+        networkMonitor = NWPathMonitor()
 
-        reachability!.reachableBlock = { (reach: Reachability?) -> Void in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
+        networkMonitor?.pathUpdateHandler = { [weak self] path in
+            guard let self else { return }
+
             DispatchQueue.main.async {
-                self.playButton.isEnabled = true
+                self.playButton.isEnabled = path.status == .satisfied
             }
         }
 
-        reachability!.unreachableBlock = { (reach: Reachability?) -> Void in
-            // this is called on a background thread, but UI updates must
-            // be on the main thread, like this:
-            DispatchQueue.main.async {
-                self.playButton.isEnabled = false
-            }
-        }
+        let queue = DispatchQueue.global(qos: .background)
+        networkMonitor?.start(queue: queue)
 
-        self.playButton.isEnabled = reachability?.currentReachabilityStatus() != .NotReachable
-
+        self.playButton.isEnabled = networkMonitor?.currentPath.status == .satisfied
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.reachability!.startNotifier()
+        setupNetworkStatusMonitoring()
     }
 
 
-       @objc func startPlayer(_ sender: AnyObject) {
-           player = AVPlayer(url: URL(string: currentEntry.video)!);
-           player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
-           player!.isMuted = true
-           playerView.player = player
-           playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-           playerView.videoGravity = .resizeAspect
-           playerView.view.frame = self.videoView.bounds
-           self.videoView.addSubview(playerView.view)
-           self.addChild(playerView)
+    @objc func startPlayer(_ sender: AnyObject) {
+        player = AVPlayer(url: URL(string: currentEntry.video)!);
+        player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
+        player!.isMuted = true
+        playerView.player = player
+        playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerView.videoGravity = .resizeAspect
+        playerView.view.frame = self.videoView.bounds
+        self.videoView.addSubview(playerView.view)
+        self.addChild(playerView)
 
-           activity = UIActivityIndicatorView(style: .whiteLarge)
-           self.videoView.addSubview(activity)
-           activity.frame = activity.frame.offsetBy(dx: (self.videoView.bounds.width - activity.bounds.width) / 2, dy: (self.videoView.bounds.height - activity.bounds.height) / 2)
-           activity.startAnimating()
-       }
+        activity = UIActivityIndicatorView(style: .whiteLarge)
+        self.videoView.addSubview(activity)
+        activity.frame = activity.frame.offsetBy(dx: (self.videoView.bounds.width - activity.bounds.width) / 2, dy: (self.videoView.bounds.height - activity.bounds.height) / 2)
+        activity.startAnimating()
+    }
 
-       override func observeValue(forKeyPath keyPath: String?,
+    override func observeValue(forKeyPath keyPath: String?,
                                   of object: Any?,
                                   change: [NSKeyValueChangeKey : Any]?,
                                   context: UnsafeMutableRawPointer?) {

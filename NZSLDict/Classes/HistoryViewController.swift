@@ -16,7 +16,7 @@ class HistoryViewController: UITableViewController {
         super.init(style: style)
         self.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarItem.SystemItem.mostRecent, tag: 0)
             
-        NotificationCenter.default.addObserver(self, selector: #selector(HistoryViewController.addEntry(_:)), name: NSNotification.Name(rawValue: EntrySelectedName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HistoryViewController.addEntry(_:)), name: .entrySelectedName, object: nil)
     }
 
     convenience init() {
@@ -79,24 +79,22 @@ class HistoryViewController: UITableViewController {
         let cellIdentifier = "Cell"
         let entry: DictEntry = history[indexPath.row]
 
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
 
         if cell == nil {
-            cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: cellIdentifier)
-            let iv: UIImageView = UIImageView(frame: CGRect(x: 0, y: 2, width: tableView.rowHeight*2, height: tableView.rowHeight-4))
-            iv.contentMode = UIView.ContentMode.scaleAspectFit
-            cell!.accessoryView = iv
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+            let iv = UIImageView(frame: CGRect(x: 0, y: 2, width: 40, height: 40))
+            iv.contentMode = .scaleAspectFit
+            cell?.accessoryView = iv
         }
 
+        cell?.textLabel?.text = entry.gloss
+        cell?.detailTextLabel?.text = entry.minor
 
-        cell!.textLabel!.text = entry.gloss
-        cell!.detailTextLabel!.text = entry.minor
-
-        let iv: UIImageView = cell!.accessoryView as! UIImageView
-
-        iv.image = UIImage(named: "50.\(entry.image!)")
-
-        iv.highlightedImage = transparent_image(iv.image) // TODO do I need this?
+        if let iv = cell?.accessoryView as? UIImageView {
+            iv.image = UIImage(named: "50.\(entry.image!)")
+            iv.highlightedImage = iv.image?.transparentImage() // TODO do I need this?
+        }
 
         return cell!
     }
@@ -108,7 +106,7 @@ class HistoryViewController: UITableViewController {
             "no_add_history": "no_add"
         ] as [String : Any]
 
-        NotificationCenter.default.post(name: Notification.Name(rawValue: EntrySelectedName), object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: .entrySelectedName, object: self, userInfo: userInfo)
         self.delegate?.didSelectEntry(dictEntryFromHistory)
     }
 }

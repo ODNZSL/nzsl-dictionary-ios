@@ -27,30 +27,71 @@ class DetailView: UIView {
     func setupView() {
         self.backgroundColor = UIColor(named: "app-background")
 
-        glossView = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width - 120, height: 20))
-        glossView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-        glossView.font = UIFont.boldSystemFont(ofSize: 18)
-        self.addSubview(glossView)
 
-        minorView = UILabel(frame: CGRect(x: 0, y: 20, width: self.bounds.size.width-120, height: 20))
-        minorView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-        minorView.font = UIFont.systemFont(ofSize: 15)
-        self.addSubview(minorView)
+        locationView = UIImageView()
+        locationView.translatesAutoresizingMaskIntoConstraints = false
+        locationView.contentMode = .scaleAspectFit
+        self.addSubview(locationView)
 
-        maoriView = UILabel(frame: CGRect(x: 0, y: 40, width: self.bounds.size.width-120, height: 20))
-        maoriView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-        maoriView.font = UIFont.italicSystemFont(ofSize: 15)
-        self.addSubview(maoriView)
+        let lvTrailing = locationView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let lvHeight = locationView.heightAnchor.constraint(equalToConstant: 60)
+        let lvWidth = locationView.widthAnchor.constraint(equalToConstant: 60)
 
-        handshapeView = UIImageView(frame: CGRect(x: self.frame.size.width-120, y: 0, width: 60, height: 60))
-        handshapeView.autoresizingMask = UIView.AutoresizingMask.flexibleLeftMargin
-        handshapeView.contentMode = UIView.ContentMode.scaleAspectFit
+        NSLayoutConstraint.activate([
+            lvTrailing, lvHeight, lvWidth
+        ])
+
+        handshapeView = UIImageView()
+        handshapeView.translatesAutoresizingMaskIntoConstraints = false
+        handshapeView.contentMode = .scaleAspectFit
         self.addSubview(handshapeView)
 
-        locationView = UIImageView(frame: CGRect(x: self.frame.size.width-60, y: 0, width: 60, height: 60))
-        locationView.autoresizingMask = UIView.AutoresizingMask.flexibleLeftMargin
-        locationView.contentMode = UIView.ContentMode.scaleAspectFit
-        self.addSubview(locationView)
+        let hsTrailing = handshapeView.trailingAnchor.constraint(equalTo: locationView.leadingAnchor, constant: 10)
+        let hsHeight = handshapeView.heightAnchor.constraint(equalToConstant: 60)
+        let hsWidth = handshapeView.widthAnchor.constraint(equalToConstant: 60)
+
+        NSLayoutConstraint.activate([
+            hsTrailing, hsHeight, hsWidth
+        ])
+
+        glossView = UILabel()
+        glossView.translatesAutoresizingMaskIntoConstraints = false
+        glossView.font = .boldSystemFont(ofSize: 18)
+        self.addSubview(glossView)
+
+        let gvLead = glossView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let gvTop = glossView.topAnchor.constraint(equalTo: self.topAnchor)
+        let gvTrail = glossView.trailingAnchor.constraint(equalTo: handshapeView.leadingAnchor, constant: 10)
+
+        NSLayoutConstraint.activate([
+            gvLead, gvTop, gvTrail
+        ])
+
+        minorView = UILabel()
+        minorView.translatesAutoresizingMaskIntoConstraints = false
+        minorView.font = .italicSystemFont(ofSize: 15)
+        self.addSubview(minorView)
+
+        let mvLead = minorView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let mvTop = minorView.topAnchor.constraint(equalTo: glossView.bottomAnchor)
+        let mvTrail = minorView.trailingAnchor.constraint(equalTo: handshapeView.leadingAnchor, constant: 10)
+
+        NSLayoutConstraint.activate([
+            mvLead, mvTop, mvTrail
+        ])
+
+        maoriView = UILabel()
+        maoriView.translatesAutoresizingMaskIntoConstraints = false
+        maoriView.font = .italicSystemFont(ofSize: 15)
+        self.addSubview(maoriView)
+
+        let mLead = maoriView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let mTop = maoriView.topAnchor.constraint(equalTo: minorView.bottomAnchor)
+        let mTrail = maoriView.trailingAnchor.constraint(equalTo: handshapeView.leadingAnchor, constant: 10)
+
+        NSLayoutConstraint.activate([
+            mLead, mTop, mTrail
+        ])
     }
 
     func showEntry(_ entry: DictEntry) {
