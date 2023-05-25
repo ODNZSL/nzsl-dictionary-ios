@@ -7,19 +7,34 @@ class DiagramView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(named: "app-background")
-        self.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
 
-        detailView = DetailView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: DetailView.height))
-        detailView.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-
+        detailView = DetailView()
+        detailView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(detailView)
 
-        imageView = UIImageView(frame: CGRect(x: 0, y: detailView.frame.maxY, width: self.frame.size.width, height: self.frame.height-detailView.frame.maxY))
-        imageView.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth]
-        imageView.backgroundColor = UIColor(named: "app-background")
-        imageView.contentMode = UIView.ContentMode.scaleAspectFit
+        let detailLeading = detailView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let detailTrailing = detailView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let detailTop = detailView.topAnchor.constraint(equalTo: self.topAnchor)
+        let detailHeight = detailView.heightAnchor.constraint(equalToConstant: DetailView.height)
 
+        NSLayoutConstraint.activate([
+            detailLeading,detailTrailing,detailTop,detailHeight
+        ])
+
+        imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         self.addSubview(imageView)
+
+        let ivLeading = imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let ivTrailing = imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let ivTop = imageView.topAnchor.constraint(equalTo: detailView.bottomAnchor, constant: 10)
+        let ivBottom = imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+
+        NSLayoutConstraint.activate([
+            ivLeading,ivTrailing,ivTop,ivBottom
+        ])
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -28,7 +43,8 @@ class DiagramView: UIView {
 
     func showEntry(_ entry: DictEntry) {
         detailView.showEntry(entry)
-        
+
+
         if #available(iOS 13.0, *) {
             imageView.tintColor = UIColor(named: "diagram-tint")
             imageView.image = UIImage(named: entry.image)?.withRenderingMode(.alwaysOriginal)

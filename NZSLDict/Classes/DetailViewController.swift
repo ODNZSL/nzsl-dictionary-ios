@@ -34,53 +34,83 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
     }
 
     override func loadView() {
-        let view: UIView = UIView(frame: UIScreen.main.bounds)
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        super.loadView()
 
-        let top_offset: CGFloat = 20
+        view.backgroundColor = .appBackground
 
-        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: top_offset, width: view.bounds.size.width, height: 96 - top_offset))
+        navigationBar = UINavigationBar()
+        navigationBar.delegate = self
+
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationBar)
+
         navigationBar.backgroundColor = .appThemePrimaryColor
         navigationBar.barTintColor = .appThemePrimaryColor
-        navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isOpaque = false
-        navigationBar.isTranslucent = false
-        navigationBar.autoresizingMask = [.flexibleWidth]
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationBar.delegate = self
-        view.addSubview(navigationBar)
-        view.backgroundColor = UIColor.init(named: "app-background")
 
+        let navTop = navigationBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 20)
+        let navLead = navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let navTrailing = navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let navHeight = navigationBar.heightAnchor.constraint(equalToConstant: 76)
+
+        NSLayoutConstraint.activate([
+            navTop, navLead, navTrailing, navHeight
+        ])
+
+        navigationBar.isTranslucent = false
+        navigationBar.shadowImage = UIImage()
+        navigationBar.setBackgroundImage(UIImage(), for: .default)
+
+        navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationTitle = UINavigationItem(title: "NZSL Dictionary")
         navigationBar.setItems([navigationTitle], animated: false)
 
-        let diagramFrame = CGRect(x: 0, y: navigationBar.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2)
-        diagramView = DiagramView(frame: diagramFrame.insetBy(dx: 16.0, dy: 16.0))
-        diagramView.autoresizingMask = [.flexibleWidth]
+
+        diagramView = DiagramView()
+        diagramView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(diagramView)
 
-        videoView = UIView(frame: CGRect(x: 0, y: navigationBar.frame.height + diagramView.frame.maxY, width: view.bounds.size.width, height: (view.frame.height - navigationBar.frame.height) / 2))
-        videoView.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin]
-        videoView.backgroundColor = UIColor.black
-        view.insertSubview(videoView, belowSubview: diagramView)
+        let dvTop = diagramView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 16)
+        let dvLead = diagramView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        let dvTrailing = diagramView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+
+        videoView = UIView()
+        videoView.translatesAutoresizingMaskIntoConstraints = false
+        videoView.backgroundColor = .black
+        view.addSubview(videoView)
+
+        let vvTop = videoView.topAnchor.constraint(equalTo: diagramView.bottomAnchor, constant: 10)
+        let vvLead = videoView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let vvTrailing = videoView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let vvBottom = videoView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
+        let vvHeight = videoView.heightAnchor.constraint(equalTo: diagramView.heightAnchor, multiplier: 1)
+        let dvHeight = diagramView.heightAnchor.constraint(equalTo: videoView.heightAnchor, multiplier: 1)
+
+        NSLayoutConstraint.activate([
+            dvTop, dvLead, dvTrailing, vvTop, vvLead, vvTrailing, vvBottom, vvHeight, dvHeight
+        ])
 
         playButton = UIButton(type: .roundedRect)
-        playButton.frame = CGRect(x: 0, y: (videoView.bounds.size.height - 40) / 2, width: videoView.bounds.width, height: 40)
-        playButton.titleLabel?.textAlignment = .center
-        playButton.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-        playButton.setTitle("Play Video", for: UIControl.State())
-        playButton.setTitle("Playing videos requires access to the Internet.", for: .disabled)
-        playButton.setTitleColor(UIColor.white, for: .disabled)
-
-        playButton.addTarget(self, action: #selector(DetailViewController.startPlayer(_:)), for: .touchUpInside)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
         videoView.addSubview(playButton)
 
-        if #available(iOS 10.0, *) {
-            playerView.updatesNowPlayingInfoCenter = false
-        }
+        playButton.setTitle("Play Video", for: .normal)
+        playButton.setTitle("Playing videos requires access to the Internet", for: .disabled)
 
-        self.view = view
+        playButton.setTitleColor(.white, for: .disabled)
+        playButton.addTarget(self, action: #selector(startPlayer), for: .touchUpInside)
+
+        let pbCenterX = playButton.centerXAnchor.constraint(equalTo: videoView.centerXAnchor)
+        let pbCenterY = playButton.centerYAnchor.constraint(equalTo: videoView.centerYAnchor)
+
+        NSLayoutConstraint.activate([
+            pbCenterX, pbCenterY
+        ])
+
+
+//        view.insertSubview(videoView, belowSubview: diagramView)
+
+        playerView.updatesNowPlayingInfoCenter = false
     }
 
     override var shouldAutorotate : Bool {
@@ -127,23 +157,23 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
 
 
     @objc func startPlayer(_ sender: AnyObject) {
-           player = AVPlayer(url: URL(string: currentEntry.video)!);
-           player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
-           player!.isMuted = true
-           playerView.player = player
-           playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-           playerView.videoGravity = .resizeAspect
-           playerView.view.frame = self.videoView.bounds
-           self.videoView.addSubview(playerView.view)
-           self.addChild(playerView)
+        player = AVPlayer(url: URL(string: currentEntry.video)!);
+        player!.currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: &playerItemContext)
+        player!.isMuted = true
+        playerView.player = player
+        playerView.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        playerView.videoGravity = .resizeAspect
+        playerView.view.frame = self.videoView.bounds
+        self.videoView.addSubview(playerView.view)
+        self.addChild(playerView)
 
-           activity = UIActivityIndicatorView(style: .whiteLarge)
-           self.videoView.addSubview(activity)
-           activity.frame = activity.frame.offsetBy(dx: (self.videoView.bounds.width - activity.bounds.width) / 2, dy: (self.videoView.bounds.height - activity.bounds.height) / 2)
-           activity.startAnimating()
-       }
+        activity = UIActivityIndicatorView(style: .whiteLarge)
+        self.videoView.addSubview(activity)
+        activity.frame = activity.frame.offsetBy(dx: (self.videoView.bounds.width - activity.bounds.width) / 2, dy: (self.videoView.bounds.height - activity.bounds.height) / 2)
+        activity.startAnimating()
+    }
 
-       override func observeValue(forKeyPath keyPath: String?,
+    override func observeValue(forKeyPath keyPath: String?,
                                   of object: Any?,
                                   change: [NSKeyValueChangeKey : Any]?,
                                   context: UnsafeMutableRawPointer?) {

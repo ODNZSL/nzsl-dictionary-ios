@@ -11,4 +11,5 @@ extension UIColor {
     static let appThemeAccentColor = UIColor(named: "brand-accent")
     static let appSecondaryTextColour = UIColor(named: "text-secondary")
     static let appThemePrimaryLightColor = UIColor(named: "brand-primary-light")
+    static let appBackground = UIColor(named: "app-background")
 }
