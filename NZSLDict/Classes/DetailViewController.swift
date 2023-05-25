@@ -107,9 +107,6 @@ class DetailViewController: UIViewController, UISplitViewControllerDelegate, UIN
             pbCenterX, pbCenterY
         ])
 
-
-//        view.insertSubview(videoView, belowSubview: diagramView)
-
         playerView.updatesNowPlayingInfoCenter = false
     }
 
